@@ -4,6 +4,7 @@ import vercel from 'vite-plugin-vercel';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // base: '/climbing-web/',
+  // for GitHub pages deploy
+  // base: '/climbing-web/', 
   plugins: [react(), vercel()],
 })
