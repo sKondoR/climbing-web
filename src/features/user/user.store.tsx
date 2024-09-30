@@ -1,0 +1,28 @@
+import { create } from 'zustand'
+import { devtools } from 'zustand/middleware'
+import { API_URL } from '../../constants/api.constants'
+import { IUser } from './user.interfaces'
+
+interface UserState {
+  user: IUser | null,
+  fetchUser: (id: number) => void,
+}
+
+export const useUserStore = create<UserState>()(
+  devtools(
+    (set) => ({
+      user: null,
+      fetchUser: async (id: number) => {
+        const res = await fetch(`${API_URL}/users/${id}`) 
+        const user = await res.json();
+        set((state: UserState) => ({
+          ...state,
+          user: {
+            ...user,
+            name: 'Виктор Кондрашин',
+          }
+        }));
+      },
+    })
+  )
+)

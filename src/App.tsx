@@ -5,25 +5,28 @@ import { Routes, Route } from 'react-router-dom';
 import { PATHS } from './routes/paths';
 
 const LandingPage = lazy(() => import('./routes/Landing/Landing'));
+const ClimbersPage = lazy(() => import('./routes/Climbers/Climbers'));
 const ContactsPage = lazy(() => import('./routes/Contacts/Contacts'));
 const NoMatch = lazy(() => import('./routes/NoMatch/NoMatch'));
 
 const App = () => {
   return (
-    <div>
-      <Suspense fallback={<>Loading...</>}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<LandingPage />} />
-            <Route
-              path={PATHS.contacts}
-              element={<ContactsPage />}
-            />
-            <Route path="*" element={<NoMatch />} />
-          </Route>
-        </Routes>
-      </Suspense>
-    </div>
+    <Suspense fallback={<>Loading...</>}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<LandingPage />} />
+          <Route
+            path={PATHS.climbers.to}
+            element={<ClimbersPage />}
+          />
+          <Route
+            path={PATHS.contacts.to}
+            element={<ContactsPage />}
+          />
+          <Route path="*" element={<NoMatch />} />
+        </Route>
+      </Routes>
+    </Suspense>
   )
 }
 
