@@ -6,10 +6,10 @@ import {
   IClimbers,
 } from './climbers.interfaces'
 
-interface ClimbersState {
+export interface ClimbersState {
   climbers: IClimbers,
   fetchClimbers: () => void,
-  fetchClimbersAllClimb: (ids: number[]) => void,
+  fetchClimbersAllClimb: (ids: number[], climbers: IClimbers) => void,
 }
 
 export const useClimbersStore = create<ClimbersState>()(
@@ -28,16 +28,20 @@ export const useClimbersStore = create<ClimbersState>()(
           }, {}),
         }));
       },
-      fetchClimbersAllClimb: async (ids: number[]) => {
-        ids.forEach(async (id) => {
+      fetchClimbersAllClimb: async (ids: number[], climbers: IClimbers) => {
+        let i = 0;
+        while (i < ids.length) {
+          const id = ids[i];
+          const res = await getClimber(id, climbers[id]);
           set((state: ClimbersState) => ({
             ...state,
             climbers: {
               ...state.climbers,
-              [id]: getClimber(id, state.climbers?.[id])
+              [id]: res,
             },
           }));
-        })
+          i++;
+        }
       },
     })
   )
@@ -46,17 +50,18 @@ export const useClimbersStore = create<ClimbersState>()(
 const getClimber = async (cid: number, existed: IClimber) => {
   const res = await fetch(`${API_URL}/allClimb?id=${cid}`)
   const { name, leads, boulders } = await res.json();
+  const existedId = existed?.id;
   const climber = {
-    id: existed?.id || undefined,
+    id: existedId || undefined,
     allClimbId: cid,
     name: name || 'test',
     leads,
     boulders,
     updatedAt: new Date().toDateString(),
   };
-  await fetch(`${API_URL}/climbers${existed ? `/${existed?.id}` : ''}`, {
+  await fetch(`${API_URL}/climbers${existedId || ''}`, {
     ...options,
-    method: existed ? 'PATCH' : 'POST',
+    method: existedId ? 'PATCH' : 'POST',
     body: JSON.stringify(climber),
   })
   return climber;

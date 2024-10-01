@@ -7,8 +7,8 @@ export interface IClimber {
     id: number;
     allClimbId: string;
     name: string | null;
-    leads: IRoute[] | null;
-    boulders: IRoute[] | null;
+    leads: IRoute[];
+    boulders: IRoute[];
     updatedAt: string | null;
 }
 
