@@ -1,7 +1,10 @@
 import { useClimbersStore } from '../../climbers.store'
 import { useUserStore } from '../../../user/user.store'
 import { Sidebar } from 'flowbite-react'
+import { IClimberGroup } from '../../climbers.interfaces'
 import { IAllClimber } from '../../../user/user.interfaces'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMedal, faPeopleGroup, faHandshakeAngle } from '@fortawesome/free-solid-svg-icons'
 
 const ClimbersTabs = () => {
   const {
@@ -17,10 +20,14 @@ const ClimbersTabs = () => {
     setClimberPreviewId(tabIndex);
   }
 
-  if (!user?.team || !user.friends) return;
+  if (!user?.team || !user.friends || !user.pro) return;
 
-  const renderGroup = (name: string, items: IAllClimber[], offset: number = 0) => (
-    <Sidebar.Collapse open label={name}>
+  const renderGroup = ({ label, icon, items, offset = 0 }: IClimberGroup) => (
+    <Sidebar.Collapse
+      open
+      label={`${label} (${items.length})`}
+      icon={() =><FontAwesomeIcon icon={icon} />}
+    >
       {items.map(({ allClimbId, name }: IAllClimber, index: number) => {
         if (!allClimbId || !climbers[allClimbId]) return;
         const currentIndex = offset + index;
@@ -42,9 +49,26 @@ const ClimbersTabs = () => {
   return <Sidebar className="w-full">
     <Sidebar.Items>
       <Sidebar.ItemGroup>
-        {renderGroup('Команда', user.team as IAllClimber[])}
+        {renderGroup({
+          label: 'Команда',
+          icon: faPeopleGroup,
+          items: user.team as IAllClimber[],
+          offset: 0,
+        })}
         <hr />
-        {renderGroup('Друзья', user.friends as IAllClimber[], user.team.length)}
+        {renderGroup({
+          label: 'Друзья',
+          icon: faHandshakeAngle,
+          items: user.friends as IAllClimber[],
+          offset: user.team.length,
+        })}
+        <hr />
+        {renderGroup({
+          label: 'Про-скалолазы',
+          icon: faMedal,
+          items: user.pro as IAllClimber[],
+          offset: user.team.length + user.friends.length,
+        })}
       </Sidebar.ItemGroup>
     </Sidebar.Items>
   </Sidebar>
