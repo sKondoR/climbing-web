@@ -24,7 +24,7 @@ const Header = () => {
     <header className="fixed z-30 w-full bg-gray-100 dark:bg-gray-800 pt-4 pb-4 pr-8 pl-8">
       <div className="flex justify-between items-center">
         <h1 className="text-blue-700">SpbClimbers</h1>
-        <div><UpdateButton /></div>
+        <div>{import.meta.env.DEV && <UpdateButton />}</div>
         <div><UserIcon /></div>
       </div>
     </header>
