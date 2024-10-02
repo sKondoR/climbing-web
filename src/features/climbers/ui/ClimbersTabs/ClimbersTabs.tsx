@@ -19,7 +19,12 @@ const ClimbersTabs = () => {
   return (<Tabs variant="pills" onActiveTabChange={onActiveTabChange}>
     {user?.climberIds?.map((id, tabIndex) => {
       if (!climbers[id]) return;
-      return <Tabs.Item active={tabIndex === climberPreviewId} title={`${climbers[id].name}`} key={id} className="text-sm"></Tabs.Item>
+      return <Tabs.Item
+        active={tabIndex === climberPreviewId}
+        title={`${climbers[id].name}`}
+        key={id}
+        className="text-sm p-0.5">
+      </Tabs.Item>
     })}
   </Tabs>)
 }

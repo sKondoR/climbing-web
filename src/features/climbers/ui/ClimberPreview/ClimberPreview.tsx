@@ -16,6 +16,7 @@ const ClimbersTabs = () => {
 
   if (!user?.climberIds) return
   const climber = climbers[user.climberIds[climberPreviewId]];
+  if (!climber) return 'No data...';
 
   return (
     <div>
