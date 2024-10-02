@@ -6,12 +6,7 @@ const MenuLink = ({ to, name }: MenuLinkProps) => (
   <NavLink
     to={to}
     style={({ isActive }) => isActive ? { color: 'red' } : {}}
-    // toDo: do active by class
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    className={({ isActive }) =>
-      `py-2 transition-colors duration-200 relative flex items-center flex-wrap font-medium hover:text-gray-900` +
-      `text-gray-500`
-    }
+    className="py-2 transition-colors duration-200 relative flex items-center flex-wrap font-medium hover:text-gray-900 text-gray-500"
   >{name}</NavLink>
 )
 
