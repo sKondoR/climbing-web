@@ -10,14 +10,14 @@ interface Map {
 export const PATHS:Map = {
     home: {
         to: '/',
-        name: 'Home'
+        name: 'Команда'
     },
     climbers: {
         to: 'climbers',
-        name: 'Climbers'
+        name: 'AllClimb'
     },
     contacts: {
         to: 'contacts',
-        name: 'Contacts'
+        name: 'Контакты'
     }
 };

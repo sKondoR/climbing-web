@@ -1,18 +1,16 @@
 import { Outlet } from 'react-router-dom';
-import Menu from '../Menu/Menu';
+import ClimbersTabs from '../../features/climbers/ui/ClimbersTabs/ClimbersTabs'
 import Header from '../Header/Header';
 
 const Layout = () => {
   return (<>
     <Header />
-        <aside className="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 hidden w-64 h-full pt-16 font-normal duration-75 lg:flex transition-width">
-          <Menu />
-        </aside>
-        <main id="main-content" className="relative w-full h-full overflow-y-auto lg:ml-64 p-8">
-          <div className="bg-white p-8">
-            <Outlet />
-          </div>
-        </main>
+      <aside className="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 w-64 h-full pt-16 duration-75 transition-width">
+        <div className="p-8 mr-4"><ClimbersTabs /></div>
+      </aside>
+      <main id="main-content" className="relative w-full h-full overflow-y-auto lg:ml-64 p-8">
+        <Outlet />
+      </main>
   </>);
 }
   
