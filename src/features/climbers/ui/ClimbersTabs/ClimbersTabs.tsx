@@ -16,10 +16,10 @@ const ClimbersTabs = () => {
     setClimberPreviewId(tabIndex);
   }
 
-  return <Sidebar>
+  return <Sidebar className="w-full">
     <Sidebar.Items>
       <Sidebar.ItemGroup>
-        <>
+        <Sidebar.Collapse open label="Команда">
           {user?.climberIds?.map((id, index) => {
             if (!climbers[id]) return;
             return (
@@ -34,7 +34,11 @@ const ClimbersTabs = () => {
               </Sidebar.Item>
             );
           })}
-        </>
+        </Sidebar.Collapse>
+        <hr />
+        <Sidebar.Collapse open label="Друзья">
+          ...
+        </Sidebar.Collapse>
       </Sidebar.ItemGroup>
     </Sidebar.Items>
   </Sidebar>
