@@ -14,7 +14,7 @@ const ClimbersTabs = () => {
     user,
   } = useUserStore()
 
-  if (!climberPreviewId || !user?.climberIds) return
+  if (!user?.climberIds) return
   const climber = climbers[user.climberIds[climberPreviewId]];
 
   return (
