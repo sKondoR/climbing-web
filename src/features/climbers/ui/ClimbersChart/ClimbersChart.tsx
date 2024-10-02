@@ -15,7 +15,8 @@ const GRADES_COLORS: Record<string, string> = {
 const GRADES = Object.keys(GRADES_COLORS);
 let maxRoutes = 0;
 const prepareData = (user: IUser | null, climbers: IClimbers) => {
-  return user?.climberIds?.map((id) => {
+  return user?.climberIds?.filter((id: number) => !!climbers[id])
+  .map((id: number) => {
     const cl = climbers[id];
     let result: Record<string, number> = GRADES.reduce((acc: Record<string, number>, g: string) => {
       acc[g] = 0;
