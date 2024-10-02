@@ -10,12 +10,15 @@ export interface ClimbersState {
   climbers: IClimbers,
   fetchClimbers: () => void,
   fetchClimbersAllClimb: (ids: number[], climbers: IClimbers) => void,
+  climberPreviewId: number;
+  setClimberPreviewId: (id: number) => void,
 }
 
 export const useClimbersStore = create<ClimbersState>()(
   devtools(
     (set) => ({
       climbers: {},
+      climberPreviewId: 0,
       fetchClimbers: async () => {
         const res = await fetch(`${getApiUrl()}/climbers`, options) 
         const data = await res.json();
@@ -43,6 +46,12 @@ export const useClimbersStore = create<ClimbersState>()(
           i++;
         }
       },
+      setClimberPreviewId: (climberPreviewId: number) => {
+        set((state: ClimbersState) => ({
+          ...state,
+          climberPreviewId,
+        }));
+      }
     })
   )
 )
