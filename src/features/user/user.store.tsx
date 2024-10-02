@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { API_URL } from '../../constants/api.constants'
+import { getApiUrl } from '../../constants/api.constants'
 import { IUser } from './user.interfaces'
 
 interface UserState {
@@ -13,7 +13,7 @@ export const useUserStore = create<UserState>()(
     (set) => ({
       user: null,
       fetchUser: async (id: number) => {
-        const res = await fetch(`${API_URL}/users/${id}`) 
+        const res = await fetch(`${getApiUrl()}/users/${id}`) 
         const user = await res.json();
         set((state: UserState) => ({
           ...state,

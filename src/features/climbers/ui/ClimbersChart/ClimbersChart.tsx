@@ -69,8 +69,8 @@ const ClimbersChart = () => {
           <YAxis dataKey="name" type="category"/>
           <Tooltip />
           <Legend />
-          {GRADES.map((g) => <XAxis xAxisId={g} type="number" domain={[0, maxRoutes]} hide />)}
-          {GRADES.map((g) => <Bar xAxisId={g} barSize={30} dataKey={g} fill={GRADES_COLORS[g]} />)}
+          {GRADES.map((g) => <XAxis key={`xaxis-${g}`} xAxisId={g} type="number" domain={[0, maxRoutes]} hide />)}
+          {GRADES.map((g) => <Bar key={`bar-${g}`} xAxisId={g} barSize={30} dataKey={g} fill={GRADES_COLORS[g]} />)}
         </BarChart>
       </ResponsiveContainer>
     );

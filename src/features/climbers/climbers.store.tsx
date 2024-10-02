@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { API_URL, options } from '../../constants/api.constants'
+import { getApiUrl, options } from '../../constants/api.constants'
 import {
   IClimber,
   IClimbers,
@@ -17,7 +17,7 @@ export const useClimbersStore = create<ClimbersState>()(
     (set) => ({
       climbers: {},
       fetchClimbers: async () => {
-        const res = await fetch(`${API_URL}/climbers`, options) 
+        const res = await fetch(`${getApiUrl()}/climbers`, options) 
         const data = await res.json();
 
         set((state: ClimbersState) => ({
@@ -48,7 +48,7 @@ export const useClimbersStore = create<ClimbersState>()(
 )
 
 const getClimber = async (cid: number, existed: IClimber) => {
-  const res = await fetch(`${API_URL}/allClimb?id=${cid}`)
+  const res = await fetch(`${getApiUrl()}/allClimb?id=${cid}`)
   const { name, leads, boulders } = await res.json();
   const existedId = existed?.id;
   const climber = {
@@ -59,7 +59,7 @@ const getClimber = async (cid: number, existed: IClimber) => {
     boulders,
     updatedAt: new Date().toDateString(),
   };
-  await fetch(`${API_URL}/climbers/${existedId || ''}`, {
+  await fetch(`${getApiUrl()}/climbers/${existedId || ''}`, {
     ...options,
     method: existedId ? 'PATCH' : 'POST',
     body: JSON.stringify(climber),
