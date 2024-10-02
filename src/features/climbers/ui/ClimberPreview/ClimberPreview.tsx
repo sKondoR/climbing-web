@@ -1,9 +1,8 @@
 import { useClimbersStore } from '../../climbers.store'
 import { useUserStore } from '../../../user/user.store'
 import { filterByGrade } from '../../climbers.selectors'
-import {
-  IRoute,
-} from '../../climbers.interfaces'
+import { IRoute } from '../../climbers.interfaces'
+import { IAllClimber } from '../../../user/user.interfaces'
 
 const ClimbersTabs = () => {
   const {
@@ -14,8 +13,11 @@ const ClimbersTabs = () => {
     user,
   } = useUserStore()
 
-  if (!user?.climberIds) return
-  const climber = climbers[user.climberIds[climberPreviewId]];
+  if (!user?.team) return
+  const ids = user ? [...user.team, ...user.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : [];
+  const allClimbId = ids[climberPreviewId];
+  if (!allClimbId) return;
+  const climber = climbers[allClimbId];
   if (!climber) return 'No data...';
 
   return (

@@ -1,6 +1,7 @@
 import { useClimbersStore } from '../../climbers.store'
 import { useUserStore } from '../../../user/user.store'
-import { Sidebar } from "flowbite-react";
+import { Sidebar } from 'flowbite-react'
+import { IAllClimber } from '../../../user/user.interfaces'
 
 const ClimbersTabs = () => {
   const {
@@ -16,29 +17,34 @@ const ClimbersTabs = () => {
     setClimberPreviewId(tabIndex);
   }
 
+  if (!user?.team || !user.friends) return;
+
+  const renderGroup = (name: string, items: IAllClimber[], offset: number = 0) => (
+    <Sidebar.Collapse open label={name}>
+      {items.map(({ allClimbId, name }: IAllClimber, index: number) => {
+        if (!allClimbId || !climbers[allClimbId]) return;
+        const currentIndex = offset + index;
+        return (
+          <Sidebar.Item
+            href="#"
+            key={currentIndex}
+            active={currentIndex === climberPreviewId}
+            className="text-left"
+            onClick={() => onActiveChange(currentIndex)}
+          >
+            {name}
+          </Sidebar.Item>
+        );
+      })}
+    </Sidebar.Collapse>
+  )
+
   return <Sidebar className="w-full">
     <Sidebar.Items>
       <Sidebar.ItemGroup>
-        <Sidebar.Collapse open label="Команда">
-          {user?.climberIds?.map((id, index) => {
-            if (!climbers[id]) return;
-            return (
-              <Sidebar.Item
-                href="#"
-                key={id}
-                active={index === climberPreviewId}
-                className="text-left"
-                onClick={() => onActiveChange(index)}
-              >
-                {climbers[id].name}
-              </Sidebar.Item>
-            );
-          })}
-        </Sidebar.Collapse>
+        {renderGroup('Команда', user.team as IAllClimber[])}
         <hr />
-        <Sidebar.Collapse open label="Друзья">
-          ...
-        </Sidebar.Collapse>
+        {renderGroup('Друзья', user.friends as IAllClimber[], user.team.length)}
       </Sidebar.ItemGroup>
     </Sidebar.Items>
   </Sidebar>

@@ -1,8 +1,8 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useClimbersStore } from '../../climbers.store'
 import { useUserStore } from '../../../user/user.store'
-import { IUser } from '../../../user/user.interfaces';
-import { IClimbers } from '../../climbers.interfaces';
+import { IClimbers } from '../../climbers.interfaces'
+import { IAllClimber } from '../../../user/user.interfaces'
 
 const GRADES_COLORS: Record<string, string> = {
   '7a': '#F98080',
@@ -14,8 +14,8 @@ const GRADES_COLORS: Record<string, string> = {
 }
 const GRADES = Object.keys(GRADES_COLORS);
 let maxRoutes = 0;
-const prepareData = (user: IUser | null, climbers: IClimbers) => {
-  return user?.climberIds?.filter((id: number) => !!climbers[id])
+const prepareData = (ids: number[], climbers: IClimbers) => {
+  return ids?.filter((id: number) => !!climbers[id])
   .map((id: number) => {
     const cl = climbers[id];
     let result: Record<string, number> = GRADES.reduce((acc: Record<string, number>, g: string) => {
@@ -44,13 +44,15 @@ const ClimbersChart = () => {
     const {
       user,
     } = useUserStore()
-    if(!user?.climberIds) return;
 
-    const data = prepareData(user, climbers);
+    if (!user?.team) return
+    const ids: (number | null)[] = user ? [...user.team, ...user.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : [];
+
+    const data = prepareData(ids as number[], climbers);
     return (
       <ResponsiveContainer
         width="100%"
-        height={user.climberIds.length * 60}
+        height={ids.length * 60}
         minWidth={400}
         minHeight={600}
       >

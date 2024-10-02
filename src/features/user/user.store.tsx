@@ -17,10 +17,7 @@ export const useUserStore = create<UserState>()(
         const user = await res.json();
         set((state: UserState) => ({
           ...state,
-          user: {
-            ...user,
-            name: 'Виктор Кондрашин',
-          }
+          user,
         }));
       },
     })

@@ -1,8 +1,4 @@
-export interface IUser {
-    name: boolean;
-    climberIds: number[];
-}
-  
+ 
 export interface IClimber {
     id: number;
     allClimbId: string;

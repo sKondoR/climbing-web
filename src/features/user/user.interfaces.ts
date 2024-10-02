@@ -1,4 +1,12 @@
 export interface IUser {
-    name: boolean;
-    climberIds: number[];
+    id: number;
+    allClimbId: number | null;
+    name: string | null;
+    team: IAllClimber[];
+    friends: IAllClimber[];
 }
+
+export interface IAllClimber {
+    allClimbId: number | null;
+    name: string | null;
+}  
