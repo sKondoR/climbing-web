@@ -19,7 +19,7 @@ const ClimbersTabs = () => {
       if (!climbers[id]) return;
       return <Tabs.Item active title={`${climbers[id].name}`} key={id} className="text-sm">
         <h2>{climbers[id].name}</h2>
-        <a href={`https://www.allclimb.com/ru/climber/${climbers[id].allClimbId}/`} target="_blank">go to AllClimb</a>
+        <a href={`https://www.allclimb.com/ru/climber/${climbers[id].allClimbId}`} target="_blank">go to AllClimb</a>
         <div className="grid grid-cols-2 gap-4 text-left">
           <div>
             <h4>Leads:</h4>

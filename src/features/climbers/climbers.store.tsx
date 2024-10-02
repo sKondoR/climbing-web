@@ -59,7 +59,7 @@ const getClimber = async (cid: number, existed: IClimber) => {
     boulders,
     updatedAt: new Date().toDateString(),
   };
-  await fetch(`${API_URL}/climbers${existedId || ''}`, {
+  await fetch(`${API_URL}/climbers/${existedId || ''}`, {
     ...options,
     method: existedId ? 'PATCH' : 'POST',
     body: JSON.stringify(climber),
