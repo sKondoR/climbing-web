@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
 import { isEmptyObj } from '../../user.utils'
 import { useUserStore } from '../../user.store';
 
 const VKButton: React.FC = () => {
   const navigate = useNavigate();
-  const params = useParams();
+  const params = useLocation();
   const [isError, setIsError] = useState(false);
   const { vkUser, loginVk, logoutVk } = useUserStore()
 
