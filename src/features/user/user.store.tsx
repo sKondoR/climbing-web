@@ -76,7 +76,7 @@ export const useUserStore = create<UserState>()(
     
         if (!token) Promise.reject();
     
-        return fetch(`${process.env.REACT_APP_API_HOST}/users/profile`, {
+        return fetch(`${import.meta.env.VITE_VK_APP_CLIENT_ID}/users/profile`, {
           headers: {
             ...options.headers,
             Authorization: `Bearer ${token}`,

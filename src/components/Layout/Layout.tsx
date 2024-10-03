@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Outlet, useParams, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import ClimbersTabs from '../../features/climbers/ui/ClimbersTabs/ClimbersTabs'
 import Header from '../Header/Header'
 import img from '../../assets/climb.svg'
@@ -9,7 +9,7 @@ import { useUserStore } from '../../features/user/user.store';
 
 const Layout = () => {
   const navigate = useNavigate();
-  const { pathname } = useParams();
+  const { pathname } = useLocation();
   const {
     vkUser,
     status,
@@ -29,7 +29,7 @@ const Layout = () => {
         logoutVk();
       });
     }
-  }, [vkUser, status, getVKProfile, logoutVk, navigate, pathname]);
+  }, [vkUser, status, navigate, pathname, getVKProfile, logoutVk]);
 
   return (<>
     <img src={img} alt="" style={{
