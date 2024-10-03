@@ -10,7 +10,7 @@ const VKButton: React.FC = () => {
   const [isError, setIsError] = useState(false);
   const { vkUser, loginVk, logoutVk } = useUserStore()
 
-  const cbLink = `https://climbing-web.vercel.app`;
+  const cbLink = `https://climbing-web.vercel.app/signin`;
 
   const handleRedirect = () => {
       window.location.href = `https://oauth.vk.com/authorize?client_id=${import.meta.env.VITE_VK_APP_CLIENT_ID}&display=popup&redirect_uri=${cbLink}&scope=email&response_type=code&v=5.120&state=4194308`;
