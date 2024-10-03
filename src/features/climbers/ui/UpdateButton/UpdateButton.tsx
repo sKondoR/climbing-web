@@ -1,6 +1,8 @@
 import { useClimbersStore } from '../../climbers.store'
 import { useUserStore } from '../../../user/user.store'
 import { IAllClimber } from '../../../user/user.interfaces'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons'
 
 const UserIcon = () => {
   const { fetchClimbersAllClimb, climbers } = useClimbersStore()
@@ -15,7 +17,11 @@ const UserIcon = () => {
   }
 
   return (
-    <button onClick={onClick} disabled={!ids.length}>Update climbers</button>
+    <button
+      className="bg-blue-600 text-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:bg-blue-600"
+      onClick={onClick}
+      disabled={!ids.length}
+    ><FontAwesomeIcon icon={faArrowsRotate} /> AllClimb</button>
   )
 }
   

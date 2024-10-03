@@ -1,9 +1,36 @@
-import { Outlet } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Outlet, useParams, useNavigate } from 'react-router-dom'
 import ClimbersTabs from '../../features/climbers/ui/ClimbersTabs/ClimbersTabs'
 import Header from '../Header/Header'
 import img from '../../assets/climb.svg'
+import { PRIVATE_ROUTES } from '../../routes/paths'
+import { RequestState } from '../../types/request.types'
+import { useUserStore } from '../../features/user/user.store';
 
 const Layout = () => {
+  const navigate = useNavigate();
+  const { pathname } = useParams();
+  const {
+    vkUser,
+    status,
+    getVKProfile,
+    logoutVK,
+  } = useUserStore()
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+
+    if (PRIVATE_ROUTES.includes(pathname as string) && !token)
+      return navigate('/signin');
+
+    if (!vkUser?.id && status !== RequestState.LOADING && token) {
+      getVKProfile().catch(() => {
+        navigate('/signin');
+        logoutVK();
+      });
+    }
+  }, [vkUser, status, getVKProfile, logoutVK, navigate, pathname]);
+
   return (<>
     <img src={img} alt="" style={{
       width: '200px',

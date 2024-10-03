@@ -7,6 +7,7 @@ import { PATHS } from './routes/paths';
 const LandingPage = lazy(() => import('./routes/Landing/Landing'));
 const ClimbersPage = lazy(() => import('./routes/Climbers/Climbers'));
 const ContactsPage = lazy(() => import('./routes/Contacts/Contacts'));
+const SignInPage = lazy(() => import('./routes/SignIn/SignIn'));
 const NoMatch = lazy(() => import('./routes/NoMatch/NoMatch'));
 
 const App = () => {
@@ -22,6 +23,10 @@ const App = () => {
           <Route
             path={PATHS.contacts.to}
             element={<ContactsPage />}
+          />
+          <Route
+            path='/signin'
+            element={<SignInPage />}
           />
           <Route path="*" element={<NoMatch />} />
         </Route>

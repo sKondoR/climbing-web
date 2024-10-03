@@ -4,10 +4,12 @@ export type MenuLinkProps = {
   };
 
 interface Map {
-    [key: string]: MenuLinkProps
+    [key: string] : MenuLinkProps
 }
 
-export const PATHS:Map = {
+export const PRIVATE_ROUTES : string[] = [];
+
+export const PATHS : Map = {
     home: {
         to: '/',
         name: 'Команда'

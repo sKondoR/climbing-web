@@ -7,4 +7,9 @@ export default defineConfig({
   // for GitHub pages deploy
   // base: '/climbing-web/', 
   plugins: [react(), vercel()],
+  resolve: {
+    alias: {
+      src: "/src",
+    },
+  },
 })

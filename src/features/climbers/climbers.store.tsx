@@ -8,6 +8,7 @@ import {
 
 export interface ClimbersState {
   climbers: IClimbers,
+  // isFetchingAllClimb: false,
   fetchClimbers: () => void,
   fetchClimbersAllClimb: (ids: number[], climbers: IClimbers) => void,
   climberPreviewId: number;

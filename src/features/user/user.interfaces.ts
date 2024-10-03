@@ -5,6 +5,16 @@ export interface IUser {
     team: IAllClimber[];
     friends: IAllClimber[];
     pro: IAllClimber[];
+    token: string | null;
+}
+
+export interface IVKUser {
+    id: number;
+    email: string;
+    grant: number;
+    name: string;
+    token: string;
+    avatar_url: string | null;
 }
 
 export interface IAllClimber {
