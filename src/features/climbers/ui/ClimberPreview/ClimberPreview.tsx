@@ -47,7 +47,7 @@ const ClimbersTabs = () => {
       <div>
         <h2 className="font-bold">{`${settings.isLead ? 'Трудность' : 'Боулдеринг'} (${routes.length}/${allRoutes.length})`}</h2>
         {routes?.map((route: IRoute) => {
-          return <div key={route.name}>{route.grade} - {route.name} {route.isTopRope ? '(верхняя)' : ''}</div>
+          return <div key={`${route.isBoulder}${route.grade}${route.name}`}>{route.grade} - {route.name} {route.isTopRope ? '(верхняя)' : ''}</div>
         })}
       </div>
     </>
