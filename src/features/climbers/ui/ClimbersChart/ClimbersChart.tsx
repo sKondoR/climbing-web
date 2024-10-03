@@ -4,7 +4,7 @@ import { useClimbersStore } from '../../climbers.store'
 import { useUserStore } from '../../../user/user.store'
 import { IClimbers, IChartSettings } from '../../climbers.interfaces'
 import { IAllClimber } from '../../../user/user.interfaces'
-import ClimbersChartSettings from './ClimbersChartSettings'
+import RoutesFilter from '../RoutesFilter/RoutesFilter'
 
 const GRADES_COLORS: Record<string, string> = {
   '6a': '#22c55e',
@@ -24,27 +24,30 @@ let maxRoutes = 0;
 const filterGrades = (settings: IChartSettings): string[] =>
   GRADES.filter((g) => g.startsWith('6') && settings.is6 || g.startsWith('7') && settings.is7 || g.startsWith('8') && settings.is8)
 
-const prepareData = (ids: number[], climbers: IClimbers, grades: string[], isLead: boolean) => {
+const prepareData = (ids: number[], climbers: IClimbers, grades: string[], isLead: boolean, isTopRope: boolean) => {
+  maxRoutes = 0;
   return ids?.filter((id: number) => !!climbers[id])
-  .map((id: number) => {
-    const cl = climbers[id];
-    let result: Record<string, number> = grades.reduce((acc: Record<string, number>, g: string) => {
-      acc[g] = 0;
-      return acc;
-    }, {});
-    cl?.[isLead ? 'leads' : 'boulders'].forEach((r) => {
-      const key = r.grade.slice(0, 2);
-      if (result[key] === maxRoutes) maxRoutes++;
-      result = {
+    .map((id: number) => {
+      const cl = climbers[id];
+      let result: Record<string, number> = grades.reduce((acc: Record<string, number>, g: string) => {
+        acc[g] = 0;
+        return acc;
+      }, {});
+      cl?.[isLead ? 'leads' : 'boulders']
+        .filter((r) => !isLead || (isTopRope || !r.isTopRope))
+        .forEach((r) => {
+          const key = r.grade.slice(0, 2);
+          if (result[key] === maxRoutes) maxRoutes++;
+          result = {
+            ...result,
+            [key]: result[key] + 1
+          };
+        })
+      return {
+        name: cl.name,
         ...result,
-        [key]: result[key] + 1
       };
     })
-    return {
-      name: cl.name,
-      ...result,
-    };
-  })
 }
 
 const ClimbersChart = () => {
@@ -56,22 +59,23 @@ const ClimbersChart = () => {
     } = useUserStore()
     const [settings, setSettings] = useState({
       isLead: true,
+      isTopRope: false,
       is6: false,
       is7: true,
-      is8: true
+      is8: true,
     })
 
     if (!user?.team) return
     const ids: (number | null)[] = user ? [...user.team, ...user.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : [];
 
     const grades = filterGrades(settings)
-    const data = prepareData(ids as number[], climbers, grades, settings.isLead);
+    const data = prepareData(ids as number[], climbers, grades, settings.isLead, settings.isTopRope);
 
     const onSettingsChange = (newSettings: IChartSettings) => setSettings(newSettings)
 
     return (
       <>
-        <ClimbersChartSettings settings={settings} onSettingsChange={onSettingsChange} />
+        <RoutesFilter settings={settings} onSettingsChange={onSettingsChange} />
         <ResponsiveContainer
           width="100%"
           height={ids.length * 60}
