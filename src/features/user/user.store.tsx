@@ -50,7 +50,7 @@ export const useUserStore = create<UserState>()(
       },
       loginVk: async (code: string) => {
         await get().changeState('status', RequestState.LOADING);
-        return fetch(`${import.meta.env.REACT_APP_API_HOST}/auth/login/vk`, {
+        return fetch(`${import.meta.env.VITE_VK_APP_CLIENT_ID}/auth/login/vk`, {
           method: 'POST',
           body: JSON.stringify({ code }),
           ...options,

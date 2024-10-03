@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
-import queryString from 'query-string';
-import { isEmptyObj } from '../../user.utils'
 import { useUserStore } from '../../user.store';
 
 const VKButton: React.FC = () => {
@@ -16,7 +14,6 @@ const VKButton: React.FC = () => {
       window.location.href = `https://oauth.vk.com/authorize?client_id=${import.meta.env.VITE_VK_APP_CLIENT_ID}&display=popup&redirect_uri=${cbLink}&scope=email&response_type=code&v=5.120&state=4194308`;
   };
 
-  console.log('<<<', search)
   useEffect(() => {
     const handleLogin = (code: string): void => {
       loginVk(code)
@@ -26,13 +23,11 @@ const VKButton: React.FC = () => {
           .catch(() => setIsError(true));
     };
 
-    const queryObj = queryString.parse(search as never);
-    console.log('1??? ', new URLSearchParams(search).get('code'))
-    console.log('2??? ', queryObj)
+    const code = new URLSearchParams(search).get('code');
 
     if (isError) window.location.href = cbLink;
 
-    if (!isEmptyObj(queryObj) && queryObj['code']) handleLogin(queryObj['code'] as string);
+    if (code) handleLogin(code);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
