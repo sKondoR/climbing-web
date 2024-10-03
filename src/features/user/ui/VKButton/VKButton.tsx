@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
 import { isEmptyObj } from '../../user.utils'
 import { useUserStore } from '../../user.store';
 
 const VKButton: React.FC = () => {
   const navigate = useNavigate();
-  const [search] = useSearchParams();
+  const { search } = useLocation();
   const [isError, setIsError] = useState(false);
   const { vkUser, loginVk, logoutVk } = useUserStore()
 
@@ -27,7 +27,8 @@ const VKButton: React.FC = () => {
     };
 
     const queryObj = queryString.parse(search as never);
-    console.log('queryObj', queryObj, queryString)
+    console.log('1??? ', new URLSearchParams(search).get('code'))
+    console.log('2??? ', queryObj)
 
     if (isError) window.location.href = cbLink;
 
