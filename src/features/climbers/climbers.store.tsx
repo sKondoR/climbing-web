@@ -66,7 +66,6 @@ const getClimber = async (cid: number, existed: IClimber) => {
     name: name || 'test',
     leads,
     boulders,
-    updatedAt: new Date().toDateString(),
   };
   await fetch(`${getApiUrl()}/climbers/${existedId || ''}`, {
     ...options,

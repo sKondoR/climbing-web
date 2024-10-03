@@ -1,28 +1,38 @@
+import { useState } from 'react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useClimbersStore } from '../../climbers.store'
 import { useUserStore } from '../../../user/user.store'
-import { IClimbers } from '../../climbers.interfaces'
+import { IClimbers, IChartSettings } from '../../climbers.interfaces'
 import { IAllClimber } from '../../../user/user.interfaces'
+import ClimbersChartSettings from './ClimbersChartSettings'
 
 const GRADES_COLORS: Record<string, string> = {
-  '7a': '#F98080',
-  '7b': '#F05252',
-  '7c': '#E02424',
-  '8a': '#9CA3AF',
-  '8b': '#6B7280',
-  '8c': '#4B5563',
+  '6a': '#22c55e',
+  '6b': '#16a34a',
+  '6c': '#15803d',
+  '7a': '#f87171',
+  '7b': '#ef4444',
+  '7c': '#dc2626',
+  '8a': '#64748b',
+  '8b': '#475569',
+  '8c': '#334155',
 }
+
 const GRADES = Object.keys(GRADES_COLORS);
 let maxRoutes = 0;
-const prepareData = (ids: number[], climbers: IClimbers) => {
+
+const filterGrades = (settings: IChartSettings): string[] =>
+  GRADES.filter((g) => g.startsWith('6') && settings.is6 || g.startsWith('7') && settings.is7 || g.startsWith('8') && settings.is8)
+
+const prepareData = (ids: number[], climbers: IClimbers, grades: string[], isLead: boolean) => {
   return ids?.filter((id: number) => !!climbers[id])
   .map((id: number) => {
     const cl = climbers[id];
-    let result: Record<string, number> = GRADES.reduce((acc: Record<string, number>, g: string) => {
+    let result: Record<string, number> = grades.reduce((acc: Record<string, number>, g: string) => {
       acc[g] = 0;
       return acc;
     }, {});
-    cl?.leads.forEach((r) => {
+    cl?.[isLead ? 'leads' : 'boulders'].forEach((r) => {
       const key = r.grade.slice(0, 2);
       if (result[key] === maxRoutes) maxRoutes++;
       result = {
@@ -44,37 +54,50 @@ const ClimbersChart = () => {
     const {
       user,
     } = useUserStore()
+    const [settings, setSettings] = useState({
+      isLead: true,
+      is6: false,
+      is7: true,
+      is8: true
+    })
 
     if (!user?.team) return
     const ids: (number | null)[] = user ? [...user.team, ...user.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : [];
 
-    const data = prepareData(ids as number[], climbers);
+    const grades = filterGrades(settings)
+    const data = prepareData(ids as number[], climbers, grades, settings.isLead);
+
+    const onSettingsChange = (newSettings: IChartSettings) => setSettings(newSettings)
+
     return (
-      <ResponsiveContainer
-        width="100%"
-        height={ids.length * 60}
-        minWidth={400}
-        minHeight={600}
-      >
-        <BarChart
-          layout="vertical"
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            top: 20,
-            right: 30,
-            left: 70,
-            bottom: 5,
-          }}
+      <>
+        <ClimbersChartSettings settings={settings} onSettingsChange={onSettingsChange} />
+        <ResponsiveContainer
+          width="100%"
+          height={ids.length * 60}
+          minWidth={400}
+          minHeight={600}
         >
-          <YAxis dataKey="name" type="category"/>
-          <Tooltip />
-          <Legend />
-          {GRADES.map((g) => <XAxis key={`xaxis-${g}`} xAxisId={g} type="number" domain={[0, maxRoutes]} hide />)}
-          {GRADES.map((g) => <Bar key={`bar-${g}`} xAxisId={g} barSize={30} dataKey={g} fill={GRADES_COLORS[g]} />)}
-        </BarChart>
-      </ResponsiveContainer>
+          <BarChart
+            layout="vertical"
+            width={500}
+            height={300}
+            data={data}
+            margin={{
+              top: 20,
+              right: 30,
+              left: 70,
+              bottom: 5,
+            }}
+          >
+            <YAxis dataKey="name" type="category"/>
+            <Tooltip />
+            <Legend />
+            {grades.map((g) => <XAxis key={`xaxis-${g}`} xAxisId={g} type="number" domain={[0, maxRoutes]} hide />)}
+            {grades.map((g) => <Bar key={`bar-${g}`} xAxisId={g} barSize={30} dataKey={g} fill={GRADES_COLORS[g]} />)}
+          </BarChart>
+        </ResponsiveContainer>
+      </>
     );
   }
 

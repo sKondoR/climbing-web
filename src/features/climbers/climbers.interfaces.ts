@@ -13,6 +13,7 @@ export interface IClimber {
 
 export interface IRoute {
     isBoulder: boolean;
+    isTopRope: boolean;
     grade: string;
     name: string;
     date: string;
@@ -27,4 +28,16 @@ export interface IClimberGroup {
     icon: IconDefinition,
     items: IAllClimber[],
     offset: number,
+}
+
+export interface IAllClimbLink {
+    allClimbId: number,
+    updatedAt: string | null,
+}
+
+export interface IChartSettings {
+    isLead: boolean,
+    is6: boolean,
+    is7: boolean,
+    is8: boolean
 }
