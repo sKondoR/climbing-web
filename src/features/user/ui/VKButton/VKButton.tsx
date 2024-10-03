@@ -33,7 +33,8 @@ const VKButton: React.FC = () => {
     if (isError) window.location.href = cbLink;
 
     if (!isEmptyObj(queryObj) && queryObj['code']) handleLogin(queryObj['code'] as string);
-  }, [search, isError, cbLink, navigate, loginVk]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
 
   const handleLogout = () => {
     logoutVk()
