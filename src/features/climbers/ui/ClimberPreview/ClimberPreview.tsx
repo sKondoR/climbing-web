@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useClimbersStore } from '../../climbers.store'
 import { useUserStore } from '../../../user/user.store'
-import { filterByGrade } from '../../climbers.selectors'
+import { filterRoutes } from '../../climbers.utils'
 import { IRoute, IChartSettings } from '../../climbers.interfaces'
 import { IAllClimber } from '../../../user/user.interfaces'
 import AllClimbLink from '../AllClimbLink/AllClimbLink'
@@ -33,19 +33,20 @@ const ClimbersTabs = () => {
 
   const onSettingsChange = (newSettings: IChartSettings) => setSettings(newSettings)
 
-  const routes = settings.isLead ? leads : boulders;
+  const allRoutes = settings.isLead ? leads : boulders;
+  const routes = filterRoutes(allRoutes, settings)
   return (
     <>
       <RoutesFilter settings={settings} onSettingsChange={onSettingsChange} />
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-4">
         <h2 className="font-bold">{name}</h2>
         <div>
           <AllClimbLink allClimbId={allClimbId} updatedAt={updatedAt} />
         </div>
       </div>
       <div>
-        <h2 className="font-bold">{`${settings.isLead ? 'Трудность' : 'Боулдеринг'} (${routes.length})`}</h2>
-        {filterByGrade(routes)?.map((route: IRoute) => {
+        <h2 className="font-bold">{`${settings.isLead ? 'Трудность' : 'Боулдеринг'} (${routes.length}/${allRoutes.length})`}</h2>
+        {routes?.map((route: IRoute) => {
           return <div key={route.name}>{route.grade} - {route.name} {route.isTopRope ? '(верхняя)' : ''}</div>
         })}
       </div>
