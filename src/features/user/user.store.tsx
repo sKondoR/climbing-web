@@ -41,6 +41,8 @@ export const useUserStore = create<UserState>()(
           vkUser,
           state: RequestState.SUCCESS,
         }));
+
+        console.log('vkUser', vkUser)
     
         if (vkUser?.['token']) {
           sessionStorage.setItem('token', vkUser?.token);
