@@ -27,6 +27,7 @@ const VKButton: React.FC = () => {
     };
 
     const queryObj = queryString.parse(params.search || '');
+    console.log('queryObj', queryObj, queryString)
 
     if (isError) window.location.href = cbLink;
 
