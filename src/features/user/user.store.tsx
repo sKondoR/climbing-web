@@ -14,7 +14,7 @@ interface UserState {
   setVKUser: (user: IVKUser) => void,
   loginVk: (code: string) => Promise<void>,
   getVKProfile: () => Promise<void>,
-  logoutVK: () => Promise<void>,
+  logoutVk: () => Promise<void>,
 }
 
 export const useUserStore = create<UserState>()(
@@ -95,7 +95,7 @@ export const useUserStore = create<UserState>()(
           });
       },
     
-      logoutVK: async() => {
+      logoutVk: async() => {
         await get().changeState('vkUser', null);
         sessionStorage.clear();
         await get().changeState('status', RequestState.PENDING);

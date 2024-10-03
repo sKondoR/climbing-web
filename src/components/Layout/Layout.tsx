@@ -14,7 +14,7 @@ const Layout = () => {
     vkUser,
     status,
     getVKProfile,
-    logoutVK,
+    logoutVk,
   } = useUserStore()
 
   useEffect(() => {
@@ -26,10 +26,10 @@ const Layout = () => {
     if (!vkUser?.id && status !== RequestState.LOADING && token) {
       getVKProfile().catch(() => {
         navigate('/signin');
-        logoutVK();
+        logoutVk();
       });
     }
-  }, [vkUser, status, getVKProfile, logoutVK, navigate, pathname]);
+  }, [vkUser, status, getVKProfile, logoutVk, navigate, pathname]);
 
   return (<>
     <img src={img} alt="" style={{
