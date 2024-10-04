@@ -18,7 +18,7 @@ const UserIcon = () => {
 
   return (
     <button
-      className="bg-blue-600 text-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:bg-blue-600"
+      className="bg-blue-600 text-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:bg-blue-600 p-3"
       onClick={onClick}
       disabled={!ids.length}
     ><FontAwesomeIcon icon={faArrowsRotate} /> AllClimb</button>

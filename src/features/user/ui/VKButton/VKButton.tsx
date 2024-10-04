@@ -55,8 +55,11 @@ const VKButton: React.FC = () => {
 
   return (
     <div>
-      <button onClick={handleRedirect}>
-        Войти через Вконтакте
+      <button
+        className="bg-blue-600 text-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:bg-blue-600 p-3"
+        onClick={handleRedirect}
+      >
+        VK
       </button>
       {isError && <p>Ошибка входа через ВК</p>}
     </div>

@@ -6,6 +6,7 @@ import { PATHS } from './routes/paths';
 
 const LandingPage = lazy(() => import('./routes/Landing/Landing'));
 const ClimbersPage = lazy(() => import('./routes/Climbers/Climbers'));
+const SchedulePage = lazy(() => import('./routes/Schedule/Schedule'));
 const ContactsPage = lazy(() => import('./routes/Contacts/Contacts'));
 const SignInPage = lazy(() => import('./routes/SignIn/SignIn'));
 const NoMatch = lazy(() => import('./routes/NoMatch/NoMatch'));
@@ -19,6 +20,10 @@ const App = () => {
           <Route
             path={PATHS.climbers.to}
             element={<ClimbersPage />}
+          />
+          <Route
+            path={PATHS.schedule.to}
+            element={<SchedulePage />}
           />
           <Route
             path={PATHS.contacts.to}

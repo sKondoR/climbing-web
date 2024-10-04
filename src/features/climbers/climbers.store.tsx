@@ -35,6 +35,8 @@ export const useClimbersStore = create<ClimbersState>()(
       fetchClimbersAllClimb: async (ids: number[], climbers: IClimbers) => {
         let i = 0;
         while (i < ids.length) {
+        // for fast testing
+        // while (i < 1) {
           const id = ids[i];
           const res = await getClimber(id, climbers[id]);
           set((state: ClimbersState) => ({
@@ -68,11 +70,15 @@ const getClimber = async (cid: number, existed: IClimber) => {
     leads,
     boulders,
   };
+  // eslint-disable-next-line no-debugger
+  debugger;
   await fetch(`${getApiUrl()}/climbers/${existedId || ''}`, {
     ...options,
     method: existedId ? 'PATCH' : 'POST',
     body: JSON.stringify(climber),
   })
+  // eslint-disable-next-line no-debugger
+  debugger;
   return climber;
 }
 

@@ -50,7 +50,7 @@ export const useUserStore = create<UserState>()(
       },
       loginVk: async (code: string) => {
         await get().changeState('status', RequestState.LOADING);
-        return fetch(`${import.meta.env.VITE_VK_APP_CLIENT_ID}/auth/login/vk`, {
+        return fetch(`${getApiUrl()}/auth/login/vk`, {
           method: 'POST',
           body: JSON.stringify({ code }),
           ...options,
@@ -76,7 +76,7 @@ export const useUserStore = create<UserState>()(
     
         if (!token) Promise.reject();
     
-        return fetch(`${import.meta.env.VITE_VK_APP_CLIENT_ID}/users/profile`, {
+        return fetch(`${getApiUrl()}/users/profile`, {
           headers: {
             ...options.headers,
             Authorization: `Bearer ${token}`,
