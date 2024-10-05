@@ -24,10 +24,10 @@ const Layout = () => {
       return navigate('/signin');
 
     if (!vkUser?.id && status !== RequestState.LOADING && token) {
-      getVKProfile().catch(() => {
-        navigate('/signin');
-        logoutVk();
-      });
+      // getVKProfile().catch(() => {
+      //   navigate('/signin');
+      //   logoutVk();
+      // });
     }
   }, [vkUser, status, navigate, pathname, getVKProfile, logoutVk]);
 
