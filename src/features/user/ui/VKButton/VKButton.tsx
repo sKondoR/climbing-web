@@ -10,8 +10,8 @@ VKID.Config.init({
   app: import.meta.env.VITE_VK_APP_CLIENT_ID,
   redirectUrl: redirect_url,
   state: 'dj29fnsadjsd82',
-  // codeVerifier: 'FGH767Gd65',
-  codeChallenge: 'NVLsM5pqL4Aanzz5LfNjdMJ4SmHkO3ZTTFjL2e34Uoc',
+  codeVerifier: 'FGH767Gd65',
+  // codeChallenge: 'NVLsM5pqL4Aanzz5LfNjdMJ4SmHkO3ZTTFjL2e34Uoc',
   scope: 'email phone',
   mode: VKID.ConfigAuthMode.Redirect,
 });
@@ -39,19 +39,21 @@ const VKButton: React.FC = () => {
     // const ext_id = new URLSearchParams(search).get('ext_id');
     const device_id = new URLSearchParams(search).get('device_id');
 
-    console.log('code:', code)
-    console.log('device_id: ', device_id)
-    // const tokens = VKID.Auth.exchangeCode(code as string, device_id as string).then((res));
-    const accessToken = VKID.Auth.exchangeCode(code as string, device_id as string);
-    console.log('accessToken>>> ', accessToken);
-    // const user = VKID.Auth.userInfo(code as string);
-    // console.log('1>>> ', user);
-    // const user2 = VKID.Auth.userInfo(ext_id as string);
-    // console.log('2>>> ', user2);
-
-    if (isError) window.location.href = redirect_url;
-
-    if (code) handleLogin(code);
+    if (code && device_id) {
+      console.log('code:', code)
+      console.log('device_id: ', device_id)
+      // const tokens = VKID.Auth.exchangeCode(code as string, device_id as string).then((res));
+      const accessToken = VKID.Auth.exchangeCode(code as string, device_id as string);
+      console.log('accessToken>>> ', accessToken);
+      // const user = VKID.Auth.userInfo(code as string);
+      // console.log('1>>> ', user);
+      // const user2 = VKID.Auth.userInfo(ext_id as string);
+      // console.log('2>>> ', user2);
+  
+      if (isError) window.location.href = redirect_url;
+  
+      if (code) handleLogin(code);
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
