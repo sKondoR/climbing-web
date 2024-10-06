@@ -14,6 +14,8 @@ type LocationState = string | URLSearchParams | Record<string, string> | string[
 //   id_token: string;
 // }
 
+let firstFetch = 0;
+
 const VKButton: React.FC = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -46,18 +48,19 @@ const VKButton: React.FC = () => {
       const device_id = new URLSearchParams(search).get('device_id');
       const state = new URLSearchParams(search).get('state');
   
-      if (code && device_id && state) {
+      if (code && device_id && state && !firstFetch) {
+        firstFetch = 1;
         console.log('code:', code)
         console.log('device_id: ', device_id)
         console.log('state: ', state)
     
         if (isError) window.location.href = redirect_url;
   
-        // working code for getting VK User
+        // working code for getting VK Tokens
+
         // const queryParamsString = `grant_type=authorization_code&redirect_uri=${redirect_url}`+
         // `&code_verifier=${code_verifier}`+
         // `&client_id=${import.meta.env.VITE_VK_APP_CLIENT_ID}&device_id=${device_id}&state=${state}`;
-
 
         // let tokens: TokenResponse | undefined;
 
@@ -80,6 +83,8 @@ const VKButton: React.FC = () => {
         // } catch (err) { // 'any' type for error to access 'message' property
         //   console.log('err>>> ', err);
         // }
+
+        // working code for getting VK User
       
         // if (tokens) {
         //   const user = VKID.Auth.publicInfo(tokens.id_token); // Assuming VKID.Auth.publicInfo is a method
