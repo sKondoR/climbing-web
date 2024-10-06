@@ -6,8 +6,8 @@ import { useUserStore } from '../../user.store';
 import { IVKCodeData } from '../../user.interfaces'
 
 const redirect_url = `${import.meta.env.VITE_APP_HOST}signin`;
-const code_verifier = 'Yj46NfQtcLiivOgfh4tb_wf3rPKQS_VcvLzq4oVeLZU';
-const code_challenge = 'hwz_JMzVjlmmW2Rw_xy7FNgAXxTYMwArBIhpH5UXVBo';
+const code_verifier = '6ixyBpFRrwlCYVbTnOSIKcXtkf3kVFrw85c1plyjQMA';
+const code_challenge = 'ZIeAepRCsDwcBF_iv35iRlMIEjb0UT2N5BxhLZHQO9U';
 
 
 const VKButton: React.FC = () => {
