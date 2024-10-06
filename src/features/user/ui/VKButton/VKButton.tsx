@@ -29,7 +29,7 @@ const VKButton: React.FC = () => {
     const handleLogin = (code: string): void => {
       loginVk(code)
           .then(() => {
-              navigate('/user');
+              // navigate('/user');
           })
           .catch(() => setIsError(true));
     };
