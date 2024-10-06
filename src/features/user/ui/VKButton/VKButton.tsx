@@ -10,7 +10,7 @@ VKID.Config.init({
   app: import.meta.env.VITE_VK_APP_CLIENT_ID,
   redirectUrl: redirect_url,
   state: 'dj29fnsadjsd82',
-  codeVerifier: 'FGH767Gd65',
+  // codeVerifier: 'FGH767Gd65',
   // codeChallenge: 'NVLsM5pqL4Aanzz5LfNjdMJ4SmHkO3ZTTFjL2e34Uoc',
   scope: 'email phone',
   mode: VKID.ConfigAuthMode.Redirect,
@@ -19,7 +19,9 @@ VKID.Config.init({
 const VKButton: React.FC = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isError, setIsError] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { vkUser, loginVk, logoutVk } = useUserStore()
 
   const handleClick = () => {
@@ -27,13 +29,13 @@ const VKButton: React.FC = () => {
   }
 
   useEffect(() => {
-    const handleLogin = (code: string): void => {
-      loginVk(code)
-          .then(() => {
-              // navigate('/user');
-          })
-          .catch(() => setIsError(true));
-    };
+    // const handleLogin = (code: string): void => {
+    //   loginVk(code)
+    //       .then(() => {
+    //           // navigate('/user');
+    //       })
+    //       .catch(() => setIsError(true));
+    // };
 
     const code = new URLSearchParams(search).get('code');
     // const ext_id = new URLSearchParams(search).get('ext_id');
@@ -52,7 +54,7 @@ const VKButton: React.FC = () => {
   
       if (isError) window.location.href = redirect_url;
   
-      if (code) handleLogin(code);
+      // if (code) handleLogin(code);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
