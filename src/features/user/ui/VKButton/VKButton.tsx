@@ -19,10 +19,8 @@ VKID.Config.init({
 const VKButton: React.FC = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isError, setIsError] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { vkUser, loginVk, logoutVk } = useUserStore()
+  const [isError] = useState(false);
+  const { vkUser, logoutVk } = useUserStore()
 
   const handleClick = () => {
     VKID.Auth.login()
