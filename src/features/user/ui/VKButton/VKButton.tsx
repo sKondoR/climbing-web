@@ -3,16 +3,20 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import * as VKID from '@vkid/sdk';
 
 import { useUserStore } from '../../user.store';
+import { getVerifier } from '../../user.utils'
 
 const redirect_url = `${import.meta.env.VITE_APP_HOST}signin`;
-const code_verifier = 'Yj46NfQtcLiivOgfh4tb_wf3rPKQS_VcvLzq4oVeLZU';
-const code_challenge = 'hwz_JMzVjlmmW2Rw_xy7FNgAXxTYMwArBIhpH5UXVBo';
+// const code_verifier = 'Yj46NfQtcLiivOgfh4tb_wf3rPKQS_VcvLzq4oVeLZU';
+// const code_challenge = 'hwz_JMzVjlmmW2Rw_xy7FNgAXxTYMwArBIhpH5UXVBo';
+
+
 const VKButton: React.FC = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
   const [isError] = useState(false);
   const { vkUser, logoutVk } = useUserStore()
 
+  const { code_verifier, code_challenge } = getVerifier();
   VKID.Config.init({
     app: import.meta.env.VITE_VK_APP_CLIENT_ID,
     redirectUrl: redirect_url,
