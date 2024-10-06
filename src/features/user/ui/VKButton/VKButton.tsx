@@ -10,9 +10,9 @@ const code_verifier = '6ixyBpFRrwlCYVbTnOSIKcXtkf3kVFrw85c1plyjQMA';
 const code_challenge = 'ZIeAepRCsDwcBF_iv35iRlMIEjb0UT2N5BxhLZHQO9U';
 
 type LocationState = string | URLSearchParams | Record<string, string> | string[][] | undefined
-interface TokenResponse {
-  id_token: string;
-}
+// interface TokenResponse {
+//   id_token: string;
+// }
 
 const VKButton: React.FC = () => {
   const navigate = useNavigate();
@@ -53,39 +53,39 @@ const VKButton: React.FC = () => {
     
         if (isError) window.location.href = redirect_url;
   
-        const queryParamsString = `grant_type=authorization_code&redirect_uri=${redirect_url}`+
-        `&code_verifier=${code_verifier}`+
-        `&client_id=${import.meta.env.VITE_VK_APP_CLIENT_ID}&device_id=${device_id}&state=${state}`;
+        // working code for getting VK User
+        // const queryParamsString = `grant_type=authorization_code&redirect_uri=${redirect_url}`+
+        // `&code_verifier=${code_verifier}`+
+        // `&client_id=${import.meta.env.VITE_VK_APP_CLIENT_ID}&device_id=${device_id}&state=${state}`;
 
 
-        let tokens: TokenResponse | undefined;
+        // let tokens: TokenResponse | undefined;
 
-        try {
-          const response = await fetch('https://id.vk.com/oauth2/auth?'.concat(queryParamsString), {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({ code: code }).toString(),
-          });
+        // try {
+        //   const response = await fetch('https://id.vk.com/oauth2/auth?'.concat(queryParamsString), {
+        //     method: 'POST',
+        //     headers: {
+        //       'Content-Type': 'application/x-www-form-urlencoded',
+        //     },
+        //     body: new URLSearchParams({ code: code }).toString(),
+        //   });
       
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
+        //   if (!response.ok) {
+        //     throw new Error(`HTTP error! status: ${response.status}`);
+        //   }
       
-          // Assuming the API returns a JSON response
-          const data = await response.json() as TokenResponse;
-          tokens = data;
-        } catch (err) { // 'any' type for error to access 'message' property
-          console.log('err>>> ', err);
-        }
+        //   // Assuming the API returns a JSON response
+        //   const data = await response.json() as TokenResponse;
+        //   tokens = data;
+        // } catch (err) { // 'any' type for error to access 'message' property
+        //   console.log('err>>> ', err);
+        // }
       
-        if (tokens) {
-          const user = VKID.Auth.publicInfo(tokens.id_token); // Assuming VKID.Auth.publicInfo is a method
-          console.log('user!!!!> ', user);
-        }
+        // if (tokens) {
+        //   const user = VKID.Auth.publicInfo(tokens.id_token); // Assuming VKID.Auth.publicInfo is a method
+        //   console.log('user!!!!> ', user);
+        // }
           
-        if (!isError) return;
         if (code) handleLogin({ code, device_id, state, code_verifier });
       }
     }
