@@ -53,7 +53,7 @@ const VKButton: React.FC = () => {
   
       if (isError) window.location.href = redirect_url;
 
-      const queryParamsString = `grant_type=authorization_code&redirect_uri=${redirect_url}/signin`+
+      const queryParamsString = `grant_type=authorization_code&redirect_uri=${redirect_url}`+
       // `code_verifier=${code_verifier}`+
       `&client_id=${import.meta.env.VITE_VK_APP_CLIENT_ID}&device_id=${device_id}&state=${state}`;
       fetch('https://id.vk.com/oauth2/auth?'.concat(queryParamsString), {
