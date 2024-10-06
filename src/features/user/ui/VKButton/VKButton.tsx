@@ -13,7 +13,7 @@ VKID.Config.init({
   // codeVerifier: 'FGH767Gd65',
   // codeChallenge: 'NVLsM5pqL4Aanzz5LfNjdMJ4SmHkO3ZTTFjL2e34Uoc',
   scope: 'email phone',
-  mode: VKID.ConfigAuthMode.Redirect,
+  mode: VKID.ConfigAuthMode.InNewTab,
 });
 
 const VKButton: React.FC = () => {
