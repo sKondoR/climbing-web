@@ -35,14 +35,16 @@ const VKButton: React.FC = () => {
     };
 
     const code = new URLSearchParams(search).get('code');
-    const ext_id = new URLSearchParams(search).get('ext_id');
-    // const device_id = new URLSearchParams(search).get('device_id');
+    // const ext_id = new URLSearchParams(search).get('ext_id');
+    const device_id = new URLSearchParams(search).get('device_id');
 
     // const tokens = VKID.Auth.exchangeCode(code as string, device_id as string).then((res));
-    const user = VKID.Auth.userInfo(code as string);
-    console.log('1>>> ', user);
-    const user2 = VKID.Auth.userInfo(ext_id as string);
-    console.log('2>>> ', user2);
+    const accessToken = VKID.Auth.exchangeCode(code as string, device_id as string);
+    console.log('accessToken>>> ', accessToken);
+    // const user = VKID.Auth.userInfo(code as string);
+    // console.log('1>>> ', user);
+    // const user2 = VKID.Auth.userInfo(ext_id as string);
+    // console.log('2>>> ', user2);
 
     if (isError) window.location.href = redirect_url;
 
