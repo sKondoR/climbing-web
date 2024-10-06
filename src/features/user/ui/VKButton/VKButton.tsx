@@ -35,6 +35,10 @@ const VKButton: React.FC = () => {
     };
 
     const code = new URLSearchParams(search).get('code');
+    const device_id = new URLSearchParams(search).get('code');
+
+    const tokens = VKID.Auth.exchangeCode(code as string, device_id as string);
+    console.log('>>> ', tokens);
 
     if (isError) window.location.href = redirect_url;
 
