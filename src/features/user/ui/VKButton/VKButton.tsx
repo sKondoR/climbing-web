@@ -13,7 +13,7 @@ VKID.Config.init({
   // codeVerifier: 'FGH767Gd65',
   // codeChallenge: 'NVLsM5pqL4Aanzz5LfNjdMJ4SmHkO3ZTTFjL2e34Uoc',
   scope: 'email phone',
-  mode: VKID.ConfigAuthMode.InNewTab,
+  mode: VKID.ConfigAuthMode.Redirect,
 });
 
 const VKButton: React.FC = () => {
@@ -23,7 +23,7 @@ const VKButton: React.FC = () => {
   const { vkUser, logoutVk } = useUserStore()
 
   const handleClick = () => {
-    VKID.Auth.login()
+    VKID.Auth.login().catch(console.error);
   }
 
   useEffect(() => {
