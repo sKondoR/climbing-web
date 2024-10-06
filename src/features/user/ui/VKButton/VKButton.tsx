@@ -10,7 +10,7 @@ const VKButton: React.FC = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
   const [isError] = useState(false);
-  const { vkUser, loginVk, logoutVk } = useUserStore()
+  const { vkUser, logoutVk } = useUserStore()
 
   VKID.Config.init({
     app: import.meta.env.VITE_VK_APP_CLIENT_ID,
@@ -25,21 +25,23 @@ const VKButton: React.FC = () => {
   }
 
   useEffect(() => {
-    const handleLogin = (code: string): void => {
-      loginVk(code)
-          .then(() => {
-              // navigate('/user');
-          })
-          .catch((err: Error) => console.log('error: ', err));
-    };
+    // const handleLogin = (code: string): void => {
+    //   loginVk(code)
+    //       .then(() => {
+    //           // navigate('/user');
+    //       })
+    //       .catch((err: Error) => console.log('error: ', err));
+    // };
 
     const code = new URLSearchParams(search).get('code');
     // const ext_id = new URLSearchParams(search).get('ext_id');
     const device_id = new URLSearchParams(search).get('device_id');
+    const state = new URLSearchParams(search).get('state');
 
     if (code && device_id) {
       console.log('code:', code)
       console.log('device_id: ', device_id)
+      console.log('state: ', state)
       // const tokens = VKID.Auth.exchangeCode(code as string, device_id as string).then((res));
       // const accessToken = VKID.Auth.exchangeCode(code as string, device_id as string);
       // console.log('accessToken>>> ', accessToken);
@@ -49,8 +51,15 @@ const VKButton: React.FC = () => {
       // console.log('2>>> ', user2);
   
       if (isError) window.location.href = redirect_url;
-  
-      if (code) handleLogin(code);
+
+      const queryParamsString = `grant_type=authorization_code&redirect_uri=${redirect_url}/signin&client_id=${import.meta.env.VITE_VK_APP_CLIENT_ID}&device_id=device_id&state=${state}`;
+      fetch('https://id.vk.com/oauth2/auth?'.concat(queryParamsString), {
+          method: "POST",
+          body: new URLSearchParams({
+              code: code
+          })
+        })
+      // if (code) handleLogin(code);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
