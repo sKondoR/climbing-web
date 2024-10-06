@@ -5,8 +5,8 @@ import * as VKID from '@vkid/sdk';
 import { useUserStore } from '../../user.store';
 
 const redirect_url = `${import.meta.env.VITE_APP_HOST}signin`;
-// const code_verifier = 'FGH767Gd65';
-// const code_challenge = 'NVLsM5pqL4Aanzz5LfNjdMJ4SmHkO3ZTTFjL2e34Uoc';
+const code_verifier = 'Yj46NfQtcLiivOgfh4tb_wf3rPKQS_VcvLzq4oVeLZU';
+const code_challenge = 'hwz_JMzVjlmmW2Rw_xy7FNgAXxTYMwArBIhpH5UXVBo';
 const VKButton: React.FC = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -17,7 +17,7 @@ const VKButton: React.FC = () => {
     app: import.meta.env.VITE_VK_APP_CLIENT_ID,
     redirectUrl: redirect_url,
     // codeVerifier: code_verifier,
-    // codeChallenge: code_challenges,
+    codeChallenge: code_challenge,
     mode: VKID.ConfigAuthMode.Redirect,
   });
 
@@ -54,7 +54,7 @@ const VKButton: React.FC = () => {
       if (isError) window.location.href = redirect_url;
 
       const queryParamsString = `grant_type=authorization_code&redirect_uri=${redirect_url}`+
-      // `code_verifier=${code_verifier}`+
+      `&code_verifier=${code_verifier}`+
       `&client_id=${import.meta.env.VITE_VK_APP_CLIENT_ID}&device_id=${device_id}&state=${state}`;
       fetch('https://id.vk.com/oauth2/auth?'.concat(queryParamsString), {
           method: "POST",
