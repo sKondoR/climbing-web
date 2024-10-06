@@ -10,9 +10,10 @@ VKID.Config.init({
   app: import.meta.env.VITE_VK_APP_CLIENT_ID,
   redirectUrl: redirect_url,
   state: 'dj29fnsadjsd82',
-  codeVerifier: 'FGH767Gd65',
+  // codeVerifier: 'FGH767Gd65',
+  // codeChallenge: 'FGH767Gd65',
   scope: 'email phone',
-  mode: VKID.ConfigAuthMode.Redirect
+  mode: VKID.ConfigAuthMode.Redirect,
 });
 
 const VKButton: React.FC = () => {
