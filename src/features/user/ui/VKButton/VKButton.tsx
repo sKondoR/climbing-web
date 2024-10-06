@@ -9,10 +9,8 @@ const redirect_url = `${import.meta.env.VITE_APP_HOST}signin`;
 VKID.Config.init({
   app: import.meta.env.VITE_VK_APP_CLIENT_ID,
   redirectUrl: redirect_url,
-  state: 'dj29fnsadjsd82',
   // codeVerifier: 'FGH767Gd65',
-  // codeChallenge: 'NVLsM5pqL4Aanzz5LfNjdMJ4SmHkO3ZTTFjL2e34Uoc',
-  scope: 'email phone',
+  // codeChallenge: 'NVLsM5pqL4Aanzz5LfNjdMJ4SmHkO3ZTTFjL2e34Uoc',s
   mode: VKID.ConfigAuthMode.Redirect,
 });
 
