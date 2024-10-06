@@ -6,19 +6,19 @@ import { useUserStore } from '../../user.store';
 
 const redirect_url = `${import.meta.env.VITE_APP_HOST}signin`;
 
-VKID.Config.init({
-  app: import.meta.env.VITE_VK_APP_CLIENT_ID,
-  redirectUrl: redirect_url,
-  // codeVerifier: 'FGH767Gd65',
-  // codeChallenge: 'NVLsM5pqL4Aanzz5LfNjdMJ4SmHkO3ZTTFjL2e34Uoc',s
-  mode: VKID.ConfigAuthMode.Redirect,
-});
-
 const VKButton: React.FC = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
   const [isError] = useState(false);
   const { vkUser, logoutVk } = useUserStore()
+
+  VKID.Config.init({
+    app: import.meta.env.VITE_VK_APP_CLIENT_ID,
+    redirectUrl: redirect_url,
+    // codeVerifier: 'FGH767Gd65',
+    // codeChallenge: 'NVLsM5pqL4Aanzz5LfNjdMJ4SmHkO3ZTTFjL2e34Uoc',s
+    mode: VKID.ConfigAuthMode.Redirect,
+  });
 
   const handleClick = () => {
     VKID.Auth.login().catch(console.error);
