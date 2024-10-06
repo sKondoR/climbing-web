@@ -26,5 +26,5 @@ export interface IVKCodeData {
     code: string;
     device_id: string;
     state: string;
-    code_verifier: string,
+    code_verifier: string;
 }  
