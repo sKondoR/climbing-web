@@ -1,6 +1,19 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
+import * as VKID from '@vkid/sdk';
+
 import { useUserStore } from '../../user.store';
+
+const redirect_url = `${import.meta.env.VITE_APP_HOST}signin`;
+
+VKID.Config.init({
+  app: import.meta.env.VITE_VK_APP_CLIENT_ID,
+  redirectUrl: redirect_url,
+  state: 'dj29fnsadjsd82',
+  codeVerifier: 'FGH767Gd65',
+  scope: 'email phone',
+  mode: VKID.ConfigAuthMode.Redirect
+});
 
 const VKButton: React.FC = () => {
   const navigate = useNavigate();
@@ -8,11 +21,9 @@ const VKButton: React.FC = () => {
   const [isError, setIsError] = useState(false);
   const { vkUser, loginVk, logoutVk } = useUserStore()
 
-  const cbLink = `${import.meta.env.DEV ? import.meta.env.VITE_APP_LOCAL : import.meta.env.VITE_APP_HOST}signin`;
-
-  const handleRedirect = () => {
-      window.location.href = `https://oauth.vk.com/authorize?client_id=${import.meta.env.VITE_VK_APP_CLIENT_ID}&display=popup&redirect_uri=${cbLink}&scope=email&response_type=code&v=5.120&state=4194308`;
-  };
+  const handleClick = () => {
+    VKID.Auth.login()
+  }
 
   useEffect(() => {
     const handleLogin = (code: string): void => {
@@ -25,7 +36,7 @@ const VKButton: React.FC = () => {
 
     const code = new URLSearchParams(search).get('code');
 
-    if (isError) window.location.href = cbLink;
+    if (isError) window.location.href = redirect_url;
 
     if (code) handleLogin(code);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,7 +68,7 @@ const VKButton: React.FC = () => {
     <div>
       <button
         className="bg-blue-600 text-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:bg-blue-600 p-3"
-        onClick={handleRedirect}
+        onClick={handleClick}
       >
         VK
       </button>
