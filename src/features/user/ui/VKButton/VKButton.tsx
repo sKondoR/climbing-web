@@ -81,7 +81,8 @@ const VKButton: React.FC = () => {
         }
       
         if (tokens) {
-          VKID.Auth.publicInfo(tokens.access_token); // Assuming VKID.Auth.publicInfo is a method
+          const user = VKID.Auth.publicInfo(tokens.access_token); // Assuming VKID.Auth.publicInfo is a method
+          console.log('user!!!!> ', user);
         }
           
         if (!isError) return;
