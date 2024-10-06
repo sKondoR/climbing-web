@@ -11,7 +11,7 @@ const code_challenge = 'ZIeAepRCsDwcBF_iv35iRlMIEjb0UT2N5BxhLZHQO9U';
 
 type LocationState = string | URLSearchParams | Record<string, string> | string[][] | undefined
 interface TokenResponse {
-  access_token: string;
+  id_token: string;
 }
 
 const VKButton: React.FC = () => {
@@ -81,7 +81,7 @@ const VKButton: React.FC = () => {
         }
       
         if (tokens) {
-          const user = VKID.Auth.publicInfo(tokens.access_token); // Assuming VKID.Auth.publicInfo is a method
+          const user = VKID.Auth.publicInfo(tokens.id_token); // Assuming VKID.Auth.publicInfo is a method
           console.log('user!!!!> ', user);
         }
           
