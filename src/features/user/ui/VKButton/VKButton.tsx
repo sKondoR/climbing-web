@@ -48,17 +48,17 @@ const VKButton: React.FC = () => {
   
       if (isError) window.location.href = redirect_url;
 
-      const queryParamsString = `grant_type=authorization_code&redirect_uri=${redirect_url}`+
-      `&code_verifier=${code_verifier}`+
-      `&client_id=${import.meta.env.VITE_VK_APP_CLIENT_ID}&device_id=${device_id}&state=${state}`;
-      fetch('https://id.vk.com/oauth2/auth?'.concat(queryParamsString), {
-          method: "POST",
-          body: new URLSearchParams({
-              code: code
-          })
-        })
+      // const queryParamsString = `grant_type=authorization_code&redirect_uri=${redirect_url}`+
+      // `&code_verifier=${code_verifier}`+
+      // `&client_id=${import.meta.env.VITE_VK_APP_CLIENT_ID}&device_id=${device_id}&state=${state}`;
+      // fetch('https://id.vk.com/oauth2/auth?'.concat(queryParamsString), {
+      //     method: "POST",
+      //     body: new URLSearchParams({
+      //         code: code
+      //     })
+      //   })
         
-        if (!isError) return;
+      //  if (!isError) return;
       if (code) handleLogin({ code, device_id, state, code_verifier });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
