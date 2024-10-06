@@ -11,7 +11,7 @@ VKID.Config.init({
   redirectUrl: redirect_url,
   state: 'dj29fnsadjsd82',
   // codeVerifier: 'FGH767Gd65',
-  // codeChallenge: 'FGH767Gd65',
+  codeChallenge: 'NVLsM5pqL4Aanzz5LfNjdMJ4SmHkO3ZTTFjL2e34Uoc',
   scope: 'email phone',
   mode: VKID.ConfigAuthMode.Redirect,
 });
