@@ -35,7 +35,7 @@ const VKButton: React.FC = () => {
     };
 
     const code = new URLSearchParams(search).get('code');
-    const device_id = new URLSearchParams(search).get('code');
+    const device_id = new URLSearchParams(search).get('device_id');
 
     const tokens = VKID.Auth.exchangeCode(code as string, device_id as string);
     console.log('>>> ', tokens);
