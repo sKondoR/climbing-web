@@ -21,3 +21,10 @@ export interface IAllClimber {
     allClimbId: number | null;
     name: string | null;
 }  
+
+export interface IVKCodeData {
+    code: string;
+    device_id: string;
+    state: string;
+    code_verifier: string,
+}  

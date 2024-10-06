@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { getApiUrl, options } from '../../constants/api.constants'
-import { IUser, IVKUser } from './user.interfaces'
+import { IUser, IVKUser, IVKCodeData } from './user.interfaces'
 import { RequestState } from '../../types/request.types'
 
 interface UserState {
@@ -12,7 +12,7 @@ interface UserState {
   changeState: (property: string, value: string | null) => void,
   fetchUser: (id: number) => void,
   setVKUser: (user: IVKUser) => void,
-  loginVk: (code: string) => Promise<void>,
+  loginVk: (data: IVKCodeData) => Promise<void>,
   getVKProfile: () => Promise<void>,
   logoutVk: () => Promise<void>,
 }
@@ -48,11 +48,11 @@ export const useUserStore = create<UserState>()(
           sessionStorage.setItem('token', vkUser?.token);
         }
       },
-      loginVk: async (code: string) => {
+      loginVk: async (data: IVKCodeData) => {
         await get().changeState('status', RequestState.LOADING);
         return fetch(`${getApiUrl()}/auth/login/vk`, {
           method: 'POST',
-          body: JSON.stringify({ code }),
+          body: JSON.stringify(data),
           ...options,
         })
           .then(async(res) => {
