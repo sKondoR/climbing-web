@@ -10,7 +10,7 @@ const VKButton: React.FC = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
   const [isError] = useState(false);
-  const { vkUser, logoutVk } = useUserStore()
+  const { vkUser, loginVk, logoutVk } = useUserStore()
 
   VKID.Config.init({
     app: import.meta.env.VITE_VK_APP_CLIENT_ID,
@@ -25,13 +25,13 @@ const VKButton: React.FC = () => {
   }
 
   useEffect(() => {
-    // const handleLogin = (code: string): void => {
-    //   loginVk(code)
-    //       .then(() => {
-    //           // navigate('/user');
-    //       })
-    //       .catch(() => setIsError(true));
-    // };
+    const handleLogin = (code: string): void => {
+      loginVk(code)
+          .then(() => {
+              // navigate('/user');
+          })
+          .catch((err: Error) => console.log('error: ', err));
+    };
 
     const code = new URLSearchParams(search).get('code');
     // const ext_id = new URLSearchParams(search).get('ext_id');
@@ -41,8 +41,8 @@ const VKButton: React.FC = () => {
       console.log('code:', code)
       console.log('device_id: ', device_id)
       // const tokens = VKID.Auth.exchangeCode(code as string, device_id as string).then((res));
-      const accessToken = VKID.Auth.exchangeCode(code as string, device_id as string);
-      console.log('accessToken>>> ', accessToken);
+      // const accessToken = VKID.Auth.exchangeCode(code as string, device_id as string);
+      // console.log('accessToken>>> ', accessToken);
       // const user = VKID.Auth.userInfo(code as string);
       // console.log('1>>> ', user);
       // const user2 = VKID.Auth.userInfo(ext_id as string);
@@ -50,7 +50,7 @@ const VKButton: React.FC = () => {
   
       if (isError) window.location.href = redirect_url;
   
-      // if (code) handleLogin(code);
+      if (code) handleLogin(code);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
