@@ -15,7 +15,7 @@ const Header = () => {
   
   useEffect(() => {
     if (isFirstRender && !a) {
-      fetchUser(35292)
+      fetchUser(16)
       fetchClimbers()
       a = 1
     }
