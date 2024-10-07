@@ -9,3 +9,14 @@ export const options = {
         'Content-Type': 'application/json'
     }),
 }
+
+export const TEAM = [
+    { allClimbId: 35292, name: 'Витя Кондрашин' },
+    { allClimbId: 49224, name: 'Саша Мишан' },
+    { allClimbId: 55862, name: 'Арина Мажара' },
+    { allClimbId: 46994, name: 'Арина Бочкова' },
+    { allClimbId: 47913, name: 'Глеб Еремин' },
+    { allClimbId: 24178, name: 'Саша Мокруша' },
+    { allClimbId: 54839, name: 'Марина Бриллиантова' },
+    { allClimbId: 54736, name: 'Варя Дьячкова' },
+];

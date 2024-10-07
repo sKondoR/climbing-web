@@ -1,12 +1,12 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { getApiUrl, options } from '../../constants/api.constants'
-import { IUnregisteredUser, IUser, IVKCodeData } from './user.interfaces'
+import { getApiUrl, options, TEAM } from '../../constants/api.constants'
+import { IUnregisteredUser, IUser, IVKCodeData, IAllClimber } from './user.interfaces'
 import { RequestState } from '../../types/request.types'
 
 interface UserState {
   status: string,
-  user: IUnregisteredUser | null,
+  user: IUnregisteredUser,
   vkUser: IUser | null,
   error: string | null,
   changeState: (property: string, value: string | null) => void,
@@ -15,6 +15,7 @@ interface UserState {
   loginVk: (data: IVKCodeData) => Promise<void>,
   getVKProfile: () => Promise<void>,
   logoutVk: () => Promise<void>,
+  addTeamToUser: () => void,
 }
 
 export const useUserStore = create<UserState>()(
@@ -108,6 +109,16 @@ export const useUserStore = create<UserState>()(
         await get().changeState('vkUser', null);
         sessionStorage.clear();
         await get().changeState('status', RequestState.PENDING);
+      },
+
+      addTeamToUser: async () => {
+        await set((state: UserState) => ({
+          ...state,
+          user: {
+            ...state.user,
+            team: TEAM as IAllClimber[],
+          },
+        }));
       },
     })
   )
