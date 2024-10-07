@@ -7,6 +7,7 @@ import { PRIVATE_ROUTES } from '../../routes/paths'
 import { useClimbersStore } from '../../features/climbers/climbers.store'
 import { RequestState } from '../../types/request.types'
 import { useUserStore } from '../../features/user/user.store';
+import { useTeamStore } from '../../features/team/team.store';
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -22,8 +23,13 @@ const Layout = () => {
     fetchClimbers,
   } = useClimbersStore()
 
+  const {
+    fetchTeam,
+  } = useTeamStore()
+
   useEffect(() => {
       fetchClimbers()
+      fetchTeam()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
