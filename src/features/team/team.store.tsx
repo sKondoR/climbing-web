@@ -5,21 +5,6 @@ import {
   ITeamMember,
 } from './team.interfaces'
 
-// const TEAM = {
-//   coaches: [ 
-//     {
-//       name: 'Кярова Анастасия',
-//       text: '',
-//     },
-//   ],
-//   team: [
-//     {
-//       name: 'Кярова Анастасия',
-//       text: '',
-//     }, 
-//   ]
-// }
-
 export interface TeamState {
   coaches: ITeamMember[],
   team: ITeamMember[],
@@ -40,8 +25,8 @@ export const useTeamStore = create<TeamState>()(
 
         set((state: TeamState) => ({
           ...state,
-          coaches: data.coaches,
-          team: data.team,
+          coaches: [],
+          team: data,
         }));
       },
       setPreviewId: (previewId: number) => {

@@ -2,10 +2,12 @@
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 
 export interface ITeamMember {
+    isCoach: boolean | null;
     allClimbId: string | null;
-    name: string | null;
-    isCityTeam: boolean,
-    text: string,
+    name: string;
+    year: string | null;
+    isCityTeam: boolean | null;
+    text: string | null;
 }
 
 export interface ITeamGroup {

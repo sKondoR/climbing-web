@@ -53,7 +53,7 @@ const TeamTabs = () => {
           label: 'Команда',
           icon: faPeopleGroup,
           items: team as ITeamMember[],
-          offset: coaches.length,
+          offset: team.length,
         })}
       </Sidebar.ItemGroup>
     </Sidebar.Items>

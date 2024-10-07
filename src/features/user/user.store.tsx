@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { getApiUrl, options, TEAM } from '../../constants/api.constants'
+import { getApiUrl, options } from '../../constants/api.constants'
+import { TEAM } from '../../features/team/team.constants'
 import { IUnregisteredUser, IUser, IVKCodeData, IAllClimber } from './user.interfaces'
 import { RequestState } from '../../types/request.types'
 
