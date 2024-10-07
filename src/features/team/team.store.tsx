@@ -25,8 +25,19 @@ export const useTeamStore = create<TeamState>()(
 
         set((state: TeamState) => ({
           ...state,
-          coaches: [],
-          team: data,
+          coaches: data.filter(({ isCoach }: ITeamMember) => isCoach),
+          team: data.filter(({ isCoach }: ITeamMember) => !isCoach)
+            .sort((a: ITeamMember, b: ITeamMember) => {
+              const aTrue = a.isCityTeam === true;
+              const bTrue = b.isCityTeam === true;
+              if ( aTrue < bTrue ){
+                return 1;
+              }
+              if ( aTrue > bTrue ){
+                return -1;
+              }
+              return 0;
+            }),
         }));
       },
       setPreviewId: (previewId: number) => {

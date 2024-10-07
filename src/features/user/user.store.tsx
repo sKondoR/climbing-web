@@ -113,11 +113,12 @@ export const useUserStore = create<UserState>()(
       },
 
       addTeamToUser: async () => {
+        const team = TEAM.filter(({ allClimbId }) => allClimbId)
         await set((state: UserState) => ({
           ...state,
           user: {
             ...state.user,
-            team: TEAM as IAllClimber[],
+            team: team as IAllClimber[],
           },
         }));
       },
