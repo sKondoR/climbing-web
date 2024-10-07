@@ -103,6 +103,7 @@ const VKButton: React.FC = () => {
     return (
       <div>
         <img
+          style={{ width: '40px' }}
           src={vkUser.avatar_url as string}
           alt="vk avatar"
         />

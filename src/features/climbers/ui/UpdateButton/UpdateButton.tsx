@@ -4,7 +4,7 @@ import { IAllClimber } from '../../../user/user.interfaces'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons'
 
-const UserIcon = () => {
+const UpdateButton = () => {
   const { fetchClimbersAllClimb, climbers } = useClimbersStore()
   const { user } = useUserStore()
 
@@ -25,4 +25,4 @@ const UserIcon = () => {
   )
 }
   
-export default UserIcon
+export default UpdateButton

@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 import { useClimbersStore } from '../../features/climbers/climbers.store'
 import { useUserStore } from '../../features/user/user.store'
-import Menu from '../Menu/Menu';
-import UserIcon from '../../features/user/ui/UserIcon/UserIcon'
+import Menu from '../Menu/Menu'
 import VKButton from '../../features/user/ui/VKButton/VKButton'
 import UpdateButton from '../../features/climbers/ui/UpdateButton/UpdateButton'
 
@@ -27,7 +26,6 @@ const Header = () => {
         </div>
         <div className="flex">
           <VKButton />
-          <UserIcon />
         </div>
       </div>
     </header>
