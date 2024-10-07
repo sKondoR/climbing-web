@@ -101,9 +101,10 @@ const VKButton: React.FC = () => {
 
   if (vkUser) {
     return (
-      <div>
+      <>
         <img
           style={{ width: '40px' }}
+          className="mx-2"
           src={vkUser.avatar_url as string}
           alt="vk avatar"
         />
@@ -113,7 +114,7 @@ const VKButton: React.FC = () => {
         >
           Выйти
         </button>
-      </div> 
+      </> 
     )
   }
 
