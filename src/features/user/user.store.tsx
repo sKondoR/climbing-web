@@ -25,7 +25,7 @@ export const useUserStore = create<UserState>()(
         grant: 1,
         allClimbId: null,
         team: [],
-        friends: [],
+        friends: [{ allClimbId: 35292, name: 'Витя Кондрашин' }],
         pro: [],
       },
       vkUser: null,

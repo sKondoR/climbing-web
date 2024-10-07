@@ -9,7 +9,7 @@ const UpdateButton = () => {
   const { user } = useUserStore()
 
   if (!user?.team) return
-  const ids = user ? [...user.team, ...user.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : []
+  const ids = user ? [...user.team, ...user.friends, ...user.pro].map(({ allClimbId }: IAllClimber) => allClimbId) : []
   const onClick = () => {
     if (ids.length) {
       fetchClimbersAllClimb(ids as number[], climbers)

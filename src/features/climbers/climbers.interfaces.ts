@@ -1,4 +1,3 @@
- 
 import { IAllClimber } from '../user/user.interfaces'
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 

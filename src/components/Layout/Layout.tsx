@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import ClimbersTabs from '../../features/climbers/ui/ClimbersTabs/ClimbersTabs'
 import Header from '../Header/Header'
 import img from '../../assets/climb.svg'
 import { PRIVATE_ROUTES } from '../../routes/paths'
@@ -24,11 +23,9 @@ const Layout = () => {
   } = useClimbersStore()
 
   useEffect(() => {
-    if (vkUser) {
       fetchClimbers()
-    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [vkUser?.name]);
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -54,12 +51,9 @@ const Layout = () => {
       opacity: 0.2,
     }}/>
     <Header />
-      <aside className="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 w-96 h-full pt-16 duration-75 transition-width">
-        <div className="pl-8 pt-8 pb-8"><ClimbersTabs /></div>
-      </aside>
-      <main id="main-content" className="relative w-full h-full overflow-y-auto ml-96 p-8">
-        <Outlet />
-      </main>
+    <main id="main-content" className="relative w-full h-full p-8">
+      <Outlet />
+    </main>
   </>);
 }
   

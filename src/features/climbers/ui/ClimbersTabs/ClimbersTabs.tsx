@@ -31,18 +31,32 @@ const ClimbersTabs = () => {
       icon={() =><FontAwesomeIcon icon={icon} />}
     >
       {items.map(({ allClimbId, name }: IAllClimber, index: number) => {
-        if (!allClimbId || !climbers[allClimbId]) return;
+        if (!allClimbId) return;
+        const text = name || climbers[allClimbId]?.name || allClimbId;
         const currentIndex = offset + index;
         return (
-          <Sidebar.Item
-            href="#"
-            key={currentIndex}
-            active={currentIndex === climberPreviewId}
-            className="text-left"
-            onClick={() => onActiveChange(currentIndex)}
-          >
-            {name}
-          </Sidebar.Item>
+          // <Sidebar.Item
+          //   href=""
+          //   key={currentIndex}
+          //   active={currentIndex === climberPreviewId}
+          //   className="text-left"
+          //   onClick={() => onActiveChange(currentIndex)}
+          // >
+          //   {name}
+          // </Sidebar.Item>
+          <li className="">
+            <div
+              aria-labelledby="flowbite-sidebar-item-:rf:"
+              className="flex items-center justify-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 bg-gray-100 dark:bg-gray-700 group w-full pl-8 transition duration-75 text-left"
+              key={currentIndex}
+              // active={currentIndex === climberPreviewId}
+              onClick={() => onActiveChange(currentIndex)}
+            >
+              <span data-testid="flowbite-sidebar-item-content" id="flowbite-sidebar-item-:rf:" className="flex-1 whitespace-nowrap px-3">
+                {climberPreviewId === index ? '> ' : ''}{text}
+              </span>
+            </div>
+          </li>
         );
       })}
     </Sidebar.Collapse>

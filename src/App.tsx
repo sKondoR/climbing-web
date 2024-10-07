@@ -5,7 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import { PATHS } from './routes/paths';
 
 const LandingPage = lazy(() => import('./routes/Landing/Landing'));
-const AllClimbPage = lazy(() => import('./routes/AllClimb/AllClimb'));
+const AllClimbPage = lazy(() => import('./routes/Allclimb/AllClimb'));
 const SchedulePage = lazy(() => import('./routes/Schedule/Schedule'));
 const ContactsPage = lazy(() => import('./routes/Contacts/Contacts'));
 const SignInPage = lazy(() => import('./routes/SignIn/SignIn'));

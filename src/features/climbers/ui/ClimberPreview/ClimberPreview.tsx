@@ -26,16 +26,16 @@ const ClimbersTabs = () => {
   })
 
   if (!currentUser) return
-  const ids = currentUser ? [...currentUser.team, ...currentUser.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : [];
-  const allClimbId = ids[climberPreviewId];
-  if (!allClimbId) return;
-  const climber = climbers[allClimbId];
-  if (!climber) return 'No data...';
-  const { name, updatedAt, leads, boulders } = climber;
+  const ids = currentUser ? [...currentUser.team, ...currentUser.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : []
+  const allClimbId = ids[climberPreviewId]
+  if (!allClimbId) return
+  const climber = climbers[allClimbId]
+  if (!climber) return 'No data...'
+  const { name, updatedAt, leads, boulders } = climber
 
   const onSettingsChange = (newSettings: IChartSettings) => setSettings(newSettings)
 
-  const allRoutes = settings.isLead ? leads : boulders;
+  const allRoutes = settings.isLead ? leads : boulders
   const routes = filterRoutes(allRoutes, settings)
   return (
     <>
