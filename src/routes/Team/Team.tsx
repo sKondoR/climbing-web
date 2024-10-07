@@ -2,7 +2,7 @@ import ClimberPreview from '../../features/climbers/ui/ClimberPreview/ClimberPre
 import ClimbersChart from '../../features/climbers/ui/ClimbersChart/ClimbersChart'
 import ClimbersTabs from '../../features/climbers/ui/ClimbersTabs/ClimbersTabs'
 
-const Climbers = () => {
+const Team = () => {
   return (<>
     <aside className="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 w-96 h-full pt-16 duration-75 transition-width">
       <div className="pl-8 pt-8 pb-8"><ClimbersTabs /></div>
@@ -16,4 +16,4 @@ const Climbers = () => {
   </>)
 }
   
-export default Climbers
+export default Team
