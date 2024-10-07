@@ -2,7 +2,7 @@ import { useTeamStore } from '../../team.store'
 import { Sidebar } from 'flowbite-react'
 import { ITeamGroup, ITeamMember } from '../../team.interfaces'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faMedal, faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
 
 const TeamTabs = () => {
   const {
@@ -22,16 +22,19 @@ const TeamTabs = () => {
       label={`${label} (${items.length})`}
       icon={() =><FontAwesomeIcon icon={icon} />}
     >
-      {items.map(({ name }: ITeamMember, index: number) => {
+      {items.map(({ name, isCityTeam }: ITeamMember, index: number) => {
         const currentIndex = offset + index;
         return (
           <Sidebar.Item
             href="#"
             key={currentIndex}
             active={currentIndex === previewId}
-            className="text-left"
+            className="text-left px-0"
             onClick={() => onActiveChange(currentIndex)}
           >
+            <span className="inline-block w-8 text-center">
+              {isCityTeam && <FontAwesomeIcon icon={faMedal} />}
+            </span>
             {name}
           </Sidebar.Item>
         );
