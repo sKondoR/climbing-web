@@ -34,7 +34,7 @@ const VKButton: React.FC = () => {
     const handleLogin = (data: IVKCodeData): void => {
       loginVk(data)
           .then(() => {
-              // navigate('/user');
+              navigate('/allclimb');
           })
           .catch((err: Error) => console.log('error: ', err));
     };

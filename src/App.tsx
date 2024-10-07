@@ -5,7 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import { PATHS } from './routes/paths';
 
 const LandingPage = lazy(() => import('./routes/Landing/Landing'));
-const ClimbersPage = lazy(() => import('./routes/Climbers/Climbers'));
+const AllClimbPage = lazy(() => import('./routes/AllClimb/AllClimb'));
 const SchedulePage = lazy(() => import('./routes/Schedule/Schedule'));
 const ContactsPage = lazy(() => import('./routes/Contacts/Contacts'));
 const SignInPage = lazy(() => import('./routes/SignIn/SignIn'));
@@ -18,8 +18,8 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<LandingPage />} />
           <Route
-            path={PATHS.climbers.to}
-            element={<ClimbersPage />}
+            path={PATHS.allclimb.to}
+            element={<AllClimbPage />}
           />
           <Route
             path={PATHS.schedule.to}

@@ -1,10 +1,7 @@
-import VKButton from '../../features/user/ui/VKButton/VKButton'
-
 const SignIn = () => {
-    return (<>
-      <h3>Пожалуйста залогиньтесь в ВК для доступа к этой странице</h3>
-      <VKButton />
-    </>)
+    return (<div className="flex justify-center">
+      <h3 className="m-6">Пожалуйста дождитесь окончания запроса профиля пользователя ВК</h3>
+    </div>)
 }
   
 export default SignIn

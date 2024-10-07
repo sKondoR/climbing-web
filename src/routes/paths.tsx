@@ -14,8 +14,8 @@ export const PATHS : Map = {
         to: '/',
         name: 'Команда'
     },
-    climbers: {
-        to: 'climbers',
+    allclimb: {
+        to: 'allclimb',
         name: 'AllClimb'
     },
     schedule: {
