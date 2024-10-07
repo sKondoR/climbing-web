@@ -4,28 +4,24 @@ import * as VKID from '@vkid/sdk';
 
 import { useUserStore } from '../../user.store';
 import { IVKCodeData } from '../../user.interfaces'
+import { RequestState } from '../../../../types/request.types'
 
 const redirect_url = `${import.meta.env.VITE_APP_HOST}signin`;
 const code_verifier = '6ixyBpFRrwlCYVbTnOSIKcXtkf3kVFrw85c1plyjQMA';
 const code_challenge = 'ZIeAepRCsDwcBF_iv35iRlMIEjb0UT2N5BxhLZHQO9U';
 
 type LocationState = string | URLSearchParams | Record<string, string> | string[][] | undefined
-// interface TokenResponse {
-//   id_token: string;
-// }
-
-let firstFetch = 0;
 
 const VKButton: React.FC = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
   const [isError] = useState(false);
-  const { vkUser, loginVk, logoutVk } = useUserStore()
+  const { vkUser, loginVk, logoutVk, status } = useUserStore()
+  const isFetching = status === RequestState.LOADING;
 
   VKID.Config.init({
     app: import.meta.env.VITE_VK_APP_CLIENT_ID,
     redirectUrl: redirect_url,
-    // codeVerifier: code_verifier,
     codeChallenge: code_challenge,
     mode: VKID.ConfigAuthMode.Redirect,
   });
@@ -48,8 +44,7 @@ const VKButton: React.FC = () => {
       const device_id = new URLSearchParams(search).get('device_id');
       const state = new URLSearchParams(search).get('state');
   
-      if (code && device_id && state && !firstFetch) {
-        firstFetch = 1;
+      if (code && device_id && state && isFetching) {
         console.log('code:', code)
         console.log('device_id: ', device_id)
         console.log('state: ', state)
@@ -97,7 +92,7 @@ const VKButton: React.FC = () => {
 
     fetchToken(search as LocationState);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+  }, [search, isFetching]);
 
   const handleLogout = () => {
     logoutVk()
@@ -126,8 +121,9 @@ const VKButton: React.FC = () => {
       <button
         className="bg-blue-600 text-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:bg-blue-600 p-3"
         onClick={handleClick}
+        disabled={isFetching}
       >
-        VK
+        {!isFetching ? 'VK' : 'Fetching...'}
       </button>
       {isError && <p>Ошибка входа через ВК</p>}
     </div>
