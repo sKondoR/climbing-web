@@ -4,7 +4,6 @@ import * as VKID from '@vkid/sdk';
 
 import { useUserStore } from '../../user.store';
 import { IVKCodeData } from '../../user.interfaces'
-import { RequestState } from '../../../../types/request.types'
 
 const redirect_url = `${import.meta.env.VITE_APP_HOST}signin`;
 const code_verifier = '6ixyBpFRrwlCYVbTnOSIKcXtkf3kVFrw85c1plyjQMA';
@@ -16,8 +15,9 @@ const VKButton: React.FC = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
   const [isError] = useState(false);
-  const { vkUser, loginVk, logoutVk, status } = useUserStore()
-  const isFetching = status === RequestState.LOADING;
+  const { vkUser, loginVk, logoutVk } = useUserStore()
+
+  const isCodeInUrl = !!new URLSearchParams(search).get('code');
 
   VKID.Config.init({
     app: import.meta.env.VITE_VK_APP_CLIENT_ID,
@@ -44,7 +44,7 @@ const VKButton: React.FC = () => {
       const device_id = new URLSearchParams(search).get('device_id');
       const state = new URLSearchParams(search).get('state');
   
-      if (code && device_id && state && isFetching) {
+      if (code && device_id && state) {
         console.log('code:', code)
         console.log('device_id: ', device_id)
         console.log('state: ', state)
@@ -92,7 +92,7 @@ const VKButton: React.FC = () => {
 
     fetchToken(search as LocationState);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, isFetching]);
+  }, [search]);
 
   const handleLogout = () => {
     logoutVk()
@@ -121,9 +121,9 @@ const VKButton: React.FC = () => {
       <button
         className="bg-blue-600 text-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:bg-blue-600 p-3"
         onClick={handleClick}
-        disabled={isFetching}
+        disabled={isCodeInUrl}
       >
-        {!isFetching ? 'VK' : 'Fetching...'}
+        {!isCodeInUrl ? 'VK' : 'Fetching...'}
       </button>
       {isError && <p>Ошибка входа через ВК</p>}
     </div>
