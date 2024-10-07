@@ -68,7 +68,7 @@ const ClimbersChart = () => {
     })
 
     if (!user) return
-    const ids: (number | null)[] = currentUser ? [...currentUser.team, ...currentUser.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : [];
+    const ids: (number | null | undefined)[] = currentUser ? [...currentUser.team, ...currentUser.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : [];
 
     const grades = filterGrades(settings)
     const data = prepareData(ids as number[], climbers, grades, settings.isLead, settings.isTopRope);
