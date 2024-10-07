@@ -4,6 +4,8 @@ import ClimbersTabs from '../../features/climbers/ui/ClimbersTabs/ClimbersTabs'
 import Header from '../Header/Header'
 import img from '../../assets/climb.svg'
 import { PRIVATE_ROUTES } from '../../routes/paths'
+
+import { useClimbersStore } from '../../features/climbers/climbers.store'
 import { RequestState } from '../../types/request.types'
 import { useUserStore } from '../../features/user/user.store';
 
@@ -16,6 +18,17 @@ const Layout = () => {
     getVKProfile,
     logoutVk,
   } = useUserStore()
+
+  const {
+    fetchClimbers,
+  } = useClimbersStore()
+
+  useEffect(() => {
+    if (vkUser) {
+      fetchClimbers()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [vkUser?.name]);
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
