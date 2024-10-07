@@ -2,7 +2,8 @@ import { useTeamStore } from '../../team.store'
 import { Sidebar } from 'flowbite-react'
 import { ITeamGroup, ITeamMember } from '../../team.interfaces'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faMedal, faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
+import TshirtIcon from '../../../../components/icons/TshirtIcon'
 
 const TeamTabs = () => {
   const {
@@ -33,7 +34,7 @@ const TeamTabs = () => {
             onClick={() => onActiveChange(currentIndex)}
           >
             <span className="inline-block w-8 text-center">
-              {isCityTeam && <FontAwesomeIcon icon={faMedal} />}
+              {isCityTeam && <TshirtIcon />}
             </span>
             {name}
           </Sidebar.Item>

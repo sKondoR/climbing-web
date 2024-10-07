@@ -43,3 +43,9 @@ header {
 .read-the-docs {
   color: #888;
 }
+
+.svg-icon { display: inline-block; vertical-align: middle }
+.svg-icon-tshirt { width: 14px; }
+.svg-icon svg { width: 100%; height: 100% }
+.tshirt { width: 120px; position: relative; }
+.tshirt span { position: absolute; width: 100%; text-align: center; top:75px; left: 0; color: #fff; font-size: 12px }
