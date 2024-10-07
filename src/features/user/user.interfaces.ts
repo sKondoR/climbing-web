@@ -1,20 +1,28 @@
-export interface IUser {
-    id: number;
-    allClimbId: number | null;
-    name: string | null;
-    team: IAllClimber[];
-    friends: IAllClimber[];
-    pro: IAllClimber[];
-    token: string | null;
+export enum IGrant {
+    ADMIN = 0,
+    USER = 1,
 }
 
-export interface IVKUser {
-    id: number;
-    email: string;
-    grant: number;
-    name: string;
-    token: string;
+export interface IUnregisteredUser {
+    allClimbId: number | null;
+    grant: IGrant;
+    team: IAllClimber[] |  [];
+    friends: IAllClimber[] | [];
+    pro: IAllClimber[] |  [];
+}
+
+export interface IUser {
+    id: number | null;
+    vk_id: number | null;
+    allClimbId: number | null;
+    name: string | null;
     avatar_url: string | null;
+    grant: IGrant;
+    password: string | null;
+    team: IAllClimber[] |  [];
+    friends: IAllClimber[] | [];
+    pro: IAllClimber[] |  [];
+    token: string | null;
 }
 
 export interface IAllClimber {

@@ -13,14 +13,16 @@ const ClimbersTabs = () => {
     setClimberPreviewId,
   } = useClimbersStore()
   const {
+    vkUser,
     user,
   } = useUserStore()
+  const currentUser = vkUser || user;  
 
   const onActiveChange = (tabIndex: number) => {
     setClimberPreviewId(tabIndex);
   }
 
-  if (!user?.team || !user.friends || !user.pro) return;
+  if (!currentUser) return;
 
   const renderGroup = ({ label, icon, items, offset = 0 }: IClimberGroup) => (
     <Sidebar.Collapse
@@ -52,22 +54,22 @@ const ClimbersTabs = () => {
         {renderGroup({
           label: 'Команда',
           icon: faPeopleGroup,
-          items: user.team as IAllClimber[],
+          items: currentUser.team as IAllClimber[],
           offset: 0,
         })}
         <hr />
         {renderGroup({
           label: 'Друзья',
           icon: faHandshakeAngle,
-          items: user.friends as IAllClimber[],
-          offset: user.team.length,
+          items: currentUser.friends as IAllClimber[],
+          offset: currentUser.team.length,
         })}
         <hr />
         {renderGroup({
           label: 'Про-скалолазы',
           icon: faMedal,
-          items: user.pro as IAllClimber[],
-          offset: user.team.length + user.friends.length,
+          items: currentUser.pro as IAllClimber[],
+          offset: currentUser.team.length + currentUser.friends.length,
         })}
       </Sidebar.ItemGroup>
     </Sidebar.Items>

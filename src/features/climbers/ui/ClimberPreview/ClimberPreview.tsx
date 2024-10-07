@@ -14,7 +14,9 @@ const ClimbersTabs = () => {
   } = useClimbersStore()
   const {
     user,
+    vkUser,
   } = useUserStore()
+  const currentUser = vkUser || user;
   const [settings, setSettings] = useState({
     isLead: true,
     isTopRope: true,
@@ -23,8 +25,8 @@ const ClimbersTabs = () => {
     is8: true,
   })
 
-  if (!user?.team) return
-  const ids = user ? [...user.team, ...user.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : [];
+  if (!currentUser) return
+  const ids = currentUser ? [...currentUser.team, ...currentUser.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : [];
   const allClimbId = ids[climberPreviewId];
   if (!allClimbId) return;
   const climber = climbers[allClimbId];

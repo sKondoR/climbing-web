@@ -8,14 +8,14 @@ import UpdateButton from '../../features/climbers/ui/UpdateButton/UpdateButton'
 
 const Header = () => {
   const { fetchClimbers } = useClimbersStore()
-  const { user } = useUserStore()
+  const { vkUser } = useUserStore()
   
   useEffect(() => {
-    if (user) {
+    if (vkUser) {
       fetchClimbers()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.name]);
+  }, [vkUser?.name]);
 
   return (
     <header className="fixed z-30 w-full bg-gray-100 dark:bg-gray-800 pt-4 pb-4 pr-8 pl-8">

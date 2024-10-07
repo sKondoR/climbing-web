@@ -1,17 +1,17 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { getApiUrl, options } from '../../constants/api.constants'
-import { IUser, IVKUser, IVKCodeData } from './user.interfaces'
+import { IUnregisteredUser, IUser, IVKCodeData } from './user.interfaces'
 import { RequestState } from '../../types/request.types'
 
 interface UserState {
   status: string,
-  user: IUser | null,
-  vkUser: IVKUser | null,
+  user: IUnregisteredUser | null,
+  vkUser: IUser | null,
   error: string | null,
   changeState: (property: string, value: string | null) => void,
   fetchUser: (id: number) => void,
-  setVKUser: (user: IVKUser) => void,
+  setVKUser: (user: IUser) => void,
   loginVk: (data: IVKCodeData) => Promise<void>,
   getVKProfile: () => Promise<void>,
   logoutVk: () => Promise<void>,
@@ -21,7 +21,13 @@ export const useUserStore = create<UserState>()(
   devtools(
     (set, get) => ({
       status: RequestState.PENDING,
-      user: null,
+      user: {
+        grant: 1,
+        allClimbId: null,
+        team: [],
+        friends: [],
+        pro: [],
+      },
       vkUser: null,
       error: null,
       changeState: (property: string, value: string | null) => {
@@ -32,10 +38,11 @@ export const useUserStore = create<UserState>()(
       },
       fetchUser: async (id: number) => {
         const res = await fetch(`${getApiUrl()}/users/${id}`) 
-        const user = await res.json();
-        await get().changeState('user', user);
+        const vkUser = await res.json();
+        console.log('vkUser received: ', vkUser)
+        await get().changeState('vkUser', vkUser);
       },
-      setVKUser: (vkUser: IVKUser) => {
+      setVKUser: (vkUser: IUser) => {
         set((state: UserState) => ({
           ...state,
           vkUser,

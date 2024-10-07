@@ -55,8 +55,10 @@ const ClimbersChart = () => {
       climbers,
     } = useClimbersStore()
     const {
+      vkUser,
       user,
     } = useUserStore()
+    const currentUser = vkUser || user;
     const [settings, setSettings] = useState({
       isLead: true,
       isTopRope: false,
@@ -65,8 +67,8 @@ const ClimbersChart = () => {
       is8: true,
     })
 
-    if (!user?.team) return
-    const ids: (number | null)[] = user ? [...user.team, ...user.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : [];
+    if (!user) return
+    const ids: (number | null)[] = currentUser ? [...currentUser.team, ...currentUser.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : [];
 
     const grades = filterGrades(settings)
     const data = prepareData(ids as number[], climbers, grades, settings.isLead, settings.isTopRope);
