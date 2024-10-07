@@ -5,22 +5,17 @@ import Menu from '../Menu/Menu';
 import UserIcon from '../../features/user/ui/UserIcon/UserIcon'
 import VKButton from '../../features/user/ui/VKButton/VKButton'
 import UpdateButton from '../../features/climbers/ui/UpdateButton/UpdateButton'
-import useFirstRender from '../../hooks/useFirstRender'
 
-let a = 0;
 const Header = () => {
-  const isFirstRender = useFirstRender()
   const { fetchClimbers } = useClimbersStore()
-  const { fetchUser } = useUserStore()
+  const { user } = useUserStore()
   
   useEffect(() => {
-    if (isFirstRender && !a) {
-      fetchUser(16)
+    if (user) {
       fetchClimbers()
-      a = 1
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFirstRender]);
+  }, [user?.name]);
 
   return (
     <header className="fixed z-30 w-full bg-gray-100 dark:bg-gray-800 pt-4 pb-4 pr-8 pl-8">
