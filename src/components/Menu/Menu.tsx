@@ -1,8 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import { PATHS, MenuLinkProps } from '../../routes/paths';
 
+export type Props = {
+  to: string;
+  name: string;
+};
 
-const MenuLink = ({ to, name }: MenuLinkProps) => (
+const MenuLink = ({ to, name }: Props) => (
   <NavLink
     to={to}
     style={({ isActive }) => isActive ? { color: 'red' } : {}}
@@ -14,8 +18,10 @@ const routes = Object.keys(PATHS);
 const Menu = () => {
   return (
     <ul className="flex font-normal text-base list-unstyled">
-      {routes.map((key) => {
-        const { to, name }:MenuLinkProps = PATHS[key];
+      {routes
+        .map((key) => {
+        const { to, name, inMenu }:MenuLinkProps = PATHS[key];
+        if (!inMenu) return null;
         return <li key={key} className="flex-none mr-8">
           <MenuLink
             to={to}

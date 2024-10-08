@@ -1,6 +1,7 @@
 export type MenuLinkProps = {
     to: string;
     name: string;
+    inMenu: boolean | undefined;
   };
 
 interface Map {
@@ -12,18 +13,32 @@ export const PRIVATE_ROUTES : string[] = [];
 export const PATHS : Map = {
     home: {
         to: '/',
-        name: 'Команда'
+        name: 'Команда',
+        inMenu: true,
     },
     allclimb: {
         to: 'allclimb',
-        name: 'AllClimb'
+        name: 'AllClimb',
+        inMenu: true,
     },
     schedule: {
-        to: 'schedule',
-        name: 'Расписание'
+        to: 'trainings/schedule',
+        name: 'Тренировки',
+        inMenu: true,
+    },
+    lead: {
+        to: 'trainings/lead',
+        name: 'Тренировки трудности',
+        inMenu: false,
+    },
+    rocks: {
+        to: 'trainings/rocks',
+        name: 'Скалы',
+        inMenu: false,
     },
     contacts: {
         to: 'contacts',
-        name: 'Контакты'
+        name: 'Контакты',
+        inMenu: false,
     }
 };
