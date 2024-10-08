@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTeamStore } from '../../team.store'
 import { useUserStore } from '../../../user/user.store'
 import TshirtImage from '../TshirtImage/TshirtImage'
+import { getGroup } from '../../team.utils';
 
 const TeamMember = () => {
   const navigate = useNavigate();
@@ -25,8 +26,13 @@ const TeamMember = () => {
       <div onClick={onClick}>посмотреть результаты команды на AllClimb</div>
       {selected && selected.isCityTeam ? (
         <div className="flex justify-between">
-          {selected && (<h3>{selected.name}</h3>)}
-          <TshirtImage name={selected.name}/>
+          <div>
+            {selected && (<h3 className="font-bold">{selected.name}</h3>)}
+            <div>{!selected.isCoach && getGroup(selected.year as string)}</div>
+          </div>
+          <div>
+            <TshirtImage name={selected.name}/>
+          </div>
         </div>
       ) : null}
     </>
