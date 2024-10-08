@@ -7,6 +7,7 @@ import { PATHS } from './routes/paths';
 const LandingPage = lazy(() => import('./routes/Landing/Landing'));
 const AllClimbPage = lazy(() => import('./routes/Allclimb/Allclimb'));
 const SchedulePage = lazy(() => import('./routes/Schedule/Schedule'));
+const ProgressPage = lazy(() => import('./routes/Progress/Progress'));
 const ContactsPage = lazy(() => import('./routes/Contacts/Contacts'));
 const SignInPage = lazy(() => import('./routes/SignIn/SignIn'));
 const NoMatch = lazy(() => import('./routes/NoMatch/NoMatch'));
@@ -25,6 +26,23 @@ const App = () => {
             path={PATHS.schedule.to}
             element={<SchedulePage />}
           />
+          <Route
+            path={PATHS.progress.to}
+            element={<ProgressPage />}
+          >
+            <Route
+              path={PATHS.lead.to}
+              element={<ProgressPage />}
+            />
+            <Route
+              path={PATHS.competitions.to}
+              element={<ProgressPage />}
+            />
+            <Route
+              path={PATHS.rocks.to}
+              element={<ProgressPage />}
+            />
+          </Route>
           <Route
             path={PATHS.contacts.to}
             element={<ContactsPage />}

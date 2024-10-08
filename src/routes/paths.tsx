@@ -22,17 +22,27 @@ export const PATHS : Map = {
         inMenu: true,
     },
     schedule: {
-        to: 'trainings/schedule',
-        name: 'Тренировки',
+        to: 'schedule',
+        name: 'Расписание',
+        inMenu: true,
+    },
+    progress: {
+        to: 'progress',
+        name: 'Прогресс',
         inMenu: true,
     },
     lead: {
-        to: 'trainings/lead',
+        to: 'progress/lead',
         name: 'Тренировки трудности',
         inMenu: false,
     },
+    competitions: {
+        to: 'progress/competitions',
+        name: 'Соревнования',
+        inMenu: false,
+    },
     rocks: {
-        to: 'trainings/rocks',
+        to: 'progress/rocks',
         name: 'Скалы',
         inMenu: false,
     },

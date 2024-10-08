@@ -12,7 +12,7 @@ const LeadTraining = () => {
         height: "600px",
         width: "100%",
         display: "grid",
-        gridTemplateColumns: "2fr 1fr"
+        gridTemplateColumns: "1fr 1fr"
       }}
     >
       <LeadTrainingChart data={data} />
