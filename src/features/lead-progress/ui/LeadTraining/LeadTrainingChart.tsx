@@ -49,8 +49,7 @@ interface Props {
 
 export const LeadTrainingChart = ({ data }: Props) => {
   const [getDateUnit, setDateUnit] = useState<number>(oneMonth);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [getActiveKey, setActiveKey] = useState<string>(oneMonthStr);
+  const [, setActiveKey] = useState<string>(oneMonthStr);
 
   const handleDateUnit = (days: number, activeKey: string) => () => {
     setActiveKey(activeKey);
