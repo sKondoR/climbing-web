@@ -10,7 +10,7 @@ import {
   CartesianGrid
 } from 'recharts'
 // import CustomTooltip from './CustomTooltip'
-import { ITrainingDay } from '../../lead-training.interfaces'
+import { ILeadTrainingProps } from '../../lead-training.interfaces'
 import { formatData } from './lead-training.utils'
 
 // const Box = styled.div`
@@ -43,7 +43,7 @@ const threeMonthsStr = 'three-months'
 const oneYearStr = 'one-year'
 
 interface Props {
-  data: ITrainingDay[];
+  data: ILeadTrainingProps[];
 }
 
 

@@ -4,7 +4,7 @@ export interface IFormattedDate {
   year: string;
 }
 
-export interface ITrainingDay {
+export interface ILeadTrainingProps {
   routes: string[];
   day: string;
   month: string;
@@ -12,7 +12,7 @@ export interface ITrainingDay {
   userId: number | null | undefined,
 }
 
-export interface ITrainingRequest {
+export interface ILeadTraining {
   routes: string[];
   date: string;
   userId: number,

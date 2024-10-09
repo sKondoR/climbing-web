@@ -2,12 +2,12 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
 import { getApiUrl, options } from '../../constants/api.constants'
-import { ITrainingDay, ITrainingRequest } from './lead-training.interfaces'
+import { ILeadTrainingProps, ILeadTraining } from './lead-training.interfaces'
 
 export interface LeadTrainingState {
-  trainings: ITrainingDay[],
+  trainings: ILeadTrainingProps[],
   isLeadTrainingFetching: boolean,
-  setLeadTraining: (training: ITrainingRequest) => void,
+  setLeadTraining: (training: ILeadTraining) => void,
   fetchLeadTraining: (userId: number) => void,
 }
 
@@ -16,7 +16,7 @@ export const useLeadTrainingStore = create<LeadTrainingState>()(
     (set) => ({
       trainings: [],
       isLeadTrainingFetching: false,
-      setLeadTraining: async (training: ITrainingRequest) => {
+      setLeadTraining: async (training: ILeadTraining) => {
         try {
           const res = await fetch(`${getApiUrl()}/lead-training/${training.userId}`, {
             ...options,

@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { ITrainingDay } from '../../lead-training.interfaces'
+import { ILeadTrainingProps } from '../../lead-training.interfaces'
 
 const dateToUnix = (day: unknown, month: unknown, year: unknown) => {
   const toDate = moment(`${day}-${month}-${year}`, "DD-MM-YY").toDate();
@@ -7,7 +7,7 @@ const dateToUnix = (day: unknown, month: unknown, year: unknown) => {
   return toUnix;
 };
 
-export const formatData = (data: ITrainingDay[]) =>
+export const formatData = (data: ILeadTrainingProps[]) =>
   data.map(({ routes, day, month, year }) => {
     return {
       value: routes,

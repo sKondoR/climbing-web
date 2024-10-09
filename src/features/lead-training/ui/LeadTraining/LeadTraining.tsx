@@ -4,7 +4,7 @@ import { LeadTrainingChart } from './LeadTrainingChart'
 import Calendar from './Calendar'
 import { useUserStore } from '../../../user/user.store';
 import { useLeadTrainingStore } from '../../lead-training.store';
-import { ITrainingDay } from '../../lead-training.interfaces';
+import { ILeadTrainingProps } from '../../lead-training.interfaces';
 
 const TEST_USER_ID = 26;
 
@@ -21,7 +21,7 @@ const LeadTraining = () => {
     if(!trainings && user?.id) fetchLeadTraining(user.id || TEST_USER_ID)
   }, [fetchLeadTraining, trainings, user]);
 
-  const setData = (data: ITrainingDay) => {
+  const setData = (data: ILeadTrainingProps) => {
     setLeadTraining({
       date: `${data.day}-${data.month}-${data.year}`,
       userId: user?.id || TEST_USER_ID, //hardcoded user id

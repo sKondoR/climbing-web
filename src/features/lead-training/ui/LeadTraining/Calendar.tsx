@@ -1,11 +1,11 @@
 import { Datepicker, TextInput } from 'flowbite-react'
 import { useState } from 'react'
 import moment from 'moment'
-import { ITrainingDay, IFormattedDate } from '../../lead-training.interfaces'
+import { ILeadTrainingProps, IFormattedDate } from '../../lead-training.interfaces'
 
 interface Props {
-  data: ITrainingDay[];
-  setData: (data: ITrainingDay) => void;
+  data: ILeadTrainingProps[];
+  setData: (data: ILeadTrainingProps) => void;
 }
 
 const Calendar = ({ data, setData }: Props) => {
