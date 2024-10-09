@@ -11,7 +11,8 @@ import {
 } from 'recharts'
 // import CustomTooltip from './CustomTooltip'
 import { ILeadTrainingProps } from '../../lead-training.interfaces'
-import { formatData } from './lead-training.utils'
+import { formatData, calcScores } from './lead-training.utils'
+import { DIFFICULTY } from '../../lead-training.constants'
 
 // const Box = styled.div`
 //   height: 100%;
@@ -65,10 +66,12 @@ export const LeadTrainingChart = ({ data }: Props) => {
   );
   const sortedData = filteredData.sort((a, b) => b.time - a.time);
 
+  DIFFICULTY.forEach((d: string) => console.log(`${d}: ${calcScores([d])}`))
+
   const show = false;
   // JSX
   return (
-    <div> {show && '<Box'}
+    <> {show && '<Box'}
       <ResponsiveContainer width="100%" height={500}>
         <ScatterChart>
           <XAxis
@@ -113,6 +116,6 @@ export const LeadTrainingChart = ({ data }: Props) => {
           1Y
         </div>{show && '<BtnDateUnit'}
       </div>
-    </div>
+    </>
   );
 };

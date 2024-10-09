@@ -6,7 +6,7 @@ import { useUserStore } from '../../../user/user.store';
 import { useLeadTrainingStore } from '../../lead-training.store';
 import { ILeadTrainingProps } from '../../lead-training.interfaces';
 
-const TEST_USER_ID = 26;
+const TEST_USER_ID = 1;
 
 const LeadTraining = () => {
   const { user } = useUserStore()
@@ -18,25 +18,29 @@ const LeadTraining = () => {
   } = useLeadTrainingStore()
   
   useEffect(() => {
-    if(!trainings && user?.id) fetchLeadTraining(user.id || TEST_USER_ID)
-  }, [fetchLeadTraining, trainings, user]);
+    if(user?.id !== undefined) fetchLeadTraining(user.id || TEST_USER_ID)
+  }, [fetchLeadTraining, user?.id]);
 
   const setData = (data: ILeadTrainingProps) => {
     setLeadTraining({
-      date: `${data.day}-${data.month}-${data.year}`,
+      id: data.id,
+      date: data.date,
       userId: user?.id || TEST_USER_ID, //hardcoded user id
-      routes: ['7a', '7b', '7a+', '6c'],
+      routes: data.routes,
     })
   }
+
 
   if (isLeadTrainingFetching) return 'Loading...'
   
   return (
     <div className="flex">
-      <div style={{ width: '300px' }}>
-      <Calendar data={trainings} setData={setData} />
+      <div style={{ width: '400px' }}>
+        <Calendar data={trainings} setData={setData} />
       </div>
-      <LeadTrainingChart data={trainings} />
+      <div className="grow">
+        <LeadTrainingChart data={trainings} />
+      </div>
     </div>
   );
 };

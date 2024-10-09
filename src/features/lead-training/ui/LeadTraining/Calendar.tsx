@@ -1,7 +1,7 @@
 import { Datepicker, TextInput } from 'flowbite-react'
 import { useState } from 'react'
 import moment from 'moment'
-import { ILeadTrainingProps, IFormattedDate } from '../../lead-training.interfaces'
+import { ILeadTrainingProps } from '../../lead-training.interfaces'
 
 interface Props {
   data: ILeadTrainingProps[];
@@ -12,14 +12,17 @@ const Calendar = ({ data, setData }: Props) => {
   const [value, setValue] = useState('');
   // const [getDate, setDate] = useState(new Date().toISOString());
 
-  console.log(data);
-  const [formattedDate, setFormattedDate] = useState<IFormattedDate>({ day: '', month: '', year: '' });
-
-  const { day, month, year } = formattedDate;
+  const [formattedDate, setFormattedDate] = useState<string>('');
 
   const handleConfirm = () => {
-    if (day && month && year) {
-      setData({ routes: value.split(' '), day, month, year, userId: null });
+    const existedTraining = data.find((d) => formattedDate && d.date === formattedDate)
+    if (formattedDate) {
+      setData({
+        id: existedTraining?.id,
+        routes: value.split(' '),
+        date: formattedDate,
+        userId: null,
+      });
     } else {
       alert('Select date');
     }
@@ -27,11 +30,9 @@ const Calendar = ({ data, setData }: Props) => {
   return <>
     <Datepicker
       inline
+      weekStart={1}
       onSelectedDateChanged={(date: Date): void => {
-        // setDate(date);
-        const formatDate = moment(date).format('DD-MM-YY');
-        const [day, month, year] = formatDate.split('-');
-        setFormattedDate({ day, month, year });
+        setFormattedDate(moment(date).format('DD-MM-YY'));
       }}
       />
     <TextInput

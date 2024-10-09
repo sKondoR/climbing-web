@@ -24,7 +24,7 @@ export const useUserStore = create<UserState>()(
     (set, get) => ({
       status: RequestState.PENDING,
       user: {
-        id: 0,
+        id: 1,
         grant: 1,
         allClimbId: null,
         team: [],

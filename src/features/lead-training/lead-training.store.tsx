@@ -18,9 +18,9 @@ export const useLeadTrainingStore = create<LeadTrainingState>()(
       isLeadTrainingFetching: false,
       setLeadTraining: async (training: ILeadTraining) => {
         try {
-          const res = await fetch(`${getApiUrl()}/lead-training/${training.userId}`, {
+          const res = await fetch(`${getApiUrl()}/lead-training${training.id ? `/${training.id}` : ''}`, {
             ...options,
-            method: 'POST',
+            method: training.id ? 'PATCH' : 'POST',
             body: JSON.stringify(training),
           })
           const data = await res.json();
