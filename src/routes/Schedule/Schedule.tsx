@@ -1,10 +1,30 @@
-import Week from '../../features/user/ui/WeekSchedule/Week'
+import { useEffect } from 'react'
+import Week from '../../features/schedule/ui/WeekSchedule/WeekSchedule'
+import { useScheduleStore } from '../../features/schedule/schedule.store'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import Loading  from '../../components/Loading/Loading'
+
 const Contacts = () => {
-    return (
-      <>
-        <div className="bg-white p-4"><Week /></div>
-      </>
-    )
+  const {
+    schedule,
+    isScheduleFetching,
+    fetchSchedule,
+  } = useScheduleStore()
+
+  useEffect(() => {
+    fetchSchedule()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <>
+      <div className="bg-white p-4">
+        <Week schedule={schedule} />
+      </div>
+      <Loading isLoading={isScheduleFetching} />
+    </>
+  )
 }
   
 export default Contacts
