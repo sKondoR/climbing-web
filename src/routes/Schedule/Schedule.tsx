@@ -20,9 +20,9 @@ const Contacts = () => {
   return (
     <>
       <div className="bg-white p-4">
-        <Week schedule={schedule} />
-      </div>
       <Loading isLoading={isScheduleFetching} />
+        {schedule?.length && <Week schedule={schedule} />}
+      </div>
     </>
   )
 }
