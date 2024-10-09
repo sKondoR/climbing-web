@@ -6,12 +6,12 @@ import { PRIVATE_ROUTES } from '../../routes/paths'
 
 import { useClimbersStore } from '../../features/climbers/climbers.store'
 import { RequestState } from '../../types/request.types'
-import { useUserStore } from '../../features/user/user.store';
-import { useTeamStore } from '../../features/team/team.store';
+import { useUserStore } from '../../features/user/user.store'
+import { useTeamStore } from '../../features/team/team.store'
 
 const Layout = () => {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
   const {
     vkUser,
     status,
@@ -49,11 +49,11 @@ const Layout = () => {
 
   return (<>
     <img src={img} alt="" style={{
-      width: '200px',
+      width: '150px',
       position: 'fixed',
       top: 0,
       left: 0,
-      zIndex: 1000,
+      zIndex: 100,
       opacity: 0.2,
     }}/>
     <Header />

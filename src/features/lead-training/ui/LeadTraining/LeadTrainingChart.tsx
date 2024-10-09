@@ -10,7 +10,7 @@ import {
   CartesianGrid
 } from 'recharts'
 // import CustomTooltip from './CustomTooltip'
-import { ITrainingDay } from './lead-training.interfaces'
+import { ITrainingDay } from '../../lead-training.interfaces'
 import { formatData } from './lead-training.utils'
 
 // const Box = styled.div`

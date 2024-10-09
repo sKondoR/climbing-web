@@ -4,6 +4,7 @@ export enum IGrant {
 }
 
 export interface IUnregisteredUser {
+    id: number | null;
     allClimbId: number | null | undefined;
     grant: IGrant;
     team: IAllClimber[];
@@ -12,7 +13,7 @@ export interface IUnregisteredUser {
 }
 
 export interface IUser {
-    id: number | null;
+    id: number;
     vk_id: number | null;
     allClimbId: number | null| undefined;
     name: string | null;

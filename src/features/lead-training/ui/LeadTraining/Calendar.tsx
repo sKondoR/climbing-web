@@ -1,26 +1,25 @@
 import { Datepicker, TextInput } from 'flowbite-react'
 import { useState } from 'react'
 import moment from 'moment'
-import { ITrainingDay, IFormattedDate } from './lead-training.interfaces'
+import { ITrainingDay, IFormattedDate } from '../../lead-training.interfaces'
 
 interface Props {
   data: ITrainingDay[];
-  setData: (data:ITrainingDay[]) => void;
+  setData: (data: ITrainingDay) => void;
 }
 
 const Calendar = ({ data, setData }: Props) => {
-  const [amount, setAmount] = useState(0);
+  const [value, setValue] = useState('');
   // const [getDate, setDate] = useState(new Date().toISOString());
+
+  console.log(data);
   const [formattedDate, setFormattedDate] = useState<IFormattedDate>({ day: '', month: '', year: '' });
 
   const { day, month, year } = formattedDate;
 
   const handleConfirm = () => {
     if (day && month && year) {
-      setData([
-        ...data,
-        { amount, day, month, year }
-      ]);
+      setData({ routes: value.split(' '), day, month, year, userId: null });
     } else {
       alert('Select date');
     }
@@ -36,11 +35,11 @@ const Calendar = ({ data, setData }: Props) => {
       }}
       />
     <TextInput
-      value={amount}
-      type="number"
+      value={value}
+      type="text"
       style={{ width: "auto", margin: "1rem 2rem" }}
       onChange={({ target: { value } }) => {
-        setAmount(parseInt(value, 10));
+        setValue(value);
       }}
     />
     <button onClick={handleConfirm}>Confirm</button>

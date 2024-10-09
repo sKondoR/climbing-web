@@ -8,6 +8,7 @@ const LandingPage = lazy(() => import('./routes/Landing/Landing'));
 const AllClimbPage = lazy(() => import('./routes/Allclimb/Allclimb'));
 const SchedulePage = lazy(() => import('./routes/Schedule/Schedule'));
 const ProgressPage = lazy(() => import('./routes/Progress/Progress'));
+const LeadTraining = lazy(() => import('./features/lead-training/ui/LeadTraining/LeadTraining'));
 const ContactsPage = lazy(() => import('./routes/Contacts/Contacts'));
 const SignInPage = lazy(() => import('./routes/SignIn/SignIn'));
 const NoMatch = lazy(() => import('./routes/NoMatch/NoMatch'));
@@ -32,7 +33,8 @@ const App = () => {
           >
             <Route
               path={PATHS.lead.to}
-              element={<ProgressPage />}
+              element={<LeadTraining />}
+              index
             />
             <Route
               path={PATHS.competitions.to}

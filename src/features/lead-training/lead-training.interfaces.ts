@@ -5,8 +5,15 @@ export interface IFormattedDate {
 }
 
 export interface ITrainingDay {
-  amount: number;
+  routes: string[];
   day: string;
   month: string;
   year: string;
+  userId: number | null | undefined,
+}
+
+export interface ITrainingRequest {
+  routes: string[];
+  date: string;
+  userId: number,
 }

@@ -70,15 +70,11 @@ const getClimber = async (cid: number, existed: IClimber) => {
     leads,
     boulders,
   };
-  // eslint-disable-next-line no-debugger
-  debugger;
   await fetch(`${getApiUrl()}/climbers/${existedId || ''}`, {
     ...options,
     method: existedId ? 'PATCH' : 'POST',
     body: JSON.stringify(climber),
   })
-  // eslint-disable-next-line no-debugger
-  debugger;
   return climber;
 }
 
