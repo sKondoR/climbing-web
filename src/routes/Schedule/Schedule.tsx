@@ -13,9 +13,9 @@ const Contacts = () => {
   } = useScheduleStore()
 
   useEffect(() => {
-    fetchSchedule()
+    if(!schedule?.length) fetchSchedule()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [schedule]);
 
   return (
     <>
