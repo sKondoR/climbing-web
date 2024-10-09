@@ -25,8 +25,8 @@ const Week = ({ schedule }: Props) => {
   const cellWidth = (size.width - TIME_COL_WIDTH) / WEEK.length;
   const cellHeight = (size.height - BORDER_HEIGHT * TIME.length) / rowsCount;
   const yAxisHeight = size.height * TIME.length / rowsCount;
-  const startTimeCoord = getSeconds(TIME[0].split(' - ')[0])
-  const finishTimeCoord = getSeconds(TIME[TIME.length - 1].split(' - ')[1])
+  const startTimeCoord = getSeconds(TIME[0])
+  const finishTimeCoord = getSeconds(`${parseInt(TIME[TIME.length - 1], 10) + 1}`)
 
   return (
     <div ref={setRef} className="relative">
@@ -73,10 +73,11 @@ const Week = ({ schedule }: Props) => {
         <Table.Body className="divide-y">
           {TIME.map((hour) => (
             <Table.Row className="bg-white" key={hour}>
-              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 px-3 py-3 text-xs">{hour}</Table.Cell>
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 px-3 py-0 text-xs align-top">{hour}</Table.Cell>
               {WEEK.map((day) => {
                 return (
                   <Table.Cell className="whitespace-nowrap font-medium text-gray-900 px-3 py-3 text-xs" key={day}>
+                    &nbsp;
                   </Table.Cell>
                 )
               })}
