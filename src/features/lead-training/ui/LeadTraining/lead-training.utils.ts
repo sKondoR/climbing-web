@@ -1,7 +1,7 @@
 import moment from 'moment'
 
 import { DIFFICULTY } from '../../lead-training.constants'
-import { ILeadTrainingProps } from '../../lead-training.interfaces'
+import { ILeadTraining } from '../../lead-training.interfaces'
 
 const dateToUnix = (date: string) => {
   const toDate = moment(date, 'DD-MM-YY').toDate();
@@ -9,11 +9,11 @@ const dateToUnix = (date: string) => {
   return toUnix;
 };
 
-export const formatData = (data: ILeadTrainingProps[]) =>
+export const formatData = (data: ILeadTraining[]) =>
   data.map(({ routes, date }) => {
     return {
       value: calcScores(routes),
-      time: dateToUnix(date)
+      time: dateToUnix(date || '')
     };
   });
 

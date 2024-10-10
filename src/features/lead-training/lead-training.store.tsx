@@ -2,10 +2,10 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
 import { getApiUrl, options } from '../../constants/api.constants'
-import { ILeadTrainingProps, ILeadTraining } from './lead-training.interfaces'
+import { ILeadTraining } from './lead-training.interfaces'
 
 export interface LeadTrainingState {
-  trainings: ILeadTrainingProps[],
+  trainings: ILeadTraining[],
   isLeadTrainingFetching: boolean,
   setLeadTraining: (training: ILeadTraining) => void,
   fetchLeadTraining: (userId: number) => void,
@@ -23,10 +23,10 @@ export const useLeadTrainingStore = create<LeadTrainingState>()(
             method: training.id ? 'PATCH' : 'POST',
             body: JSON.stringify(training),
           })
-          const data = await res.json();
-          console.log('setLeadTraining: ' , data);        
+          const data = await res?.json();
+          console.log('setLeadTraining: ', data)      
         } catch (error) {
-          set({ isLeadTrainingFetching: true });
+          set({ isLeadTrainingFetching: true })
           console.error(error)
         }
       },
@@ -44,7 +44,7 @@ export const useLeadTrainingStore = create<LeadTrainingState>()(
             isLeadTrainingFetching: false,
           }));          
         } catch (error) {
-          set({ isLeadTrainingFetching: true });
+          set({ isLeadTrainingFetching: true })
           console.error(error)
         }
       }
