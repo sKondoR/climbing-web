@@ -35,10 +35,10 @@ const LeadTraining = () => {
   
   return (
     <div className="flex">
-      <div style={{ width: '400px' }}>
+      <div className="bg-white p-4" style={{ width: '400px' }}>
         <Calendar data={trainings} setData={setData} />
       </div>
-      <div className="grow">
+      <div className="bg-white p-4 ml-4 grow">
         <LeadTrainingChart data={trainings} />
       </div>
     </div>
