@@ -48,13 +48,16 @@ const ClimbersTabs = () => {
           <li className="" key={`${allClimbId}-${name}`}>
             <div
               aria-labelledby="flowbite-sidebar-item-:rf:"
-              className="flex items-center justify-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 bg-gray-100 dark:bg-gray-700 group w-full pl-8 transition duration-75 text-left"
+              className={
+                `flex items-center justify-center rounded-lg p-2 text-base font-normal group w-full pl-8 transition duration-75 text-left cursor-pointer ` +
+                `${climberPreviewId === index ? 'text-white bg-blue-600 hover:bg-blue-700' : 'text-gray-900 bg-gray-100 hover:bg-gray-200'}`
+              }
               key={currentIndex}
               // active={currentIndex === climberPreviewId}
               onClick={() => onActiveChange(currentIndex)}
             >
               <span data-testid="flowbite-sidebar-item-content" id="flowbite-sidebar-item-:rf:" className="flex-1 whitespace-nowrap px-3">
-                {climberPreviewId === index ? '> ' : ''}{text}
+                {text}
               </span>
             </div>
           </li>

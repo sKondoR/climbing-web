@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { getApiUrl, options } from '../../constants/api.constants'
 import { TEAM } from '../../features/team/team.constants'
+import { FRIENDS, PRO } from '../../constants/allclimb.constants'
 import { IUnregisteredUser, IUser, IVKCodeData, IAllClimber } from './user.interfaces'
 import { RequestState } from '../../types/request.types'
 
@@ -28,7 +29,7 @@ export const useUserStore = create<UserState>()(
         grant: 1,
         allClimbId: null,
         team: [],
-        friends: [{ allClimbId: 35292, name: 'Витя Кондрашин' }],
+        friends: [],
         pro: [],
       },
       vkUser: null,
@@ -114,7 +115,7 @@ export const useUserStore = create<UserState>()(
       },
 
       addTeamToUser: async () => {
-        const team = TEAM.filter(({ allClimbId }) => allClimbId)
+        const team = [...TEAM, ...FRIENDS, ...PRO].filter(({ allClimbId }) => allClimbId)
         await set((state: UserState) => ({
           ...state,
           user: {

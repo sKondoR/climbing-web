@@ -1,9 +1,18 @@
+import { useEffect } from 'react'
 import ClimberInfo from '../../features/climbers/ui/ClimberInfo/ClimberInfo'
 import ClimberPreview from '../../features/climbers/ui/ClimberPreview/ClimberPreview'
 import ClimbersChart from '../../features/climbers/ui/ClimbersChart/ClimbersChart'
 import ClimbersTabs from '../../features/climbers/ui/ClimbersTabs/ClimbersTabs'
+import { useUserStore } from '../../features/user/user.store'
 
 const Team = () => {
+  const { addTeamToUser } = useUserStore()
+  
+  useEffect(() => {
+    addTeamToUser()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (<>
     <aside className="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 w-96 h-full pt-16 duration-75 transition-width">
       <div className="pl-8 pt-8 pb-8 h-full overflow-y-auto	overflow-x-hidden">
