@@ -1,5 +1,6 @@
-const LeadList = () => {
-  return <div className="text-left">
+
+const LeadsHistory = () => {
+  return <>
     <h2 className="bold">Повышение категории трудности</h2>
     <br />
     апрель 2023 - первые 7а Носик правый и 7а+ Made in USSR скалы - Хийтола<br />
@@ -10,7 +11,7 @@ const LeadList = () => {
     16.08.2024 - 7б+ Воин света - Треугольное<br />
     22.08.2024 - первая скальная 7c Нос - Треугольное<br />
     21.09.2024 - первая зальная 7б+/7c СС<br />
-  </div>
+  </>
 }
   
-export default LeadList
+export default LeadsHistory

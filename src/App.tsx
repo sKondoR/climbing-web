@@ -5,12 +5,12 @@ import { Routes, Route } from 'react-router-dom'
 import { PATHS } from './routes/paths'
 
 const LandingPage = lazy(() => import('./routes/Landing/Landing'))
+const VitiaPage = lazy(() => import('./routes/Vitia/Vitia'))
 const AllClimbPage = lazy(() => import('./routes/Allclimb/Allclimb'))
 const SchedulePage = lazy(() => import('./routes/Schedule/Schedule'))
-const ProgressPage = lazy(() => import('./routes/Progress/Progress'))
-const LeadTraining = lazy(() => import('./features/lead-training/ui/LeadTraining/LeadTraining'))
-const CompetitionsList = lazy(() => import('./features/progress/ui/CompetitionsList/CompetitionsList'))
-const LeadList = lazy(() => import('./features/progress/ui/RocksList/LeadList'))
+const LeadTrainingsPage = lazy(() => import('./routes/LeadTrainings/LeadTrainings'))
+const CompetitionsList = lazy(() => import('./features/vitia/ui/CompetitionsList/CompetitionsList'))
+const LeadsHistory = lazy(() => import('./features/vitia/ui/LeadsHistory/LeadsHistory'))
 const ContactsPage = lazy(() => import('./routes/Contacts/Contacts'))
 const SignInPage = lazy(() => import('./routes/SignIn/SignIn'))
 const NoMatch = lazy(() => import('./routes/NoMatch/NoMatch'))
@@ -22,6 +22,19 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<LandingPage />} />
           <Route
+            path={PATHS.vitia.to}
+            element={<VitiaPage />}
+          >
+            <Route
+              path={PATHS.competitions.to}
+              element={<CompetitionsList />}
+            />
+            <Route
+              path={PATHS.leadsHistory.to}
+              element={<LeadsHistory />}
+            />
+          </Route>
+          <Route
             path={PATHS.allclimb.to}
             element={<AllClimbPage />}
           />
@@ -30,23 +43,9 @@ const App = () => {
             element={<SchedulePage />}
           />
           <Route
-            path={PATHS.progress.to}
-            element={<ProgressPage />}
-          >
-            <Route
-              path={PATHS.lead.to}
-              element={<LeadTraining />}
-              index
-            />
-            <Route
-              path={PATHS.competitions.to}
-              element={<CompetitionsList />}
-            />
-            <Route
-              path={PATHS.rocks.to}
-              element={<LeadList />}
-            />
-          </Route>
+            path={PATHS.leadTrainings.to}
+            element={<LeadTrainingsPage />}
+          />
           <Route
             path={PATHS.contacts.to}
             element={<ContactsPage />}

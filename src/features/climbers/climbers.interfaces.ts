@@ -19,25 +19,25 @@ export interface IRoute {
 }
 
 export interface IClimbers {
-    [U: string]: IClimber
+    [U: string]: IClimber;
 }
 
 export interface IClimberGroup {
-    label: string,
-    icon: IconDefinition,
-    items: IAllClimber[],
-    offset: number,
+    label: string;
+    icon: IconDefinition;
+    items: IAllClimber[];
+    offset: number;
 }
-
 export interface IAllClimbLink {
-    allClimbId: number,
-    updatedAt: string | null,
+    allClimbId: number;
+    updatedAt: string | null;
 }
 
 export interface IChartSettings {
-    isLead: boolean,
-    isTopRope: boolean,
-    is6: boolean,
-    is7: boolean,
-    is8: boolean
+    isLead: boolean;
+    isTopRope: boolean;
+    is6: boolean;
+    is7: boolean;
+    is8: boolean;
+    sortByCategory: boolean;
 }

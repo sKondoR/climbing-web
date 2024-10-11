@@ -65,6 +65,7 @@ const ClimbersChart = () => {
       is6: false,
       is7: true,
       is8: true,
+      sortByCategory: false,
     })
 
     if (!user) return
@@ -75,19 +76,22 @@ const ClimbersChart = () => {
 
     const onSettingsChange = (newSettings: IChartSettings) => setSettings(newSettings)
 
+    const CHART_FOOTER_HEIGHT = 80;
+    const BAR_HEIGHT = grades.length * 10;
+    const CHART_HEIGHT = ids.length * BAR_HEIGHT;
     return (
       <>
         <RoutesFilter settings={settings} onSettingsChange={onSettingsChange} />
         <ResponsiveContainer
           width="100%"
-          height={ids.length * 60}
+          height={CHART_HEIGHT + CHART_FOOTER_HEIGHT}
           minWidth={400}
           minHeight={600}
         >
           <BarChart
             layout="vertical"
             width={500}
-            height={300}
+            height={CHART_HEIGHT}
             data={data}
             margin={{
               top: 20,
@@ -100,7 +104,7 @@ const ClimbersChart = () => {
             <Tooltip />
             <Legend />
             {grades.map((g) => <XAxis key={`xaxis-${g}`} xAxisId={g} type="number" domain={[0, maxRoutes]} hide />)}
-            {grades.map((g) => <Bar key={`bar-${g}`} xAxisId={g} barSize={30} dataKey={g} fill={GRADES_COLORS[g]} />)}
+            {grades.map((g) => <Bar key={`bar-${g}`} xAxisId={g} barSize={BAR_HEIGHT} dataKey={g} fill={GRADES_COLORS[g]} />)}
           </BarChart>
         </ResponsiveContainer>
       </>

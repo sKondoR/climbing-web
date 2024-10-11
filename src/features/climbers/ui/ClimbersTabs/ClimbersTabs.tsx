@@ -29,6 +29,7 @@ const ClimbersTabs = () => {
       open
       label={`${label} (${items.length})`}
       icon={() =><FontAwesomeIcon icon={icon} />}
+      key={label}
     >
       {items.map(({ allClimbId, name }: IAllClimber, index: number) => {
         if (!allClimbId) return;
@@ -44,7 +45,7 @@ const ClimbersTabs = () => {
           // >
           //   {name}
           // </Sidebar.Item>
-          <li className="">
+          <li className="" key={`${allClimbId}-${name}`}>
             <div
               aria-labelledby="flowbite-sidebar-item-:rf:"
               className="flex items-center justify-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 bg-gray-100 dark:bg-gray-700 group w-full pl-8 transition duration-75 text-left"

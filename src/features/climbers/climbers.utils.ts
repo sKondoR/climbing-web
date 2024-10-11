@@ -10,4 +10,14 @@ export const filterRoutes = (routes: IRoute[], settings: IChartSettings) =>
           settings.is7 && grade.startsWith('8'))
           && (!settings.isLead || (settings.isTopRope || !isTopRope))
         )
+      })
+      .sort((a, b) => {
+        if (!settings.sortByCategory) return 0;
+        if ( a.grade < b.grade ){
+          return 1;
+        }
+        if ( a.grade > b.grade ){
+          return -1;
+        }
+        return 0;
       });

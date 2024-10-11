@@ -2,15 +2,15 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useLayoutEffect } from 'react'
 
 import { PATHS } from '../paths'
-import Aside from '../../features/progress/ui/Aside/Aside'
+import Aside from '../../features/vitia/ui/Aside/Aside'
 
 const Progress = () => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
   useLayoutEffect(() => {
-    if (pathname === `/${PATHS.progress.to}`) {
-      navigate(PATHS.lead.to)
+    if (pathname === `/${PATHS.vitia.to}`) {
+      navigate(PATHS.competitions.to)
     }
   }, [navigate, pathname]);
 

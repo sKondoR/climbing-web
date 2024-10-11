@@ -57,7 +57,7 @@ const Layout = () => {
       opacity: 0.2,
     }}/>
     <Header />
-    <main id="main-content" className="relative w-full h-full p-8">
+    <main id="main-content" className="relative w-full h-full p-8 text-left">
       <Outlet />
     </main>
   </>);

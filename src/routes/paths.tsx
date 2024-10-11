@@ -16,6 +16,11 @@ export const PATHS : Map = {
         name: 'Команда',
         inMenu: true,
     },
+    vitia: {
+        to: 'vitia',
+        name: 'Обо мне',
+        inMenu: true,
+    },
     allclimb: {
         to: 'allclimb',
         name: 'AllClimb',
@@ -26,24 +31,19 @@ export const PATHS : Map = {
         name: 'Расписание',
         inMenu: true,
     },
-    progress: {
-        to: 'progress',
-        name: 'Прогресс',
+    leadTrainings: {
+        to: 'lead-tracking',
+        name: 'Трэкинг трудности',
         inMenu: true,
     },
-    lead: {
-        to: 'lead',
-        name: 'Тренировки трудности',
+    leadsHistory: {
+        to: 'leads-history',
+        name: 'История категорий',
         inMenu: false,
     },
     competitions: {
         to: 'competitions',
         name: 'Соревнования',
-        inMenu: false,
-    },
-    rocks: {
-        to: 'rocks',
-        name: 'Скалы',
         inMenu: false,
     },
     contacts: {
