@@ -19,7 +19,7 @@ const ClimberInfo = () => {
   const allClimbId = ids[climberPreviewId]
   if (!allClimbId) return
   const climber = climbers[allClimbId]
-  if (!climber) return 'No data...'
+  if (!climber) return ''
   const { name, updatedAt } = climber
   
   return <div className="text-left">

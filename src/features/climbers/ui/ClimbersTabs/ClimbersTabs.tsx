@@ -50,7 +50,7 @@ const ClimbersTabs = () => {
               aria-labelledby="flowbite-sidebar-item-:rf:"
               className={
                 `flex items-center justify-center rounded-lg p-2 text-base font-normal group w-full pl-8 transition duration-75 text-left cursor-pointer ` +
-                `${climberPreviewId === index ? 'text-white bg-blue-600 hover:bg-blue-700' : 'text-gray-900 bg-gray-100 hover:bg-gray-200'}`
+                `${climberPreviewId === offset + index ? 'text-white bg-blue-600 hover:bg-blue-700' : 'text-gray-900 bg-gray-100 hover:bg-gray-200'}`
               }
               key={currentIndex}
               // active={currentIndex === climberPreviewId}
