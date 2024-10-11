@@ -115,12 +115,13 @@ export const useUserStore = create<UserState>()(
       },
 
       addTeamToUser: async () => {
-        const team = [...TEAM, ...FRIENDS, ...PRO].filter(({ allClimbId }) => allClimbId)
         await set((state: UserState) => ({
           ...state,
           user: {
             ...state.user,
-            team: team as IAllClimber[],
+            team: TEAM.filter(({ allClimbId }) => allClimbId) as IAllClimber[],
+            friends: FRIENDS.filter(({ allClimbId }) => allClimbId) as IAllClimber[],
+            pro: PRO.filter(({ allClimbId }) => allClimbId) as IAllClimber[],
           },
         }));
       },

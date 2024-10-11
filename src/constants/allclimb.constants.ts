@@ -7,5 +7,4 @@ export const FRIENDS = [
 export const PRO = [
     { allClimbId: 26313, name: 'Анна Заикина' },
     { allClimbId: 17730, name: 'Дмитрий Факирянов' },
-    { allClimbId: 28360, name: 'skalolaz.pro' },
 ];
