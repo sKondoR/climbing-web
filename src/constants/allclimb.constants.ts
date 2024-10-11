@@ -1,6 +1,5 @@
 export const FRIENDS = [
     { allClimbId: 37751, name: 'Люба Бирилова' },
-    { allClimbId: 38689, name: 'Юля Никитина' },
     { allClimbId: 31377, name: 'Ксения Шерягина' },
     { allClimbId: 28360, name: 'skalolaz.pro' },
     { allClimbId: 30093, name: 'Гавриил Шулев' },
