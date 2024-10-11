@@ -44,7 +44,7 @@ const Calendar = ({ data, setData }: Props) => {
   const handleDecline = () => setOpenConfirm(false)
 
   const handleConfirmOpen = () => {
-    if (!value) {
+    if (existedTraining && !value) {
       setOpenConfirm(true)
       return
     }
@@ -89,7 +89,7 @@ const Calendar = ({ data, setData }: Props) => {
       open={openConfirm}
       onConfirm={submit}
       onDecline={handleDecline}
-      title="Данные о требировке будут удаленны"
+      title="Удалить тренировку?"
     />
   </>
 }

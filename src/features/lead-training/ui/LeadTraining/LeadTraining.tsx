@@ -5,6 +5,8 @@ import Calendar from './Calendar'
 import { useUserStore } from '../../../user/user.store';
 import { useLeadTrainingStore } from '../../lead-training.store';
 import { ILeadTraining } from '../../lead-training.interfaces';
+import ScoresCalc from '../ScoresCalc/ScoresCalc';
+import ScoresList from '../ScoresCalc/ScoresList';
 
 const TEST_USER_ID = 1;
 
@@ -30,10 +32,9 @@ const LeadTraining = () => {
     })
   }
 
-
   if (isLeadTrainingFetching) return 'Loading...'
   
-  return (
+  return (<>
     <div className="flex">
       <div className="bg-white p-4" style={{ width: '400px' }}>
         <Calendar data={trainings} setData={setData} />
@@ -42,7 +43,11 @@ const LeadTraining = () => {
         <LeadTrainingChart data={trainings} />
       </div>
     </div>
-  );
+    <div>
+      <ScoresCalc />
+      <ScoresList />
+    </div>
+  </>);
 };
 
 export default LeadTraining;

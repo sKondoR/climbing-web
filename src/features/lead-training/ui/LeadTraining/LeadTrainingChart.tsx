@@ -11,8 +11,8 @@ import {
 } from 'recharts'
 // import CustomTooltip from './CustomTooltip'
 import { ILeadTraining } from '../../lead-training.interfaces'
-import { formatData, calcScores } from './lead-training.utils'
-import { DIFFICULTY } from '../../lead-training.constants'
+import { formatData } from '../../lead-training.utils'
+import { useLeadTrainingStore } from '../../lead-training.store'
 
 // const Box = styled.div`
 //   height: 100%;
@@ -49,6 +49,7 @@ interface Props {
 
 
 export const LeadTrainingChart = ({ data }: Props) => {
+  const { scores } = useLeadTrainingStore()
   const [getDateUnit, setDateUnit] = useState<number>(oneMonth);
   const [, setActiveKey] = useState<string>(oneMonthStr);
 
@@ -60,13 +61,11 @@ export const LeadTrainingChart = ({ data }: Props) => {
   const handleThreeMonths = handleDateUnit(threeMonths, threeMonthsStr);
   const handleOneYear = handleDateUnit(oneYear, oneYearStr);
   // Filter data
-  const formattedData = formatData(data);
+  const formattedData = formatData(data, scores);
   const filteredData = formattedData.filter(({ time }) =>
     moment(time).isAfter(moment().subtract(getDateUnit, 'days'))
   );
   const sortedData = filteredData.sort((a, b) => b.time - a.time);
-
-  DIFFICULTY.forEach((d: string) => console.log(`${d}: ${calcScores([d])}`))
 
   const show = false;
   // JSX

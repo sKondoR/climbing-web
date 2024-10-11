@@ -2,13 +2,19 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
 import { getApiUrl, options } from '../../constants/api.constants'
-import { ILeadTraining } from './lead-training.interfaces'
+import { ILeadTraining, IScores } from './lead-training.interfaces'
+import { calcScores } from './lead-training.utils';
+import { DEFAULT_C1, DEFAULT_C2 } from './lead-training.constants';
 
 export interface LeadTrainingState {
   trainings: ILeadTraining[],
-  isLeadTrainingFetching: boolean,
   setLeadTraining: (training: ILeadTraining) => void,
+  isLeadTrainingFetching: boolean,
   fetchLeadTraining: (userId: number) => void,
+  scoreSettings: number[],
+  setScoreSettings: (scores: number[]) => void,
+  scores: IScores,
+  setScores: (scores: IScores) => void,
 }
 
 export const useLeadTrainingStore = create<LeadTrainingState>()(
@@ -16,6 +22,8 @@ export const useLeadTrainingStore = create<LeadTrainingState>()(
     (set) => ({
       trainings: [],
       isLeadTrainingFetching: false,
+      scoreSettings: [DEFAULT_C1, DEFAULT_C2],
+      scores: calcScores(DEFAULT_C1, DEFAULT_C2),
       setLeadTraining: async (training: ILeadTraining) => {
         try {
           const res = await fetch(`${getApiUrl()}/lead-training${training.id ? `/${training.id}` : ''}`, {
@@ -26,7 +34,10 @@ export const useLeadTrainingStore = create<LeadTrainingState>()(
           const data = await res?.json();
           console.log('setLeadTraining: ', data)      
         } catch (error) {
-          set({ isLeadTrainingFetching: true })
+          set((state: LeadTrainingState) => ({
+            ...state,
+            isLeadTrainingFetching: false,
+          }));
           console.error(error)
         }
       },
@@ -47,7 +58,19 @@ export const useLeadTrainingStore = create<LeadTrainingState>()(
           set({ isLeadTrainingFetching: true })
           console.error(error)
         }
-      }
-    })
+      },
+      setScoreSettings: (scoreSettings: number[]) => {
+        set((state: LeadTrainingState) => ({
+          ...state,
+          scoreSettings,
+        })); 
+      },
+      setScores: (scores: IScores) => {
+        set((state: LeadTrainingState) => ({
+          ...state,
+          scores,
+        })); 
+      },
+    }),
   )
 )

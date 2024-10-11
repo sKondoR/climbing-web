@@ -4,3 +4,7 @@ export interface ILeadTraining {
   date: string | null;
   userId: number | undefined;
 }
+
+export type IScores = {
+  [key: string]: number;
+};
