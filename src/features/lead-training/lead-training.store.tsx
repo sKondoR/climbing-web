@@ -15,6 +15,8 @@ export interface LeadTrainingState {
   setScoreSettings: (scores: number[]) => void,
   scores: IScores,
   setScores: (scores: IScores) => void,
+  selectedDate: string | null,
+  setSelectedDate: (scores: string | null) => void,
 }
 
 export const useLeadTrainingStore = create<LeadTrainingState>()(
@@ -24,6 +26,13 @@ export const useLeadTrainingStore = create<LeadTrainingState>()(
       isLeadTrainingFetching: false,
       scoreSettings: [DEFAULT_C1, DEFAULT_C2],
       scores: calcScores(DEFAULT_C1, DEFAULT_C2),
+      selectedDate: null,
+      setSelectedDate: (selectedDate: string | null) => {
+        set((state: LeadTrainingState) => ({
+          ...state,
+          selectedDate,
+        })); 
+      },
       setLeadTraining: async (training: ILeadTraining) => {
         try {
           const res = await fetch(`${getApiUrl()}/lead-training${training.id ? `/${training.id}` : ''}`, {
