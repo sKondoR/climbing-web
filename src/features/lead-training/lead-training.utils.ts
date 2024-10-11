@@ -17,13 +17,20 @@ export const calcScores = (c1: number, c2: number):IScores  =>
     return acc
   }, {})
 
-export const formatData = (data: ILeadTraining[], scores: IScores) => {
-  return data.map(({ routes, date }) => {
+export const formatData = (data: ILeadTraining[], scores: IScores, withStopsСoef: number, topRopeСoef: number) => {
+  return data.map(({ routes = [], withStops = [], topRopes = [], date,  }) => {
+    let value = 0;
+    routes.forEach((r: string)  => value += scores[r])
+    withStops.forEach((r: string)  => {
+      let indexWS = DIFFICULTY.indexOf(r)
+      if (indexWS - withStopsСoef >= 0) {
+        indexWS = indexWS - withStopsСoef
+      }
+      value += scores[DIFFICULTY[indexWS]]
+    })
+    topRopes.forEach((r: string)  => value += topRopeСoef * scores[r])
     return {
-      value: routes.reduce((acc, r: string) => {
-          acc = acc + scores[r]
-          return acc
-        }, 0),
+      value,
       time: dateToUnix(date || '')
     };
   })

@@ -1,9 +1,8 @@
 import { useState, useId } from 'react'
 import { useClimbersStore } from '../../climbers.store'
 import { useUserStore } from '../../../user/user.store'
-import { filterRoutes } from '../../climbers.utils'
+import { filterRoutes, getClimbersIds } from '../../climbers.utils'
 import { IRoute, IChartSettings } from '../../climbers.interfaces'
-import { IAllClimber } from '../../../user/user.interfaces'
 import RoutesFilter from '../RoutesFilter/RoutesFilter'
 
 const ClimbersTabs = () => {
@@ -27,7 +26,7 @@ const ClimbersTabs = () => {
   })
 
   if (!currentUser) return
-  const ids = currentUser ? [...currentUser.team, ...currentUser.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : []
+  const ids = getClimbersIds(currentUser)
   const allClimbId = ids[climberPreviewId]
   if (!allClimbId) return
   const climber = climbers[allClimbId]

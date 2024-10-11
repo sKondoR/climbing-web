@@ -1,8 +1,8 @@
 
-import { useClimbersStore } from '../../climbers.store';
-import AllClimbLink from '../AllClimbLink/AllClimbLink';
-import { IAllClimber } from '../../../user/user.interfaces';
+import { useClimbersStore } from '../../climbers.store'
+import AllClimbLink from '../AllClimbLink/AllClimbLink'
 import { useUserStore } from '../../../user/user.store'
+import { getClimbersIds } from '../../climbers.utils'
 
 const ClimberInfo = () => {
   const {
@@ -15,7 +15,7 @@ const ClimberInfo = () => {
   } = useUserStore()
   const currentUser = vkUser || user;
   if (!currentUser) return
-  const ids = currentUser ? [...currentUser.team, ...currentUser.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : []
+  const ids = getClimbersIds(currentUser)
   const allClimbId = ids[climberPreviewId]
   if (!allClimbId) return
   const climber = climbers[allClimbId]

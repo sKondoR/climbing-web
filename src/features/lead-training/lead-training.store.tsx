@@ -4,7 +4,7 @@ import { devtools } from 'zustand/middleware'
 import { getApiUrl, options } from '../../constants/api.constants'
 import { ILeadTraining, IScores } from './lead-training.interfaces'
 import { calcScores } from './lead-training.utils';
-import { DEFAULT_C1, DEFAULT_C2 } from './lead-training.constants';
+import { DEFAULT_C1, DEFAULT_C2, DEFAULT_C3, DEFAULT_C4 } from './lead-training.constants';
 
 export interface LeadTrainingState {
   trainings: ILeadTraining[],
@@ -24,7 +24,7 @@ export const useLeadTrainingStore = create<LeadTrainingState>()(
     (set) => ({
       trainings: [],
       isLeadTrainingFetching: false,
-      scoreSettings: [DEFAULT_C1, DEFAULT_C2],
+      scoreSettings: [DEFAULT_C1, DEFAULT_C2, DEFAULT_C3, DEFAULT_C4],
       scores: calcScores(DEFAULT_C1, DEFAULT_C2),
       selectedDate: null,
       setSelectedDate: (selectedDate: string | null) => {

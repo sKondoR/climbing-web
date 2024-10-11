@@ -3,8 +3,8 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } fro
 import { useClimbersStore } from '../../climbers.store'
 import { useUserStore } from '../../../user/user.store'
 import { IClimbers, IChartSettings } from '../../climbers.interfaces'
-import { IAllClimber } from '../../../user/user.interfaces'
 import RoutesFilter from '../RoutesFilter/RoutesFilter'
+import { getClimbersIds } from '../../climbers.utils';
 
 const GRADES_COLORS: Record<string, string> = {
   '6a': '#22c55e',
@@ -69,7 +69,7 @@ const ClimbersChart = () => {
     })
 
     if (!user) return
-    const ids: (number | null | undefined)[] = currentUser ? [...currentUser.team, ...currentUser.friends].map(({ allClimbId }: IAllClimber) => allClimbId) : [];
+    const ids = getClimbersIds(currentUser)
 
     const grades = filterGrades(settings)
     const data = prepareData(ids as number[], climbers, grades, settings.isLead, settings.isTopRope);

@@ -15,7 +15,9 @@ const RoutesForm = () => {
     setLeadTraining,
   } = useLeadTrainingStore()
   
-  const [value, setValue] = useState('');
+  const [routes, setRoutes] = useState('');
+  const [withStops, setWithStops] = useState('');
+  const [topRopes, setTopRopes] = useState('');
   const [openConfirm, setOpenConfirm] = useState(false);
 
 
@@ -23,7 +25,9 @@ const RoutesForm = () => {
 
   useEffect(() => {
     const existedTraining = trainings.find((d) => selectedDate && d.date === selectedDate)
-    setValue((existedTraining?.routes || []).join(' '))
+    setRoutes((existedTraining?.routes || []).join(' '))
+    setWithStops((existedTraining?.withStops || []).join(' '))
+    setTopRopes((existedTraining?.topRopes || []).join(' '))
   }, [trainings, selectedDate])
   
   const submit = () => {
@@ -31,7 +35,9 @@ const RoutesForm = () => {
       id: existedTraining?.id,
       date: selectedDate,
       userId: user?.id || TEST_USER_ID, //hardcoded user id
-      routes: value ? value.split(' ') : [],
+      routes: routes ? routes.split(' ') : [],
+      withStops: withStops ? withStops.split(' ') : [],
+      topRopes: topRopes ? topRopes.split(' ') : [],
     })
     setOpenConfirm(false)
   };
@@ -39,7 +45,7 @@ const RoutesForm = () => {
   const handleDecline = () => setOpenConfirm(false)
 
   const handleConfirmOpen = () => {
-    if (existedTraining && !value) {
+    if (existedTraining && !(routes || withStops || topRopes)) {
       setOpenConfirm(true)
       return
     }
@@ -47,20 +53,37 @@ const RoutesForm = () => {
   }
 
   const handleRemove = () => {
-    setValue('')
+    setRoutes('')
+    setWithStops('')
+    setTopRopes('')
     setOpenConfirm(true)
   }
 
   return <>
+    введите трассы через пробел
     <TextInput
-      value={value}
+      value={routes}
       disabled={!selectedDate}
       type="text"
       className="my-3"
-      placeholder="введите трассы через пробел"
-      onChange={({ target: { value } }) => {
-        setValue(value);
-      }}
+      placeholder="с нижней страховкой"
+      onChange={({ target: { value } }) => setRoutes(value)}
+    />
+    <TextInput
+      value={withStops}
+      disabled={!selectedDate}
+      type="text"
+      className="my-3"
+      placeholder="с зависами"
+      onChange={({ target: { value } }) => setWithStops(value)}
+    />
+    <TextInput
+      value={topRopes}
+      disabled={!selectedDate}
+      type="text"
+      className="my-3"
+      placeholder="с верхней страховкой"
+      onChange={({ target: { value } }) => setTopRopes(value)}
     />
     <div className="flex justify-between">
       <button onClick={handleConfirmOpen}>Сохранить</button>

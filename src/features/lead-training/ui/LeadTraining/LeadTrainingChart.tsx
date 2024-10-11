@@ -49,8 +49,10 @@ interface Props {
 
 
 export const LeadTrainingChart = ({ data }: Props) => {
-  const { scores } = useLeadTrainingStore()
-  const [getDateUnit, setDateUnit] = useState<number>(oneMonth);
+  const { scores, scoreSettings } = useLeadTrainingStore()
+  const withStopsCoef = scoreSettings[2]
+  const topRopeCoef = scoreSettings[3]
+  const [getDateUnit, setDateUnit] = useState<number>(oneMonth)
   const [, setActiveKey] = useState<string>(oneMonthStr);
 
   const handleDateUnit = (days: number, activeKey: string) => () => {
@@ -61,7 +63,7 @@ export const LeadTrainingChart = ({ data }: Props) => {
   const handleThreeMonths = handleDateUnit(threeMonths, threeMonthsStr);
   const handleOneYear = handleDateUnit(oneYear, oneYearStr);
   // Filter data
-  const formattedData = formatData(data, scores);
+  const formattedData = formatData(data, scores, withStopsCoef, topRopeCoef);
   const filteredData = formattedData.filter(({ time }) =>
     moment(time).isAfter(moment().subtract(getDateUnit, 'days'))
   );

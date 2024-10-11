@@ -8,7 +8,7 @@ const ScoresList = () => {
   const categories = Object.keys(scores);
 
   return <>
-      Итого баллы:<br />
+      базовые баллы за пролаз с нижней страховкой<br />
       {categories.map((cat: string) => <span className="mr-3" key={cat}>{cat}: {scores[cat]}</span>)}
   </>
 }
