@@ -8,7 +8,9 @@ interface Map {
     [key: string] : MenuLinkProps
 }
 
-export const PRIVATE_ROUTES : string[] = [];
+export const PRIVATE_ROUTES : string[] = [
+    
+];
 
 export const PATHS : Map = {
     home: {

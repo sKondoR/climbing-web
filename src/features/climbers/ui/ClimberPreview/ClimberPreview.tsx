@@ -4,6 +4,7 @@ import { useUserStore } from '../../../user/user.store'
 import { filterRoutes, getClimbersIds } from '../../climbers.utils'
 import { IRoute, IChartSettings } from '../../climbers.interfaces'
 import RoutesFilter from '../RoutesFilter/RoutesFilter'
+import { GRADES_COLORS } from '../../../../constants/routes.constants';
 
 const ClimbersTabs = () => {
   const prefix = useId();
@@ -58,7 +59,10 @@ const ClimbersTabs = () => {
           </label>
         </div>
         {routes?.map((route: IRoute) => {
-          return <div key={`${route.isBoulder}${route.grade}${route.name}`}>{route.grade} - {route.name} {route.isTopRope ? '(верхняя)' : ''}</div>
+          const bg = GRADES_COLORS[route.grade.slice(0, 2)]
+          return <div key={`${route.isBoulder}${route.grade}${route.name}`}>
+            <span className="inline-block w-2 mr-1 mb-1" style={{ background: bg }}>&nbsp;</span>{route.grade} - {route.name} {route.isTopRope ? '(верхняя)' : ''}
+          </div>
         })}
       </div>
     </>

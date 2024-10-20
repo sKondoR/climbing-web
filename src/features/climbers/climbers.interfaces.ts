@@ -41,3 +41,7 @@ export interface IChartSettings {
     is8: boolean;
     sortByCategory: boolean;
 }
+
+export interface IPlotsVisibility {
+    [U: string]: boolean;
+}

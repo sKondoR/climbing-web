@@ -1,22 +1,12 @@
 import { useState } from 'react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
 import { useClimbersStore } from '../../climbers.store'
 import { useUserStore } from '../../../user/user.store'
 import { IClimbers, IChartSettings } from '../../climbers.interfaces'
 import RoutesFilter from '../RoutesFilter/RoutesFilter'
 import { getClimbersIds } from '../../climbers.utils';
-
-const GRADES_COLORS: Record<string, string> = {
-  '6a': '#22c55e',
-  '6b': '#16a34a',
-  '6c': '#15803d',
-  '7a': '#f87171',
-  '7b': '#ef4444',
-  '7c': '#dc2626',
-  '8a': '#64748b',
-  '8b': '#475569',
-  '8c': '#334155',
-}
+import { GRADES_COLORS } from '../../../../constants/routes.constants';
 
 const GRADES = Object.keys(GRADES_COLORS);
 let maxRoutes = 0;
@@ -53,6 +43,7 @@ const prepareData = (ids: number[], climbers: IClimbers, grades: string[], isLea
 const ClimbersChart = () => {
     const {
       climbers,
+      plotsVisibility,
     } = useClimbersStore()
     const {
       vkUser,
@@ -70,15 +61,16 @@ const ClimbersChart = () => {
 
     if (!user) return
     const ids = getClimbersIds(currentUser)
+    const visibleIds = ids?.filter((id) => !!plotsVisibility[id as number])
 
     const grades = filterGrades(settings)
-    const data = prepareData(ids as number[], climbers, grades, settings.isLead, settings.isTopRope);
+    const data = prepareData(visibleIds as number[], climbers, grades, settings.isLead, settings.isTopRope);
 
     const onSettingsChange = (newSettings: IChartSettings) => setSettings(newSettings)
 
     const CHART_FOOTER_HEIGHT = 80;
     const BAR_HEIGHT = grades.length * 10;
-    const CHART_HEIGHT = ids.length * BAR_HEIGHT;
+    const CHART_HEIGHT = visibleIds.length * BAR_HEIGHT;
     return (
       <>
         <RoutesFilter settings={settings} onSettingsChange={onSettingsChange} />

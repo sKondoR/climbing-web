@@ -11,6 +11,8 @@ const ClimbersTabs = () => {
     climbers,
     climberPreviewId,
     setClimberPreviewId,
+    plotsVisibility,
+    setPlotsVisibility,
   } = useClimbersStore()
   const {
     vkUser,
@@ -23,6 +25,14 @@ const ClimbersTabs = () => {
   }
 
   if (!currentUser) return;
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>, id: number): void => {
+    e.stopPropagation()
+    setPlotsVisibility({
+      ...plotsVisibility,
+      [id]: e.target.checked,
+    })
+  }
 
   const renderGroup = ({ label, icon, items, offset = 0 }: IClimberGroup) => (
     <Sidebar.Collapse
@@ -49,7 +59,7 @@ const ClimbersTabs = () => {
             <div
               aria-labelledby="flowbite-sidebar-item-:rf:"
               className={
-                `flex items-center justify-center rounded-lg p-2 text-base font-normal group w-full pl-8 transition duration-75 text-left cursor-pointer ` +
+                `flex items-center justify-center rounded-lg p-2 text-base font-normal group w-full pl-3 transition duration-75 text-left cursor-pointer ` +
                 `${climberPreviewId === offset + index ? 'text-white bg-blue-600 hover:bg-blue-700' : 'text-gray-900 bg-gray-100 hover:bg-gray-200'}`
               }
               key={currentIndex}
@@ -57,6 +67,10 @@ const ClimbersTabs = () => {
               onClick={() => onActiveChange(currentIndex)}
             >
               <span data-testid="flowbite-sidebar-item-content" id="flowbite-sidebar-item-:rf:" className="flex-1 whitespace-nowrap px-3">
+              <input id={`isVisible${allClimbId}`} type="checkbox" checked={plotsVisibility[allClimbId]}
+                onChange={(e) => onChange(e, allClimbId)}
+                className="w-4 h-4 mr-1 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+              />
                 {text}
               </span>
             </div>

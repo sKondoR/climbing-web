@@ -4,6 +4,7 @@ import { getApiUrl, options } from '../../constants/api.constants'
 import {
   IClimber,
   IClimbers,
+  IPlotsVisibility,
 } from './climbers.interfaces'
 
 export interface ClimbersState {
@@ -13,6 +14,8 @@ export interface ClimbersState {
   fetchClimbersAllClimb: (ids: number[], climbers: IClimbers) => void,
   climberPreviewId: number;
   setClimberPreviewId: (id: number) => void,
+  plotsVisibility: IPlotsVisibility;
+  setPlotsVisibility: (plotsVisibility: IPlotsVisibility) => void,
 }
 
 export const useClimbersStore = create<ClimbersState>()(
@@ -20,6 +23,7 @@ export const useClimbersStore = create<ClimbersState>()(
     (set) => ({
       climbers: {},
       climberPreviewId: 0,
+      plotsVisibility: {},
       fetchClimbers: async () => {
         const res = await fetch(`${getApiUrl()}/climbers`, options) 
         const data = await res.json();
@@ -28,6 +32,10 @@ export const useClimbersStore = create<ClimbersState>()(
           ...state,
           climbers: data.reduce((acc: IClimbers, climber: IClimber) => {
             acc[climber.allClimbId] = climber
+            return acc
+          }, {}),
+          plotsVisibility: data.reduce((acc: IPlotsVisibility, climber: IClimber) => {
+            acc[climber.allClimbId] = true
             return acc
           }, {}),
         }));
@@ -53,6 +61,12 @@ export const useClimbersStore = create<ClimbersState>()(
         set((state: ClimbersState) => ({
           ...state,
           climberPreviewId,
+        }));
+      },
+      setPlotsVisibility: (plotsVisibility: IPlotsVisibility) => {
+        set((state: ClimbersState) => ({
+          ...state,
+          plotsVisibility,
         }));
       }
     })
