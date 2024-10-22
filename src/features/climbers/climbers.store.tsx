@@ -41,11 +41,11 @@ export const useClimbersStore = create<ClimbersState>()(
         }));
       },
       fetchClimbersAllClimb: async (ids: number[], climbers: IClimbers) => {
-        let i = 0;
+        let i = 0
         while (i < ids.length) {
         // for fast testing
         // while (i < 1) {
-          const id = ids[i];
+          const id = ids[i]
           const res = await getClimber(id, climbers[id]);
           set((state: ClimbersState) => ({
             ...state,

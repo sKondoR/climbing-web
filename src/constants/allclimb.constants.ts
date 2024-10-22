@@ -12,4 +12,5 @@ export const PRO = [
     { allClimbId: 38689, name: 'Юля Никитина' },
     { allClimbId: 38901, name: 'Катя Краморова' },
     { allClimbId: 31001, name: 'Настя Зайкова' },
+    { allClimbId: 14488, name: 'Костя Митин' },
 ];
