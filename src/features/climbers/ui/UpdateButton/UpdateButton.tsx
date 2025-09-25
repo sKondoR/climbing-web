@@ -11,12 +11,13 @@ const UpdateButton = () => {
   if (!user?.team) return
   const ids = user ? [
     // ...user.team,
-    // ...user.friends,
-    ...user.pro,
+    ...user.friends,
+    // ...user.pro,
   ].map(({ allClimbId }: IAllClimber) => allClimbId) : []
   const onClick = () => {
     if (ids.length) {
       fetchClimbersAllClimb(ids as number[], climbers)
+      // fetchClimbersAllClimb([35292] as number[], climbers)
     }
   }
 

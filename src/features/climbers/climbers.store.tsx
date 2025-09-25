@@ -25,20 +25,24 @@ export const useClimbersStore = create<ClimbersState>()(
       climberPreviewId: 0,
       plotsVisibility: {},
       fetchClimbers: async () => {
-        const res = await fetch(`${getApiUrl()}/climbers`, options) 
-        const data = await res.json();
+        try {
+          const res = await fetch(`${getApiUrl()}/climbers`, options) 
+          const data = await res.json();
 
-        set((state: ClimbersState) => ({
-          ...state,
-          climbers: data.reduce((acc: IClimbers, climber: IClimber) => {
-            acc[climber.allClimbId] = climber
-            return acc
-          }, {}),
-          plotsVisibility: data.reduce((acc: IPlotsVisibility, climber: IClimber) => {
-            acc[climber.allClimbId] = true
-            return acc
-          }, {}),
-        }));
+          set((state: ClimbersState) => ({
+            ...state,
+            climbers: data.reduce((acc: IClimbers, climber: IClimber) => {
+              acc[climber.allClimbId] = climber
+              return acc
+            }, {}),
+            plotsVisibility: data.reduce((acc: IPlotsVisibility, climber: IClimber) => {
+              acc[climber.allClimbId] = true
+              return acc
+            }, {}),
+          }));
+        } catch {
+          alert ('fetch error');
+        }
       },
       fetchClimbersAllClimb: async (ids: number[], climbers: IClimbers) => {
         let i = 0

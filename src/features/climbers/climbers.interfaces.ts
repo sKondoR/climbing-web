@@ -16,6 +16,7 @@ export interface IRoute {
     grade: string;
     name: string;
     date: string;
+    text: string;
 }
 
 export interface IClimbers {

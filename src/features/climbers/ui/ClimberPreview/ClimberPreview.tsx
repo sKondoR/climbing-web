@@ -60,7 +60,7 @@ const ClimbersTabs = () => {
         </div>
         {routes?.map((route: IRoute) => {
           const bg = GRADES_COLORS[route.grade.slice(0, 2)]
-          return <div key={`${route.isBoulder}${route.grade}${route.name}`}>
+          return <div key={`${route.isBoulder}${route.grade}${route.text}`}>
             <span className="inline-block w-2 mr-1 mb-1" style={{ background: bg }}>&nbsp;</span>{route.grade} - {route.name} {route.isTopRope ? '(верхняя)' : ''}
           </div>
         })}

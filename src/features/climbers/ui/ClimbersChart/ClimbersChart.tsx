@@ -12,7 +12,10 @@ const GRADES = Object.keys(GRADES_COLORS);
 let maxRoutes = 0;
 
 const filterGrades = (settings: IChartSettings): string[] =>
-  GRADES.filter((g) => g.startsWith('6') && settings.is6 || g.startsWith('7') && settings.is7 || g.startsWith('8') && settings.is8)
+  GRADES.filter((g) =>
+    g.startsWith('6') && settings.is6 ||
+    g.startsWith('7') && settings.is7 ||
+    g.startsWith('8') && settings.is8)
 
 const prepareData = (ids: number[], climbers: IClimbers, grades: string[], isLead: boolean, isTopRope: boolean) => {
   maxRoutes = 0;
