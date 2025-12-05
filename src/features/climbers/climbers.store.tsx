@@ -62,7 +62,7 @@ export const useClimbersStore = create<ClimbersState>()(
         for (let i = 0; i < ids.length; i++) {
           const id = ids[i];
           try {
-            const res = await fetch(`${getApiUrl()}/allClimb?id=${id}`);
+            const res = await fetch(`${getApiUrl()}/allClimb?id=${id}`, options);
             if (!res.ok) continue;
 
             const { name, leads, boulders, routesCount } = await res.json();
