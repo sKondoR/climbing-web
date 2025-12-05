@@ -5,28 +5,42 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons'
 
 const UpdateButton = () => {
-  const { fetchClimbersAllClimb, climbers } = useClimbersStore()
-  const { user } = useUserStore()
+  const { fetchClimbersAllClimb, allClimbFetchStatus } = useClimbersStore()
+  const { user, vkUser } = useUserStore();
 
-  if (!user?.team) return
-  const ids = user ? [
-    // ...user.team,
-    ...user.friends,
-    // ...user.pro,
-  ].map(({ allClimbId }: IAllClimber) => allClimbId) : []
+  const currentUser = vkUser || user;
+  if (!currentUser) return null;
+  const ids = [
+    ...currentUser.team,
+    ...currentUser.friends,
+    ...currentUser.pro,
+  ].map(({ allClimbId }: IAllClimber) => allClimbId);
+  if (!ids.length) return null;
+
   const onClick = () => {
-    if (ids.length) {
-      fetchClimbersAllClimb(ids as number[], climbers)
-      // fetchClimbersAllClimb([35292] as number[], climbers)
-    }
+      fetchClimbersAllClimb(ids as number[])
+      // fetchClimbersAllClimb([37751] as number[])
   }
-
   return (
     <button
-      className="bg-blue-600 text-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:bg-blue-600 p-3"
+      type="button"
+      className={`
+        group relative rounded-none p-3 text-white flex items-center justify-center
+        ${allClimbFetchStatus ? 'bg-lime-600' : 'bg-lime-500 hover:bg-lime-600'}
+        overflow-hidden
+        transition-colors
+        disabled:opacity-70 disabled:cursor-not-allowed
+      `}
       onClick={onClick}
-      disabled={!ids.length}
-    ><FontAwesomeIcon icon={faArrowsRotate} /> AllClimb</button>
+      disabled={!!allClimbFetchStatus}
+      aria-busy={!!allClimbFetchStatus}
+    >
+      <FontAwesomeIcon icon={faArrowsRotate} className="transition duration-1000 group-hover:rotate-[360deg] mr-2"/>
+        {allClimbFetchStatus ? `обновляю ${allClimbFetchStatus} из AllClimb...` : 'обновить из AllClimb'}
+        {!allClimbFetchStatus && <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]">
+          <div className="relative h-full w-8 bg-white/20"></div>
+        </div>}
+    </button>
   )
 }
   

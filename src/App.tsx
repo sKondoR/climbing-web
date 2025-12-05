@@ -7,7 +7,7 @@ import { PATHS } from './routes/paths'
 const LandingPage = lazy(() => import('./routes/Landing/Landing'))
 const VitiaPage = lazy(() => import('./routes/Vitia/Vitia'))
 const AllClimbPage = lazy(() => import('./routes/Allclimb/Allclimb'))
-const SchedulePage = lazy(() => import('./routes/Schedule/Schedule'))
+const SchedulePage = lazy(() => import('./features/vitia/ui/Schedule/Schedule'))
 const LeadTrainingsPage = lazy(() => import('./routes/LeadTrainings/LeadTrainings'))
 const CompetitionsList = lazy(() => import('./features/vitia/ui/CompetitionsList/CompetitionsList'))
 const LeadsHistory = lazy(() => import('./features/vitia/ui/LeadsHistory/LeadsHistory'))
@@ -33,14 +33,14 @@ const App = () => {
               path={PATHS.leadsHistory.to}
               element={<LeadsHistory />}
             />
+            <Route
+              path={PATHS.schedule.to}
+              element={<SchedulePage />}
+            />
           </Route>
           <Route
             path={PATHS.allclimb.to}
             element={<AllClimbPage />}
-          />
-          <Route
-            path={PATHS.schedule.to}
-            element={<SchedulePage />}
           />
           <Route
             path={PATHS.leadTrainings.to}

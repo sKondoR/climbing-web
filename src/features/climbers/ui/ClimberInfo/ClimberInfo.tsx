@@ -1,8 +1,9 @@
 
-import { useClimbersStore } from '../../climbers.store'
-import AllClimbLink from '../AllClimbLink/AllClimbLink'
-import { useUserStore } from '../../../user/user.store'
-import { getClimbersIds } from '../../climbers.utils'
+import { useMemo } from 'react';
+import { useClimbersStore } from '../../climbers.store';
+import AllClimbLink from '../AllClimbLink/AllClimbLink';
+import { useUserStore } from '../../../user/user.store';
+import { getClimbersIds } from '../../climbers.utils';
 
 const ClimberInfo = () => {
   const {
@@ -14,20 +15,18 @@ const ClimberInfo = () => {
     vkUser,
   } = useUserStore()
   const currentUser = vkUser || user;
-  if (!currentUser) return
-  const ids = getClimbersIds(currentUser)
-  const allClimbId = ids[climberPreviewId]
-  if (!allClimbId) return
-  const climber = climbers[allClimbId]
-  if (!climber) return ''
-  const { name, updatedAt } = climber
+  if (!currentUser) return null;
+  const ids = useMemo(() => getClimbersIds(currentUser), [currentUser]);
+  const allClimbId = climberPreviewId != null ? ids[climberPreviewId] : undefined;
+  if (!allClimbId) return null;
+  const climber = climbers[allClimbId];
+  if (!climber) return null;
+  const { name, updatedAt } = climber;
   
-  return <div className="text-left">
-    <div className="flex justify-between mb-4">
-      <h2 className="font-bold">{name}</h2>
-      <div>
-        <AllClimbLink allClimbId={allClimbId} updatedAt={updatedAt} />
-      </div>
+  return <div className="flex items-center">
+    <h2 className="text-3xl mr-3">{name}</h2>
+    <div className="pt-2">
+      <AllClimbLink allClimbId={allClimbId} updatedAt={updatedAt} />
     </div>
   </div>
 }

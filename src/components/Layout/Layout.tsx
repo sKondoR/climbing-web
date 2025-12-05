@@ -1,17 +1,18 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import Header from '../Header/Header'
-import img from '../../assets/climb.svg'
 import { PRIVATE_ROUTES } from '../../routes/paths'
 
 import { useClimbersStore } from '../../features/climbers/climbers.store'
 import { RequestState } from '../../types/request.types'
 import { useUserStore } from '../../features/user/user.store'
 import { useTeamStore } from '../../features/team/team.store'
+import useIsPage from '../../hooks/useIsPage'
 
 const Layout = () => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
+  const { isLandingPage } = useIsPage();
   const {
     vkUser,
     status,
@@ -48,16 +49,8 @@ const Layout = () => {
   }, [vkUser, status, navigate, pathname, getVKProfile, logoutVk]);
 
   return (<>
-    <img src={img} alt="" style={{
-      width: '150px',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      zIndex: 100,
-      opacity: 0.2,
-    }}/>
     <Header />
-    <main id="main-content" className="relative w-full h-full p-8 text-left">
+    <main id="main-content" className={`relative w-full h-full text-left ${isLandingPage ? '' : 'pt-[64px]'}`}>
       <Outlet />
     </main>
   </>);

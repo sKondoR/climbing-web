@@ -1,21 +1,48 @@
-import teamImg from '../../assets/team.jpg'
-import TeamMember from '../../features/team/ui/TeamMember/TeamMember'
-import TeamTabs from '../../features/team/ui/TeamTabs/TeamTabs'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquareArrowUpRight } from '@fortawesome/free-solid-svg-icons';
+// import bg1 from '../../assets/bg1.jpg';
+import Banner from './Banner';
+import SportGroups from './SportGroups';
 
 const Landing = () => {
   return (
     <>
-      <aside className="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 w-96 h-full pt-16 duration-75 transition-width">
-        <div className="pl-8 pt-8 pb-8 h-full overflow-y-auto	overflow-x-hidden">
-          <TeamTabs />
+      <Banner />
+      <div className="container mx-auto max-w-[1400px] px-4 mt-[50px] mb-[50px]">
+        {/* Информация о тренере и школе */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h2 className="text-3xl mb-2">тренеры</h2>
+            <p>Кярова Анастасия Юрьевна</p>
+          </div>
+          <div>
+            <h2 className="text-3xl mb-2">спортшкола</h2>
+            <p>СШОР "Балтийский берег" <a
+                href="https://balticbereg.ru/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block ml-1 text-indigo-700 hover:text-orange-500 transition-colors"
+                aria-label="Перейти на сайт СШОР «Балтийский берег»"
+              >
+              <FontAwesomeIcon icon={faSquareArrowUpRight} />
+              </a>
+            </p>
+            <p>Санкт-Петербург, ул. Черняховского д.49 А</p>
+          </div>
         </div>
-      </aside>
-      <div className="relative h-full overflow-y-auto ml-96">
-        <div className="grid grid-cols-2 gap-4 text-left">
-          <div className="bg-white p-4"><TeamMember /></div>
-          <div className="bg-white p-4"><img src={teamImg} /></div>
-        </div>
+
+        {/* Блок с группами */}
+        <h2 className="text-3xl mb-2 mt-[50px]">группы</h2>
+        <SportGroups />
       </div>
+      {/* <div
+        className="w-full h-screen bg-cover bg-fixed bg-center bg-no-repeat shadow-lg"
+        style={{
+          backgroundImage: `url("${bg1}")`
+        }}
+        aria-hidden="true"
+      >
+      </div> */}
     </>
   )
 }

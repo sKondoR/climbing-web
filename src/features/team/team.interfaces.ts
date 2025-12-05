@@ -2,6 +2,7 @@
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 
 export interface ITeamMember {
+    group: any;
     isCoach: boolean | null;
     allClimbId: string | null;
     name: string;

@@ -20,7 +20,7 @@ export const PATHS : Map = {
     },
     vitia: {
         to: 'vitia',
-        name: 'Обо мне',
+        name: 'Витя',
         inMenu: true,
     },
     allclimb: {
@@ -31,12 +31,12 @@ export const PATHS : Map = {
     schedule: {
         to: 'schedule',
         name: 'Расписание',
-        inMenu: true,
+        inMenu: false,
     },
     leadTrainings: {
         to: 'lead-tracking',
         name: 'Трэкинг трудности',
-        inMenu: true,
+        inMenu: false,
     },
     leadsHistory: {
         to: 'leads-history',
@@ -45,7 +45,7 @@ export const PATHS : Map = {
     },
     competitions: {
         to: 'competitions',
-        name: 'Соревнования',
+        name: 'История cоревнований',
         inMenu: false,
     },
     contacts: {

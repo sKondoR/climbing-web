@@ -18,6 +18,13 @@ const TeamTabs = () => {
           >
             {PATHS.leadsHistory.name}
         </Sidebar.Item>
+        <Sidebar.Item
+            href={PATHS.schedule.to}
+            key={PATHS.schedule.to}
+            className="text-left px-0"
+          >
+            {PATHS.schedule.name}
+        </Sidebar.Item>
       </Sidebar.ItemGroup>
     </Sidebar.Items>
   </Sidebar>

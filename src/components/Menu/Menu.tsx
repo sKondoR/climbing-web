@@ -9,8 +9,9 @@ export type Props = {
 const MenuLink = ({ to, name }: Props) => (
   <NavLink
     to={to}
-    style={({ isActive }) => isActive ? { color: 'red' } : {}}
-    className="py-2 transition-colors duration-200 relative flex items-center flex-wrap font-medium hover:text-gray-900 text-gray-500"
+    className={({ isActive }) => `py-2 transition-colors duration-200 relative flex items-center flex-wrap font-medium border-transparent text-white hover:text-orange-500`
+      + (isActive ? ' text-orange-500' : '')
+    }
   >{name}</NavLink>
 )
 

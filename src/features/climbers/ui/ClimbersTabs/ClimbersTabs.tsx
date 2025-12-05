@@ -1,10 +1,10 @@
-import { useClimbersStore } from '../../climbers.store'
-import { useUserStore } from '../../../user/user.store'
-import { Sidebar } from 'flowbite-react'
-import { IClimberGroup } from '../../climbers.interfaces'
-import { IAllClimber } from '../../../user/user.interfaces'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMedal, faPeopleGroup, faHandshakeAngle } from '@fortawesome/free-solid-svg-icons'
+import { useClimbersStore } from '../../climbers.store';
+import { useUserStore } from '../../../user/user.store';
+import { Sidebar } from 'flowbite-react';
+import { IClimberGroup } from '../../climbers.interfaces';
+import { IAllClimber } from '../../../user/user.interfaces';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMedal, faPeopleGroup, faHandshakeAngle } from '@fortawesome/free-solid-svg-icons';
 
 const ClimbersTabs = () => {
   const {
@@ -13,16 +13,19 @@ const ClimbersTabs = () => {
     setClimberPreviewId,
     plotsVisibility,
     setPlotsVisibility,
-  } = useClimbersStore()
+  } = useClimbersStore();
+
   const {
     vkUser,
     user,
-  } = useUserStore()
+  } = useUserStore();
+
   const currentUser = vkUser || user;  
+  if (!currentUser) return null;
 
   const onActiveChange = (tabIndex: number) => {
-    setClimberPreviewId(tabIndex);
-  }
+    setClimberPreviewId(climberPreviewId === tabIndex ? null : tabIndex);
+  };
 
   if (!currentUser) return;
 
@@ -46,31 +49,23 @@ const ClimbersTabs = () => {
         const text = name || climbers[allClimbId]?.name || allClimbId;
         const currentIndex = offset + index;
         return (
-          // <Sidebar.Item
-          //   href=""
-          //   key={currentIndex}
-          //   active={currentIndex === climberPreviewId}
-          //   className="text-left"
-          //   onClick={() => onActiveChange(currentIndex)}
-          // >
-          //   {name}
-          // </Sidebar.Item>
-          <li className="" key={`${allClimbId}-${name}`}>
+          <li className="flex" key={`${allClimbId}-${name}`}>
+            <input
+              id={`isVisible${allClimbId}`}
+              type="checkbox"
+              checked={plotsVisibility[allClimbId]}
+              onChange={(e) => onChange(e, allClimbId)}
+              className="w-4 h-4 mr-2 mt-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+            />
             <div
-              aria-labelledby="flowbite-sidebar-item-:rf:"
               className={
                 `flex items-center justify-center rounded-lg p-2 text-base font-normal group w-full pl-3 transition duration-75 text-left cursor-pointer ` +
-                `${climberPreviewId === offset + index ? 'text-white bg-blue-600 hover:bg-blue-700' : 'text-gray-900 bg-gray-100 hover:bg-gray-200'}`
+                `${climberPreviewId === (offset + index) ? 'text-white bg-blue-600 hover:bg-blue-700' : 'text-gray-900 bg-gray-100 hover:bg-gray-200'}`
               }
               key={currentIndex}
-              // active={currentIndex === climberPreviewId}
               onClick={() => onActiveChange(currentIndex)}
             >
               <span data-testid="flowbite-sidebar-item-content" id="flowbite-sidebar-item-:rf:" className="flex-1 whitespace-nowrap px-3">
-              <input id={`isVisible${allClimbId}`} type="checkbox" checked={plotsVisibility[allClimbId]}
-                onChange={(e) => onChange(e, allClimbId)}
-                className="w-4 h-4 mr-1 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-              />
                 {text}
               </span>
             </div>
@@ -80,7 +75,7 @@ const ClimbersTabs = () => {
     </Sidebar.Collapse>
   )
 
-  return <Sidebar className="w-full">
+  return <Sidebar className="w-full h">
     <Sidebar.Items>
       <Sidebar.ItemGroup>
         {renderGroup({

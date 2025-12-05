@@ -20,8 +20,8 @@ const TshirtIcon = () => {
         <path d="M67 35.1065V36.1179H64.7659V42.8935H64.0527V35.1065H67Z" fill="#63BED8"/>
         <defs>
         <linearGradient id="paint0_linear_177_18" x1="35.5" y1="0" x2="35.5" y2="118.701" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#021F47"/>
-          <stop offset="1" stop-color="#2572A4"/>
+          <stop stopColor="#021F47"/>
+          <stop offset="1" stopColor="#2572A4"/>
         </linearGradient>
         </defs>
       </svg>

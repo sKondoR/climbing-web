@@ -115,6 +115,7 @@ export const useUserStore = create<UserState>()(
       },
 
       addTeamToUser: async () => {
+        if (get().vkUser) return;
         await set((state: UserState) => ({
           ...state,
           user: {

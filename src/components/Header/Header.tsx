@@ -1,17 +1,27 @@
-import Menu from '../Menu/Menu'
-import VKButton from '../../features/user/ui/VKButton/VKButton'
-import UpdateButton from '../../features/climbers/ui/UpdateButton/UpdateButton'
+import Menu from '../Menu/Menu';
+import { useScrollDirection } from '../../hooks/useScrollDirection';
+import VKButton from '../../features/user/ui/VKButton/VKButton';
+import bg1 from '../../assets/bg1.jpg'
+import useIsPage from '../../hooks/useIsPage';
 
 const Header = () => {
+  const scrollDirection = useScrollDirection();
+  const { isLandingPage } = useIsPage();
+
   return (
-    <header className="fixed z-30 w-full bg-gray-100 dark:bg-gray-800 pt-4 pb-4 pr-8 pl-8">
-      <div className="flex justify-between items-center">
-        <h1 className="text-blue-700">SpbClimbingTeam</h1>
-        <Menu />
-        <div>
-          {import.meta.env.DEV && <UpdateButton />}
-        </div>
-        <div className="flex">
+    <header
+      className={'fixed z-30 w-full' 
+        + (isLandingPage ? ' ' : ' bg-gray-100')
+        + (isLandingPage && (scrollDirection === 'down' ? ' -translate-y-full' : ' translate-y-0'))
+      }
+      style={{
+        backgroundImage: isLandingPage ? '' : `url("${bg1}")`,
+      }}
+    >
+      <div className={`w-full h-full ${isLandingPage ? '' : 'bg-gradient-to-b from-black/100 to-black/50'}`}>
+        <div className={`flex pt-3 pb-3 pr-5 pl-5 justify-between items-center ${isLandingPage ? '' : 'bg-teal-400/30'}`}>
+          <h1 className="text-3xl text-white">Spb<span className="text-orange-500">Climb</span>Kids</h1>
+          <Menu />
           <VKButton />
         </div>
       </div>

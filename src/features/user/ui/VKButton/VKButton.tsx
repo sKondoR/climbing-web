@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback, Key } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as VKID from '@vkid/sdk';
 
 import { useUserStore } from '../../user.store';
 import { IVKCodeData } from '../../user.interfaces'
 
-const redirect_url = `${import.meta.env.VITE_APP_HOST}signin`;
+const redirectUrl = `https://localhost/signin`;
+
 const code_verifier = '6ixyBpFRrwlCYVbTnOSIKcXtkf3kVFrw85c1plyjQMA';
 const code_challenge = 'ZIeAepRCsDwcBF_iv35iRlMIEjb0UT2N5BxhLZHQO9U';
 
@@ -14,80 +15,51 @@ type LocationState = string | URLSearchParams | Record<string, string> | string[
 const VKButton: React.FC = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
-  const [isError] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isEntering, setIsEntering] = useState(false);
+  const [isLogging, setIsLogging] = useState(false);
   const { vkUser, loginVk, logoutVk } = useUserStore()
 
   const isCodeInUrl = !!new URLSearchParams(search).get('code');
 
-  VKID.Config.init({
-    app: import.meta.env.VITE_VK_APP_CLIENT_ID,
-    redirectUrl: redirect_url,
-    codeChallenge: code_challenge,
-    mode: VKID.ConfigAuthMode.Redirect,
-  });
+  useEffect(() => {
+    VKID.Config.init({
+      app: import.meta.env.VITE_VK_APP_CLIENT_ID,
+      redirectUrl,
+      codeChallenge: code_challenge,
+      mode: VKID.ConfigAuthMode.Redirect,
+    });
+  }, []);
 
-  const handleClick = () => {
-    VKID.Auth.login().catch(console.error);
-  }
+  const handleClick = useCallback(() => {
+    setIsError(false);
+    setIsEntering(true);
+    VKID.Auth.login().catch((err: unknown) => {
+      console.error('VK Auth error:', err);
+      setIsError(true);
+      setIsEntering(false);
+    });
+  }, []);
 
   useEffect(() => {
     const handleLogin = (data: IVKCodeData): void => {
       loginVk(data)
           .then(() => {
-              navigate('/allclimb');
+              navigate('/allclimb', { replace: true });
           })
           .catch((err: Error) => console.log('error: ', err));
     };
 
     const fetchToken = async (search: LocationState) => {
-      const code = new URLSearchParams(search).get('code');
-      const device_id = new URLSearchParams(search).get('device_id');
-      const state = new URLSearchParams(search).get('state');
+      const params = new URLSearchParams(search);
+      const code = params.get('code');
+      const deviceId = params.get('device_id');
+      const state = params.get('state');
   
-      if (code && device_id && state) {
-        console.log('code:', code)
-        console.log('device_id: ', device_id)
-        console.log('state: ', state)
-    
-        if (isError) window.location.href = redirect_url;
-  
-        // working code for getting VK Tokens
-
-        // const queryParamsString = `grant_type=authorization_code&redirect_uri=${redirect_url}`+
-        // `&code_verifier=${code_verifier}`+
-        // `&client_id=${import.meta.env.VITE_VK_APP_CLIENT_ID}&device_id=${device_id}&state=${state}`;
-
-        // let tokens: TokenResponse | undefined;
-
-        // try {
-        //   const response = await fetch('https://id.vk.com/oauth2/auth?'.concat(queryParamsString), {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-Type': 'application/x-www-form-urlencoded',
-        //     },
-        //     body: new URLSearchParams({ code: code }).toString(),
-        //   });
-      
-        //   if (!response.ok) {
-        //     throw new Error(`HTTP error! status: ${response.status}`);
-        //   }
-      
-        //   // Assuming the API returns a JSON response
-        //   const data = await response.json() as TokenResponse;
-        //   tokens = data;
-        // } catch (err) { // 'any' type for error to access 'message' property
-        //   console.log('err>>> ', err);
-        // }
-
-        // working code for getting VK User
-      
-        // if (tokens) {
-        //   const user = VKID.Auth.publicInfo(tokens.id_token); // Assuming VKID.Auth.publicInfo is a method
-        //   console.log('user!!!!> ', user);
-        // }
-          
-        if (code) handleLogin({ code, device_id, state, code_verifier });
-      }
+      if (!code || !deviceId || !state || isLogging) return;
+      if (isError) window.location.href = redirectUrl;
+      setIsLogging(true);
+      handleLogin({ code, device_id: deviceId, state, code_verifier });
     }
 
     fetchToken(search as LocationState);
@@ -95,37 +67,42 @@ const VKButton: React.FC = () => {
   }, [search]);
 
   const handleLogout = () => {
-    logoutVk()
-    navigate('/')
+    logoutVk();
+    navigate('/');
   };
 
   if (vkUser) {
     return (
-      <>
+      <div className="flex align-middle text-white">
         <img
-          style={{ width: '40px' }}
-          className="mx-2"
+          className="w-10 h-10 rounded-full"
           src={vkUser.avatar_url as string}
           alt="vk avatar"
         />
-          <p>{vkUser.name}</p>
-        <button
+        <div
+          className="text-left leading-none ml-2 mr-2 mt-1"
+          style={{ textAlign: 'left' }}>{vkUser.name?.split(' ').map((v: string, i: Key) => (<div key={i}>{v}</div>))}
+        </div>
+        <div
+          className="text-white hover:text-orange-500 cursor-pointer"
           onClick={handleLogout}
         >
-          Выйти
-        </button>
-      </> 
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mt-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </div>
+      </div> 
     )
   }
 
   return (
-    <div>
+    <div className="flex align-middle text-white">
       <button
-        className="bg-blue-600 text-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:bg-blue-600 p-3"
+        className="w-10 h-10 rounded-full py-1 px-2 bg-white/40 text-white hover:bg-white hover:text-indigo-900 text-bold"
         onClick={handleClick}
         disabled={isCodeInUrl}
       >
-        {!isCodeInUrl ? 'VK' : 'Fetching...'}
+        {!isEntering ? 'VK' : <div className="w-5 h-5 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin"></div>}
       </button>
       {isError && <p>Ошибка входа через ВК</p>}
     </div>

@@ -26,10 +26,10 @@ const ClimbersTabs = () => {
     sortByCategory: false,
   })
 
-  if (!currentUser) return
+  if (!currentUser) return null;
   const ids = getClimbersIds(currentUser)
-  const allClimbId = ids[climberPreviewId]
-  if (!allClimbId) return
+  const allClimbId = climberPreviewId !== null ? ids[climberPreviewId] : undefined;
+  if (!allClimbId) return null;
   const climber = climbers[allClimbId]
   if (!climber) return 'No data...'
   const { leads, boulders } = climber
@@ -44,7 +44,8 @@ const ClimbersTabs = () => {
   }
 
   const allRoutes = settings.isLead ? leads : boulders
-  const routes = filterRoutes(allRoutes, settings)
+  const routes = filterRoutes(allRoutes, settings);
+  
   return (
     <>
       <RoutesFilter settings={settings} onSettingsChange={onSettingsChange} />
@@ -69,4 +70,4 @@ const ClimbersTabs = () => {
   )
 }
   
-export default ClimbersTabs
+export default ClimbersTabs;

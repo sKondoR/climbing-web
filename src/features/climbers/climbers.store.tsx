@@ -11,24 +11,27 @@ export interface ClimbersState {
   climbers: IClimbers,
   // isFetchingAllClimb: false,
   fetchClimbers: () => void,
-  fetchClimbersAllClimb: (ids: number[], climbers: IClimbers) => void,
-  climberPreviewId: number;
-  setClimberPreviewId: (id: number) => void,
+  fetchClimbersAllClimb: (ids: number[]) => void,
+  allClimbFetchStatus: string,
+  climberPreviewId: number | null;
+  setClimberPreviewId: (id: number | null) => void,
   plotsVisibility: IPlotsVisibility;
   setPlotsVisibility: (plotsVisibility: IPlotsVisibility) => void,
+  setAllClimbFetchStatus: (status: string) => void;
 }
 
 export const useClimbersStore = create<ClimbersState>()(
   devtools(
-    (set) => ({
+    (set, get) => ({
       climbers: {},
-      climberPreviewId: 0,
+      climberPreviewId: null,
       plotsVisibility: {},
+      allClimbFetchStatus: '',
       fetchClimbers: async () => {
         try {
           const res = await fetch(`${getApiUrl()}/climbers`, options) 
           const data = await res.json();
-
+          console.log('fetchClimbers', data);
           set((state: ClimbersState) => ({
             ...state,
             climbers: data.reduce((acc: IClimbers, climber: IClimber) => {
@@ -44,24 +47,64 @@ export const useClimbersStore = create<ClimbersState>()(
           alert ('fetch error');
         }
       },
-      fetchClimbersAllClimb: async (ids: number[], climbers: IClimbers) => {
-        let i = 0
-        while (i < ids.length) {
-        // for fast testing
-        // while (i < 1) {
-          const id = ids[i]
-          const res = await getClimber(id, climbers[id]);
-          set((state: ClimbersState) => ({
+
+      setAllClimbFetchStatus: (status: string) => {
+        set((state: ClimbersState) => ({
             ...state,
-            climbers: {
-              ...state.climbers,
-              [id]: res,
-            },
-          }));
-          i++;
-        }
+            allClimbFetchStatus: status,
+        }));
       },
-      setClimberPreviewId: (climberPreviewId: number) => {
+      
+      fetchClimbersAllClimb: async (ids: number[]) => {
+        const { climbers, setAllClimbFetchStatus } = get();
+
+        setAllClimbFetchStatus(`0/${ids.length}`);
+        for (let i = 0; i < ids.length; i++) {
+          const id = ids[i];
+          try {
+            const res = await fetch(`${getApiUrl()}/allClimb?id=${id}`);
+            if (!res.ok) continue;
+
+            const { name, leads, boulders, routesCount } = await res.json();
+
+            if (!name) {
+              console.log(`Allclimb ${id} is up-to-date`);
+              setAllClimbFetchStatus(`${i+1}/${ids.length}`);
+              continue;
+            }
+
+            const existed = climbers[id];
+            const climberData = {
+              id: existed?.id,
+              allClimbId: id,
+              name,
+              leads,
+              boulders,
+              routesCount,
+            };
+
+            // Сохраняем в БД
+            await fetch(`${getApiUrl()}/climbers/${existed?.id || ''}`, {
+              ...options,
+              method: existed?.id ? 'PATCH' : 'POST',
+              body: JSON.stringify(climberData),
+            });
+
+            // Обновляем состояние
+            set((state) => ({
+              climbers: {
+                ...state.climbers,
+                [id]: { ...existed, ...climberData },
+              },
+              allClimbFetchStatus: `${i+1}/${ids.length}`,
+            }));
+          } catch (error) {
+            console.error(`Error fetching climber ${id}:`, error);
+          }
+        }
+        setAllClimbFetchStatus('');
+      },
+      setClimberPreviewId: (climberPreviewId: ClimbersState['climberPreviewId']) => {
         set((state: ClimbersState) => ({
           ...state,
           climberPreviewId,
@@ -76,23 +119,4 @@ export const useClimbersStore = create<ClimbersState>()(
     })
   )
 )
-
-const getClimber = async (cid: number, existed: IClimber) => {
-  const res = await fetch(`${getApiUrl()}/allClimb?id=${cid}`)
-  const { name, leads, boulders } = await res.json();
-  const existedId = existed?.id;
-  const climber = {
-    id: existedId || undefined,
-    allClimbId: cid,
-    name: name || 'test',
-    leads,
-    boulders,
-  };
-  await fetch(`${getApiUrl()}/climbers/${existedId || ''}`, {
-    ...options,
-    method: existedId ? 'PATCH' : 'POST',
-    body: JSON.stringify(climber),
-  })
-  return climber;
-}
 

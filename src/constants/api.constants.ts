@@ -1,4 +1,4 @@
-export const LOCAL_API_URL = 'http://localhost:3000';
+export const LOCAL_API_URL = 'https://localhost:3000';
 export const API_URL = 'https://climbing-back.vercel.app';
 
 export const getApiUrl = () => import.meta.env.DEV ?  LOCAL_API_URL : API_URL;
