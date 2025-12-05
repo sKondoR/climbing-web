@@ -17,7 +17,8 @@ const Team = () => {
     setClimberPreviewId,
   } = useClimbersStore()
   
-  const isUpdateButtonVisible = import.meta.env.DEV && pathname === `/${PATHS.allclimb.to}`;
+  // import.meta.env.DEV && 
+  const isUpdateButtonVisible = pathname === `/${PATHS.allclimb.to}`;
   
   useEffect(() => {
     addTeamToUser()
