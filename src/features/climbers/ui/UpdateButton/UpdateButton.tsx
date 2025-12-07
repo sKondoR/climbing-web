@@ -8,6 +8,8 @@ const UpdateButton = () => {
   const { fetchClimbersAllClimb, allClimbFetchStatus } = useClimbersStore()
   const { user, vkUser } = useUserStore();
 
+  const isAllClimbFetching = !!allClimbFetchStatus;
+
   const currentUser = vkUser || user;
   if (!currentUser) return null;
   const ids = [
@@ -32,14 +34,19 @@ const UpdateButton = () => {
         disabled:opacity-70 disabled:cursor-not-allowed
       `}
       onClick={onClick}
-      disabled={!!allClimbFetchStatus}
-      aria-busy={!!allClimbFetchStatus}
+      disabled={isAllClimbFetching}
+      aria-busy={isAllClimbFetching}
     >
-      <FontAwesomeIcon icon={faArrowsRotate} className="transition duration-1000 group-hover:rotate-[360deg] mr-2"/>
-        {allClimbFetchStatus ? `обновляю ${allClimbFetchStatus} из AllClimb...` : 'обновить из AllClimb'}
-        {!allClimbFetchStatus && <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]">
-          <div className="relative h-full w-8 bg-white/20"></div>
-        </div>}
+      <FontAwesomeIcon
+        icon={faArrowsRotate}
+        className={`${isAllClimbFetching ? 'animate-[spin_1s_linear_infinite]' : ''} group-hover:rotate-[360deg] mr-2`}
+      />
+      {isAllClimbFetching ? `обновляю ${allClimbFetchStatus} из AllClimb...` : 'обновить из AllClimb'}
+      {!isAllClimbFetching &&
+      <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]">
+        <div className="relative h-full w-8 bg-white/20"></div>
+      </div>
+      }
     </button>
   )
 }
