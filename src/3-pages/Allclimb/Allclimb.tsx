@@ -1,5 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
 import ClimberInfo from '../../5-features/climbers/ui/ClimberInfo/ClimberInfo'
 import ClimberPreview from '../../5-features/climbers/ui/ClimberPreview/ClimberPreview'
 import ClimbersChart from '../../5-features/climbers/ui/ClimbersChart/ClimbersChart'
@@ -9,19 +12,19 @@ import UpdateButton from '../../5-features/updateAllclimbers/ui/UpdateButton/Upd
 import { PATHS } from '../../7-shared/constants/paths.constants';
 import { useClimbersStore } from '../../6-entities/allclimber/climbers.store';
 
-const Team = () => {
+const Allclimb = () => {
   const { pathname } = useLocation();
-  const { addTeamToUser } = useUserStore()
+  const { addTeamToUser } = useUserStore();
   const {
     climberPreviewId,
     setClimberPreviewId,
-  } = useClimbersStore()
+  } = useClimbersStore();
   
   // import.meta.env.DEV && 
   const isUpdateButtonVisible = pathname === `/${PATHS.allclimb.to}`;
   
   useEffect(() => {
-    addTeamToUser()
+    addTeamToUser();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -39,11 +42,12 @@ const Team = () => {
         <>
           <div className="flex justify-between pt-3 pb-3 pl-5 pr-5">
             <ClimberInfo />
-            {climberPreviewId !== null && <div onClick={() => setClimberPreviewId(null)} className="pt-1 text-black cursor-pointer hover:text-orange-500">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </div>}
+            {climberPreviewId !== null && <div onClick={() => setClimberPreviewId(null)} className="text-2xl pt-1 text-black cursor-pointer hover:text-orange-500">
+              <FontAwesomeIcon
+                icon={faTimes}
+                className="mt-1"
+              />
+            </div>}
           </div> 
           <div className="w-full h-full overflow-y-auto overflow-x-hidden bg-slate-00 pt-3 pb-3 pl-5 pr-5">     
             <ClimberPreview />
@@ -60,4 +64,4 @@ const Team = () => {
   </>)
 }
   
-export default Team
+export default Allclimb;

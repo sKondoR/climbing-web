@@ -1,12 +1,12 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 
-import { useClimbersStore } from '../../../../6-entities/allclimber/climbers.store'
-import { useUserStore } from '../../../../6-entities/user/user.store'
-import { IAllClimber } from '../../../../6-entities/user/user.interfaces'
+import { useClimbersStore } from '../../../../6-entities/allclimber/climbers.store';
+import { useUserStore } from '../../../../6-entities/user/user.store';
+import { IAllClimber } from '../../../../6-entities/user/user.interfaces';
 
 const UpdateButton = () => {
-  const { fetchClimbersAllClimb, allClimbFetchStatus } = useClimbersStore()
+  const { fetchClimbersAllClimb, allClimbFetchStatus } = useClimbersStore();
   const { user, vkUser } = useUserStore();
 
   const isAllClimbFetching = !!allClimbFetchStatus;
@@ -21,7 +21,7 @@ const UpdateButton = () => {
   if (!ids.length) return null;
 
   const onClick = () => {
-      fetchClimbersAllClimb(ids as number[])
+      fetchClimbersAllClimb(ids as number[]);
       // fetchClimbersAllClimb([37751] as number[])
   }
   return (
@@ -52,4 +52,4 @@ const UpdateButton = () => {
   )
 }
   
-export default UpdateButton
+export default UpdateButton;
