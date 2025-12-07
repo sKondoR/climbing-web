@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { PATHS } from '../../constants/paths';
+import { PATHS } from '../../constants/paths.constants';
 
 export type MenuLinkProps = {
   to: string;

@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-import Week from '../../../schedule/ui/WeekSchedule/WeekSchedule';
-import { useScheduleStore } from '../../../schedule/schedule.store';
+import Week from '../WeekSchedule/WeekSchedule';
+import { useScheduleStore } from '../../../../6-entities/schedule/schedule.store';
 
 const Schedule = () => {
   const {

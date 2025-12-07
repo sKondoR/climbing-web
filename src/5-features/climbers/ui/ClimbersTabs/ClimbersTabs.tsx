@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMedal, faPeopleGroup, faHandshakeAngle } from '@fortawesome/free-solid-svg-icons';
 
-import { useClimbersStore } from '../../climbers.store';
-import { useUserStore } from '../../../user/user.store';
+import { useClimbersStore } from '../../../../6-entities/allclimber/climbers.store';
+import { useUserStore } from '../../../../6-entities/user/user.store';
 import { Sidebar } from 'flowbite-react';
-import { IClimberGroup } from '../../climbers.interfaces';
-import { IAllClimber } from '../../../user/user.interfaces';
+import { IClimberGroup } from '../../../../6-entities/allclimber/climbers.interfaces';
+import { IAllClimber } from '../../../../6-entities/user/user.interfaces';
 
 const ClimbersTabs = () => {
   const {

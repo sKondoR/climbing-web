@@ -1,8 +1,8 @@
-import { useTeamStore } from "../../5-features/team/team.store";
+import { useTeamStore } from "../../6-entities/spbteam/spbteam.store";
 import {
   ITeamMember,
-} from '../../5-features/team/team.interfaces';
-import { getGroup } from "../../5-features/team/team.utils";
+} from '../../6-entities/spbteam/spbteam.interfaces';
+import { getGroup } from "../../6-entities/spbteam/spbteam.utils";
 
 
 interface IGroup {

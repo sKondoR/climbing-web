@@ -1,4 +1,4 @@
-import { IAllClimbLink } from '../../climbers.interfaces'
+import { IAllClimbLink } from '../../../../6-entities/allclimber/climbers.interfaces'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareUpRight } from '@fortawesome/free-solid-svg-icons'
 

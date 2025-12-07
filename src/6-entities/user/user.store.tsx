@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { getApiUrl, options } from '../../7-shared/constants/api.constants'
-import { TEAM } from '../../5-features/team/team.constants'
+import { TEAM } from '../spbteam/spbteam.constants'
 import { FRIENDS, PRO } from '../../7-shared/constants/allclimb.constants'
 import { IUnregisteredUser, IUser, IVKCodeData, IAllClimber } from './user.interfaces'
 import { RequestState } from '../../7-shared/types/request.types'

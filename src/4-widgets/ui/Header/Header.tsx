@@ -1,6 +1,7 @@
+import VKButton from '../../../5-features/loginVk/ui/VKButton/VKButton';
+
 import Menu from '../../../7-shared/ui/Menu/Menu';
 import { useScrollDirection } from '../../../7-shared/hooks/useScrollDirection';
-import VKButton from '../../../5-features/user/ui/VKButton/VKButton';
 import bg1 from 'src/7-shared/assets/images/bg1.jpg'
 import useIsPage from '../../../7-shared/hooks/useIsPage';
 

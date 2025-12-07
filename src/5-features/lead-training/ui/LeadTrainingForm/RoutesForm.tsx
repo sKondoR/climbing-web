@@ -2,8 +2,8 @@ import { TextInput } from 'flowbite-react'
 import { useState, useEffect } from 'react'
 
 import ConfirmModal from '../../../../7-shared/ui/ConfirmModal/ConfirmModal'
-import { useLeadTrainingStore } from '../../lead-training.store'
-import { useUserStore } from '../../../user/user.store';
+import { useLeadTrainingStore } from '../../../../6-entities/lead-training/lead-training.store'
+import { useUserStore } from '../../../../6-entities/user/user.store';
 
 const TEST_USER_ID = 1;
 

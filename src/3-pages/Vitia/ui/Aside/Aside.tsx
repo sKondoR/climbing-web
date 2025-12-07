@@ -1,6 +1,6 @@
 import { Sidebar } from 'flowbite-react';
 
-import { PATHS } from '../../../../7-shared/constants/paths';
+import { PATHS } from '../../../../7-shared/constants/paths.constants';
 
 const TeamTabs = () => {
   return <Sidebar className="w-full">

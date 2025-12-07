@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons'
 
-import { useClimbersStore } from '../../climbers.store'
-import { useUserStore } from '../../../user/user.store'
-import { IAllClimber } from '../../../user/user.interfaces'
+import { useClimbersStore } from '../../../../6-entities/allclimber/climbers.store'
+import { useUserStore } from '../../../../6-entities/user/user.store'
+import { IAllClimber } from '../../../../6-entities/user/user.interfaces'
 
 const UpdateButton = () => {
   const { fetchClimbersAllClimb, allClimbFetchStatus } = useClimbersStore()

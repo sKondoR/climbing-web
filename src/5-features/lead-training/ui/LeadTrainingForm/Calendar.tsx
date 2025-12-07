@@ -4,7 +4,7 @@ import moment from 'moment'
 import type { CustomFlowbiteTheme } from 'flowbite-react'
 
 import calendarTheme from './calendar.theme'
-import { useLeadTrainingStore } from '../../lead-training.store'
+import { useLeadTrainingStore } from '../../../../6-entities/lead-training/lead-training.store'
 
 const customTheme: CustomFlowbiteTheme['datepicker'] = calendarTheme;
 

@@ -1,4 +1,4 @@
-import { useLeadTrainingStore } from '../../lead-training.store'
+import { useLeadTrainingStore } from '../../../../6-entities/lead-training/lead-training.store'
 
 const ScoresList = () => {
   const {

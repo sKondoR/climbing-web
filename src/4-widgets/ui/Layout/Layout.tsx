@@ -1,13 +1,13 @@
-import { useEffect } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import Header from '../../../4-widgets/ui/Header/Header'
-import { PRIVATE_ROUTES } from '../../../7-shared/constants/paths'
+import { useEffect } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { useClimbersStore } from '../../../5-features/climbers/climbers.store'
-import { RequestState } from '../../../7-shared/types/request.types'
-import { useUserStore } from '../../../5-features/user/user.store'
-import { useTeamStore } from '../../../5-features/team/team.store'
-import useIsPage from '../../../7-shared/hooks/useIsPage'
+import Header from '../../../4-widgets/ui/Header/Header';
+import { useClimbersStore } from '../../../6-entities/allclimber/climbers.store';
+import { useUserStore } from '../../../6-entities/user/user.store';
+import { useTeamStore } from '../../../6-entities/spbteam/spbteam.store';
+import { PRIVATE_ROUTES } from '../../../7-shared/constants/paths.constants';
+import { RequestState } from '../../../7-shared/types/request.types';
+import useIsPage from '../../../7-shared/hooks/useIsPage';
 
 const Layout = () => {
   const navigate = useNavigate()
@@ -18,19 +18,19 @@ const Layout = () => {
     status,
     getVKProfile,
     logoutVk,
-  } = useUserStore()
+  } = useUserStore();
 
   const {
     fetchClimbers,
-  } = useClimbersStore()
+  } = useClimbersStore();
 
   const {
     fetchTeam,
-  } = useTeamStore()
+  } = useTeamStore();
 
   useEffect(() => {
-      fetchClimbers()
-      fetchTeam()
+      fetchClimbers();
+      fetchTeam();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -56,4 +56,4 @@ const Layout = () => {
   </>);
 }
   
-export default Layout
+export default Layout;

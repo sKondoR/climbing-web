@@ -2,8 +2,8 @@ import { useEffect, useState, useCallback, Key } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as VKID from '@vkid/sdk';
 
-import { useUserStore } from '../../user.store';
-import { IVKCodeData } from '../../user.interfaces'
+import { useUserStore } from '../../../../6-entities/user/user.store';
+import { IVKCodeData } from '../../../../6-entities/user/user.interfaces'
 
 const redirectUrl = `https://localhost/signin`;
 

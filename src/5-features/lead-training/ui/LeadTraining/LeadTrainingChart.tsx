@@ -10,9 +10,9 @@ import {
   CartesianGrid
 } from 'recharts'
 // import CustomTooltip from './CustomTooltip'
-import { ILeadTraining } from '../../lead-training.interfaces'
-import { formatData } from '../../lead-training.utils'
-import { useLeadTrainingStore } from '../../lead-training.store'
+import { ILeadTraining } from '../../../../6-entities/lead-training/lead-training.interfaces'
+import { formatData } from '../../../../6-entities/lead-training/lead-training.utils'
+import { useLeadTrainingStore } from '../../../../6-entities/lead-training/lead-training.store'
 
 // const Box = styled.div`
 //   height: 100%;

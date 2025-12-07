@@ -1,12 +1,5 @@
-export type PathItemProps = {
-  to: string;
-  name: string;
-  inMenu?: boolean | undefined;
-};
-
-interface iPaths {
-    [key: string] : PathItemProps
-}
+import { iPaths } from '../types/paths.types';
+ 
 
 export const PRIVATE_ROUTES : string[] = [
     

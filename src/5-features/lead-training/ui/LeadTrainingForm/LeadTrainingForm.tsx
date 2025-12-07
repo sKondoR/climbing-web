@@ -1,5 +1,5 @@
 import Calendar from './Calendar'
-import { useUserStore } from '../../../user/user.store';
+import { useUserStore } from '../../../../6-entities/user/user.store';
 import RoutesForm from './RoutesForm';
 
 const LeadTrainingForm = () => {

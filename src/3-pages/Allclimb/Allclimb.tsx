@@ -4,10 +4,10 @@ import ClimberInfo from '../../5-features/climbers/ui/ClimberInfo/ClimberInfo'
 import ClimberPreview from '../../5-features/climbers/ui/ClimberPreview/ClimberPreview'
 import ClimbersChart from '../../5-features/climbers/ui/ClimbersChart/ClimbersChart'
 import ClimbersTabs from '../../5-features/climbers/ui/ClimbersTabs/ClimbersTabs'
-import { useUserStore } from '../../5-features/user/user.store'
-import UpdateButton from '../../5-features/climbers/ui/UpdateButton/UpdateButton';
-import { PATHS } from '../../7-shared/constants/paths';
-import { useClimbersStore } from '../../5-features/climbers/climbers.store';
+import { useUserStore } from '../../6-entities/user/user.store'
+import UpdateButton from '../../5-features/updateAllclimbers/ui/UpdateButton/UpdateButton';
+import { PATHS } from '../../7-shared/constants/paths.constants';
+import { useClimbersStore } from '../../6-entities/allclimber/climbers.store';
 
 const Team = () => {
   const { pathname } = useLocation();

@@ -2,8 +2,8 @@ import { Sidebar } from 'flowbite-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
 
-import { useTeamStore } from '../../team.store';
-import { ITeamGroup, ITeamMember } from '../../team.interfaces';
+import { useTeamStore } from '../../../../6-entities/spbteam/spbteam.store';
+import { ITeamGroup, ITeamMember } from '../../../../6-entities/spbteam/spbteam.interfaces';
 import TshirtIcon from '../../../../7-shared/assets/icons/TshirtIcon';
 
 const TeamTabs = () => {

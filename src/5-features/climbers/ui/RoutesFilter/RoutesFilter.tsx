@@ -1,5 +1,5 @@
 import { useId } from 'react';
-import { IChartSettings } from '../../climbers.interfaces'
+import { IChartSettings } from '../../../../6-entities/allclimber/climbers.interfaces'
 
 const RoutesFilter = ({
   settings,

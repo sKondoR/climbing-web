@@ -3,7 +3,7 @@ import bgImg from '../../7-shared/assets/images/bg1.jpg'
 import TeamMember from '../../5-features/team/ui/TeamMember/TeamMember'
 import TeamTabs from '../../5-features/team/ui/TeamTabs/TeamTabs'
 
-const Team = () => {
+const SpbTeam = () => {
   return (
     <>
       <div
@@ -30,4 +30,4 @@ const Team = () => {
   )
 }
   
-export default Team;
+export default SpbTeam;

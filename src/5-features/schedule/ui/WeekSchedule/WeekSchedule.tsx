@@ -2,8 +2,8 @@ import { Table } from 'flowbite-react'
 import moment from 'moment'
 import { useElementSize } from '@custom-react-hooks/use-element-size';
 
-import { WEEK, TIME } from '../../schedule.constants'
-import { IEvent } from '../../schedule.interfaces'
+import { WEEK, TIME } from '../../../../7-shared/constants/schedule.constants'
+import { IEvent } from '../../../../6-entities/schedule/schedule.interfaces'
 
 export interface Props {
   schedule: IEvent[];

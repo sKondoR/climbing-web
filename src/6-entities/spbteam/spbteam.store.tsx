@@ -3,7 +3,7 @@ import { devtools } from 'zustand/middleware';
 import { getApiUrl, options } from '../../7-shared/constants/api.constants';
 import {
   ITeamMember,
-} from './team.interfaces';
+} from './spbteam.interfaces';
 
 export interface TeamState {
   coaches: ITeamMember[],

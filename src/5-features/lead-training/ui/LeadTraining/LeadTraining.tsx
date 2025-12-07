@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
 import { LeadTrainingChart } from './LeadTrainingChart'
-import { useUserStore } from '../../../user/user.store'
-import { useLeadTrainingStore } from '../../lead-training.store'
+import { useUserStore } from '../../../../6-entities/user/user.store'
+import { useLeadTrainingStore } from '../../../../6-entities/lead-training/lead-training.store'
 import ScoresCalc from '../ScoresCalc/ScoresCalc'
 import ScoresList from '../ScoresCalc/ScoresList'
 import LeadTrainingForm from '../LeadTrainingForm/LeadTrainingForm'

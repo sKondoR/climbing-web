@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-import { useClimbersStore } from '../../climbers.store'
-import { useUserStore } from '../../../user/user.store'
-import { IClimbers, IChartSettings } from '../../climbers.interfaces'
+import { useClimbersStore } from '../../../../6-entities/allclimber/climbers.store'
+import { useUserStore } from '../../../../6-entities/user/user.store'
+import { IClimbers, IChartSettings } from '../../../../6-entities/allclimber/climbers.interfaces'
 import RoutesFilter from '../RoutesFilter/RoutesFilter'
-import { getClimbersIds } from '../../climbers.utils';
+import { getClimbersIds } from '../../../../6-entities/allclimber/climbers.utils';
 import { GRADES_COLORS } from '../../../../7-shared/constants/routes.constants';
 
 const GRADES = Object.keys(GRADES_COLORS);

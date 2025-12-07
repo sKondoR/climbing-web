@@ -1,8 +1,8 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useLayoutEffect } from 'react'
 
-import { PATHS } from '../../7-shared/constants/paths'
-import Aside from '../../5-features/vitia/ui/Aside/Aside'
+import { PATHS } from '../../7-shared/constants/paths.constants'
+import Aside from './ui/Aside/Aside'
 
 const Progress = () => {
   const navigate = useNavigate()

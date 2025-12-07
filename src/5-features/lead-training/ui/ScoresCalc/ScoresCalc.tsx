@@ -1,10 +1,10 @@
 import { TextInput } from 'flowbite-react'
 import { useEffect, useState } from 'react'
 
-import { useLeadTrainingStore } from '../../lead-training.store'
-import { calcScores } from '../../lead-training.utils'
+import { useLeadTrainingStore } from '../../../../6-entities/lead-training/lead-training.store'
+import { calcScores } from '../../../../6-entities/lead-training/lead-training.utils'
 import useDebounce from '../../../../7-shared/hooks/useDebounce'
-import { DEFAULT_C1, DEFAULT_C2, DEFAULT_C3, DEFAULT_C4 } from '../../lead-training.constants';
+import { DEFAULT_C1, DEFAULT_C2, DEFAULT_C3, DEFAULT_C4 } from '../../../../6-entities/lead-training/lead-training.constants';
 
 const ScoresCalc = () => {
   const {
