@@ -1,5 +1,5 @@
 import { useTeamStore } from '../../../../6-entities/spbteam/spbteam.store';
-import TshirtImage from '../TshirtImage/TshirtImage';
+import TshirtImage from '../../../../7-shared/ui/TshirtImage/TshirtImage';
 import { getGroup } from '../../../../6-entities/spbteam/spbteam.utils';
 
 const TeamMember = () => {
