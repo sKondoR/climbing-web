@@ -27,7 +27,7 @@ const VKButton: React.FC = () => {
   useEffect(() => {
     VKID.Config.init({
       app: import.meta.env.VITE_VK_APP_CLIENT_ID,
-      redirectUrl,
+      redirectUrl: 'https://localhost',
       codeChallenge: code_challenge,
       mode: VKID.ConfigAuthMode.Redirect,
     });
