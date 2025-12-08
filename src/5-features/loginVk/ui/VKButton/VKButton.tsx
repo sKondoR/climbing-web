@@ -8,7 +8,7 @@ import * as VKID from '@vkid/sdk';
 import { useUserStore } from '../../../../6-entities/user/user.store';
 import { IVKCodeData } from '../../../../6-entities/user/user.interfaces'
 
-const redirectUrl = `${process.env.NODE_ENV !== 'dev' ? process.env.APP_HOST : process.env.APP_LOCAL}/signin`;
+const redirectUrl = `${import.meta.env.NODE_ENV !== 'dev' ? import.meta.env.APP_HOST : import.meta.env.APP_LOCAL}/signin`;
 
 const code_verifier = '6ixyBpFRrwlCYVbTnOSIKcXtkf3kVFrw85c1plyjQMA';
 const code_challenge = 'ZIeAepRCsDwcBF_iv35iRlMIEjb0UT2N5BxhLZHQO9U';
