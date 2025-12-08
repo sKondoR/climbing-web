@@ -6,6 +6,7 @@ import { useUserStore } from '../../../user/user.store';
 import { Sidebar } from 'flowbite-react';
 import { IClimberGroup } from '../../climbers.interfaces';
 import { ICustomAllClimber } from '../../../user/user.interfaces';
+import CollapsePanel from '../../../../7-shared/ui/CollapsePanel/CollapsePanel';
 
 const ClimbersTabs = () => {
   const {
@@ -39,10 +40,10 @@ const ClimbersTabs = () => {
   }
 
   const renderGroup = ({ label, icon, items, offset = 0 }: IClimberGroup) => (
-    <Sidebar.Collapse
+    <CollapsePanel
       open
       label={`${label} (${items.length})`}
-      icon={() =><FontAwesomeIcon icon={icon} />}
+      icon={<FontAwesomeIcon className="mr-2 cursor-pointer" icon={icon} />}
       key={label}
     >
       {items.map(({ allClimbId, customName }: ICustomAllClimber, index: number) => {
@@ -73,10 +74,10 @@ const ClimbersTabs = () => {
           </li>
         );
       })}
-    </Sidebar.Collapse>
+    </CollapsePanel>
   )
 
-  return <Sidebar className="w-full h">
+  return <Sidebar className="w-full h-full">
     <Sidebar.Items>
       <Sidebar.ItemGroup>
         {renderGroup({

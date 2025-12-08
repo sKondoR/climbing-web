@@ -33,6 +33,7 @@ const Allclimb = () => {
     <aside className="fixed w-[700px] top-0 left-0 z-20 flex flex-col flex-shrink-0 h-full pt-[64px] duration-75 transition-width">  
       {climberPreviewId === null &&
         <>
+          <h2 className="text-3xl mt-3 ml-5 mr-5">скалолазы AllClimb</h2>
           <div className="w-full h-full overflow-y-auto overflow-x-hidden">
             <ClimbersTabs />
           </div>
