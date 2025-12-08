@@ -24,12 +24,10 @@ const VKButton: React.FC = () => {
   const isCodeInUrl = !!new URLSearchParams(search).get('code');
   const redirectUrl = `${import.meta.env.MODE === 'development' ? import.meta.env.VITE_APP_LOCAL: import.meta.env.VITE_APP_HOST}/signin`;
   
-  console.log('>>>', redirectUrl, import.meta.env);
-  debugger;
   useEffect(() => {
     VKID.Config.init({
       app: import.meta.env.VITE_VK_APP_CLIENT_ID,
-      redirectUrl: 'https://climbing-web.vercel.app/signin',
+      redirectUrl,
       codeChallenge: code_challenge,
       mode: VKID.ConfigAuthMode.Redirect,
     });
