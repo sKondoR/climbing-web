@@ -2,8 +2,8 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { getApiUrl, options } from '../../7-shared/constants/api.constants'
 import { TEAM } from '../spbteam/spbteam.constants'
-import { FRIENDS, PRO } from '../../7-shared/constants/allclimb.constants'
-import { IUnregisteredUser, IUser, IVKCodeData, IAllClimber } from './user.interfaces'
+import { FRIENDS, PRO } from '../allclimber/climbers.constants'
+import { IUnregisteredUser, IUser, IVKCodeData, ICustomAllClimber } from './user.interfaces'
 import { RequestState } from '../../7-shared/types/request.types'
 
 interface UserState {
@@ -120,9 +120,9 @@ export const useUserStore = create<UserState>()(
           ...state,
           user: {
             ...state.user,
-            team: TEAM.filter(({ allClimbId }) => allClimbId) as IAllClimber[],
-            friends: FRIENDS.filter(({ allClimbId }) => allClimbId) as IAllClimber[],
-            pro: PRO.filter(({ allClimbId }) => allClimbId) as IAllClimber[],
+            team: TEAM.filter(({ allClimbId }) => allClimbId).map(({ allClimbId }) => ({ allClimbId }) ) as ICustomAllClimber[],
+            friends: FRIENDS.filter(({ allClimbId }) => allClimbId).map(({ allClimbId }) => ({ allClimbId }) ) as ICustomAllClimber[],
+            pro: PRO.filter(({ allClimbId }) => allClimbId).map(({ allClimbId }) => ({ allClimbId }) ) as ICustomAllClimber[],
           },
         }));
       },

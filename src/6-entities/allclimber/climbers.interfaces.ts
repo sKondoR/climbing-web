@@ -1,4 +1,4 @@
-import { IAllClimber } from '../user/user.interfaces'
+import { ICustomAllClimber } from '../user/user.interfaces'
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 
 export interface IClimber {
@@ -26,7 +26,7 @@ export interface IClimbers {
 export interface IClimberGroup {
     label: string;
     icon: IconDefinition;
-    items: IAllClimber[];
+    items: ICustomAllClimber[];
     offset: number;
 }
 export interface IAllClimbLink {

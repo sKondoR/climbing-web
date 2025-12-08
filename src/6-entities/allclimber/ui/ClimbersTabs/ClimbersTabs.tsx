@@ -5,7 +5,7 @@ import { useClimbersStore } from '../../climbers.store';
 import { useUserStore } from '../../../user/user.store';
 import { Sidebar } from 'flowbite-react';
 import { IClimberGroup } from '../../climbers.interfaces';
-import { IAllClimber } from '../../../user/user.interfaces';
+import { ICustomAllClimber } from '../../../user/user.interfaces';
 
 const ClimbersTabs = () => {
   const {
@@ -45,12 +45,12 @@ const ClimbersTabs = () => {
       icon={() =><FontAwesomeIcon icon={icon} />}
       key={label}
     >
-      {items.map(({ allClimbId, name }: IAllClimber, index: number) => {
+      {items.map(({ allClimbId, customName }: ICustomAllClimber, index: number) => {
         if (!allClimbId) return;
-        const text = name || climbers[allClimbId]?.name || allClimbId;
+        const text = customName || climbers[allClimbId]?.name || allClimbId;
         const currentIndex = offset + index;
         return (
-          <li className="flex" key={`${allClimbId}-${name}`}>
+          <li className="flex" key={`${allClimbId}-${text}`}>
             <input
               id={`isVisible${allClimbId}`}
               type="checkbox"
@@ -82,21 +82,21 @@ const ClimbersTabs = () => {
         {renderGroup({
           label: 'Команда',
           icon: faPeopleGroup,
-          items: currentUser.team as IAllClimber[],
+          items: currentUser.team as ICustomAllClimber[],
           offset: 0,
         })}
         <hr />
         {renderGroup({
           label: 'Друзья',
           icon: faHandshakeAngle,
-          items: currentUser.friends as IAllClimber[],
+          items: currentUser.friends as ICustomAllClimber[],
           offset: currentUser.team.length,
         })}
         <hr />
         {renderGroup({
           label: 'Про-скалолазы',
           icon: faMedal,
-          items: currentUser.pro as IAllClimber[],
+          items: currentUser.pro as ICustomAllClimber[],
           offset: currentUser.team.length + currentUser.friends.length,
         })}
       </Sidebar.ItemGroup>

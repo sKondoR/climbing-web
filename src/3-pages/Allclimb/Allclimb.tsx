@@ -24,6 +24,7 @@ const Allclimb = () => {
   const isUpdateButtonVisible = pathname === `/${PATHS.allclimb.to}`;
   
   useEffect(() => {
+    // for tests
     addTeamToUser();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

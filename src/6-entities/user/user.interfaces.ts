@@ -7,9 +7,9 @@ export interface IUnregisteredUser {
     id: number | null;
     allClimbId: number | null | undefined;
     grant: IGrant;
-    team: IAllClimber[];
-    friends: IAllClimber[];
-    pro: IAllClimber[];
+    team: ICustomAllClimber[];
+    friends: ICustomAllClimber[];
+    pro: ICustomAllClimber[];
 }
 
 export interface IUser {
@@ -20,15 +20,20 @@ export interface IUser {
     avatar_url: string | null;
     grant: IGrant;
     password: string | null;
-    team: IAllClimber[];
-    friends: IAllClimber[];
-    pro: IAllClimber[];
+    team: ICustomAllClimber[];
+    friends: ICustomAllClimber[];
+    pro: ICustomAllClimber[];
     token: string | null;
 }
 
 export interface IAllClimber {
     allClimbId: number | null | undefined;
     name: string | null;
+}  
+
+export interface ICustomAllClimber {
+    allClimbId: number;
+    customName: string | null;
 }  
 
 export interface IVKCodeData {
