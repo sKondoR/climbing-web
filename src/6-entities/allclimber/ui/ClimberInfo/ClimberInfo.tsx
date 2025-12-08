@@ -1,9 +1,9 @@
 
 import { useMemo } from 'react';
-import { useClimbersStore } from '../../../../6-entities/allclimber/climbers.store';
+import { useClimbersStore } from '../../climbers.store';
 import AllClimbLink from '../AllClimbLink/AllClimbLink';
-import { useUserStore } from '../../../../6-entities/user/user.store';
-import { getClimbersIds } from '../../../../6-entities/allclimber/climbers.utils';
+import { useUserStore } from '../../../user/user.store';
+import { getClimbersIds } from '../../climbers.utils';
 
 const ClimberInfo = () => {
   const {

@@ -7,7 +7,7 @@ import { PATHS } from '../7-shared/constants/paths.constants'
 const LandingPage = lazy(() => import('../3-pages/Landing/Landing'))
 const VitiaPage = lazy(() => import('../3-pages/Vitia/Vitia'))
 const AllClimbPage = lazy(() => import('../3-pages/Allclimb/Allclimb'))
-const SchedulePage = lazy(() => import('../5-features/schedule/ui/Schedule/Schedule'))
+const SchedulePage = lazy(() => import('../6-entities/schedule/ui/Schedule/Schedule'))
 const LeadTrainingsPage = lazy(() => import('../3-pages/LeadTrainings/LeadTrainings'))
 const CompetitionsList = lazy(() => import('../3-pages/Vitia/ui/CompetitionsList/CompetitionsList'))
 const LeadsHistory = lazy(() => import('../3-pages/Vitia/ui/LeadsHistory/LeadsHistory'))

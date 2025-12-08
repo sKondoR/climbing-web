@@ -1,9 +1,9 @@
 import { useState, useId } from 'react';
 
-import { useClimbersStore } from '../../../../6-entities/allclimber/climbers.store';
-import { useUserStore } from '../../../../6-entities/user/user.store';
-import { filterRoutes, getClimbersIds } from '../../../../6-entities/allclimber/climbers.utils';
-import { IRoute, IChartSettings } from '../../../../6-entities/allclimber/climbers.interfaces';
+import { useClimbersStore } from '../../climbers.store';
+import { useUserStore } from '../../../user/user.store';
+import { filterRoutes, getClimbersIds } from '../../climbers.utils';
+import { IRoute, IChartSettings } from '../../climbers.interfaces';
 import RoutesFilter from '../RoutesFilter/RoutesFilter';
 import { GRADES_COLORS } from '../../../../7-shared/constants/routes.constants';
 
