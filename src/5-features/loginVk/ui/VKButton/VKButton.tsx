@@ -10,7 +10,6 @@ import { IVKCodeData } from '../../../../6-entities/user/user.interfaces'
 
 const code_verifier = '6ixyBpFRrwlCYVbTnOSIKcXtkf3kVFrw85c1plyjQMA';
 const code_challenge = 'ZIeAepRCsDwcBF_iv35iRlMIEjb0UT2N5BxhLZHQO9U';
-const redirectUrl = `${import.meta.env.MODE === 'development' ? import.meta.env.VITE_APP_LOCAL: import.meta.env.VITE_APP_HOST}/signin`;
 
 type LocationState = string | URLSearchParams | Record<string, string> | string[][] | undefined
 
@@ -23,11 +22,12 @@ const VKButton: React.FC = () => {
   const { vkUser, loginVk, logoutVk } = useUserStore()
 
   const isCodeInUrl = !!new URLSearchParams(search).get('code');
+  const redirectUrl = `${import.meta.env.MODE === 'development' ? import.meta.env.VITE_APP_LOCAL: import.meta.env.VITE_APP_HOST}/signin`;
   
   useEffect(() => {
     VKID.Config.init({
       app: import.meta.env.VITE_VK_APP_CLIENT_ID,
-      redirectUrl: 'https://localhost',
+      redirectUrl,
       codeChallenge: code_challenge,
       mode: VKID.ConfigAuthMode.Redirect,
     });
