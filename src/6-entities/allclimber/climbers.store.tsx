@@ -8,7 +8,6 @@ import {
 import { useUserStore } from '../user/user.store';
 import { useLayoutStore } from '../layout/layout.store';
 import { IPlotsVisibility } from '../layout/layout.interfaces';
-import { ICustomAllClimber } from '../user/user.interfaces';
 import { getClimbersIds } from './climbers.utils';
 export interface ClimbersState {
   climbers: IClimbers,

@@ -71,6 +71,10 @@ const Multiselect = ({ options, placeholder = "Select options", className }: Mul
     setOpen(true);
   };
 
+  const stopPropagation = (e: React.MouseEvent) => {
+    e?.stopPropagation();
+  };
+
   return (
     <div className={className} ref={wrapperRef}>
       <div className="flex flex-wrap gap-1 min-h-8 py-1">
@@ -110,7 +114,7 @@ const Multiselect = ({ options, placeholder = "Select options", className }: Mul
         />
         <Menu.Content
           className="max-h-60 overflow-auto w-80 mt-1 z-50 rounded-md shadow-lg bg-white"
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
           ref={menuRef}
         >
           {filteredOptions.length > 0 ? (

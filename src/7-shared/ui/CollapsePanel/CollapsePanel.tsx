@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Collapse, List } from '@material-tailwind/react';
+import { Collapse } from '@material-tailwind/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
