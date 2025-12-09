@@ -8,6 +8,7 @@ interface CollapsePanelProps {
   label: React.ReactNode;
   children: React.ReactNode;
   icon?: React.ReactNode;
+  className?: string;
 }
 
 export default function CollapseDemo({
@@ -15,6 +16,7 @@ export default function CollapseDemo({
   label,
   children,
   icon,
+  className,
 }: CollapsePanelProps) {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(open);
   
@@ -24,18 +26,18 @@ export default function CollapseDemo({
 
 
   return (
-    <List>
-      <List.Item onClick={setIsOpen}>
-        {icon}{label}
-        <List.ItemEnd>
-          <FontAwesomeIcon
-            icon={uncontrolledOpen ? faCaretDown : faCaretUp}
-          />
-        </List.ItemEnd>
-      </List.Item>
+    <>
+      <div onClick={setIsOpen} className={`flex justify-between cursor-pointer ${className}`}>
+        <div>
+          {icon}{label}
+        </div>
+        <FontAwesomeIcon
+          icon={uncontrolledOpen ? faCaretDown : faCaretUp}
+        />
+      </div>
       <Collapse open={uncontrolledOpen}>
         {children}
       </Collapse>
-    </List>
+    </>
   );
 }

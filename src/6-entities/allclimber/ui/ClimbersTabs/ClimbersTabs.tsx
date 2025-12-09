@@ -3,19 +3,21 @@ import { faMedal, faPeopleGroup, faHandshakeAngle } from '@fortawesome/free-soli
 
 import { useClimbersStore } from '../../climbers.store';
 import { useUserStore } from '../../../user/user.store';
-import { Sidebar } from 'flowbite-react';
 import { IClimberGroup } from '../../climbers.interfaces';
 import { ICustomAllClimber } from '../../../user/user.interfaces';
 import CollapsePanel from '../../../../7-shared/ui/CollapsePanel/CollapsePanel';
+import { useLayoutStore } from '../../../layout/layout.store';
 
 const ClimbersTabs = () => {
   const {
     climbers,
+  } = useClimbersStore();
+  const {
     climberPreviewId,
     setClimberPreviewId,
     plotsVisibility,
     setPlotsVisibility,
-  } = useClimbersStore();
+  } = useLayoutStore();
 
   const {
     vkUser,
@@ -45,6 +47,7 @@ const ClimbersTabs = () => {
       label={`${label} (${items.length})`}
       icon={<FontAwesomeIcon className="mr-2 cursor-pointer" icon={icon} />}
       key={label}
+      className="mb-2"
     >
       {items.map(({ allClimbId, customName }: ICustomAllClimber, index: number) => {
         if (!allClimbId) return;
@@ -61,13 +64,13 @@ const ClimbersTabs = () => {
             />
             <div
               className={
-                `flex items-center justify-center rounded-lg p-2 text-base font-normal group w-full pl-3 transition duration-75 text-left cursor-pointer ` +
-                `${climberPreviewId === (offset + index) ? 'text-white bg-blue-600 hover:bg-blue-700' : 'text-gray-900 bg-gray-100 hover:bg-gray-200'}`
+                `flex items-center justify-center p-2 font-normal group w-full transition duration-75 text-left cursor-pointer ` +
+                `hover:bg-gray-200/10`
               }
               key={currentIndex}
               onClick={() => onActiveChange(currentIndex)}
             >
-              <span data-testid="flowbite-sidebar-item-content" id="flowbite-sidebar-item-:rf:" className="flex-1 whitespace-nowrap px-3">
+              <span className="flex-1 whitespace-nowrap px-3">
                 {text}
               </span>
             </div>
@@ -77,32 +80,26 @@ const ClimbersTabs = () => {
     </CollapsePanel>
   )
 
-  return <Sidebar className="w-full h-full">
-    <Sidebar.Items>
-      <Sidebar.ItemGroup>
-        {renderGroup({
-          label: 'Команда',
-          icon: faPeopleGroup,
-          items: currentUser.team as ICustomAllClimber[],
-          offset: 0,
-        })}
-        <hr />
-        {renderGroup({
-          label: 'Друзья',
-          icon: faHandshakeAngle,
-          items: currentUser.friends as ICustomAllClimber[],
-          offset: currentUser.team.length,
-        })}
-        <hr />
-        {renderGroup({
-          label: 'Про-скалолазы',
-          icon: faMedal,
-          items: currentUser.pro as ICustomAllClimber[],
-          offset: currentUser.team.length + currentUser.friends.length,
-        })}
-      </Sidebar.ItemGroup>
-    </Sidebar.Items>
-  </Sidebar>
+  return <>
+    {renderGroup({
+      label: 'Команда',
+      icon: faPeopleGroup,
+      items: currentUser.team as ICustomAllClimber[],
+      offset: 0,
+    })}
+    {renderGroup({
+      label: 'Друзья',
+      icon: faHandshakeAngle,
+      items: currentUser.friends as ICustomAllClimber[],
+      offset: currentUser.team.length,
+    })}
+    {renderGroup({
+      label: 'Про-скалолазы',
+      icon: faMedal,
+      items: currentUser.pro as ICustomAllClimber[],
+      offset: currentUser.team.length + currentUser.friends.length,
+    })}
+  </>
 }
   
 export default ClimbersTabs

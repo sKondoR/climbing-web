@@ -7,6 +7,7 @@ import { IClimbers, IChartSettings } from '../../climbers.interfaces'
 import RoutesFilter from '../RoutesFilter/RoutesFilter'
 import { getClimbersIds } from '../../climbers.utils';
 import { GRADES_COLORS } from '../../../../7-shared/constants/routes.constants';
+import { useLayoutStore } from '../../../layout/layout.store';
 
 const GRADES = Object.keys(GRADES_COLORS);
 let maxRoutes = 0;
@@ -46,12 +47,15 @@ const prepareData = (ids: number[], climbers: IClimbers, grades: string[], isLea
 const ClimbersChart = () => {
     const {
       climbers,
+    } = useClimbersStore();
+    const {
       plotsVisibility,
-    } = useClimbersStore()
+    } = useLayoutStore();
     const {
       vkUser,
       user,
-    } = useUserStore()
+    } = useUserStore();
+    
     const currentUser = vkUser || user;
     const [settings, setSettings] = useState({
       isLead: true,

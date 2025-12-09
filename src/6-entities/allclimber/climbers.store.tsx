@@ -4,19 +4,18 @@ import { getApiUrl, options } from '../../7-shared/constants/api.constants'
 import {
   IClimber,
   IClimbers,
-  IPlotsVisibility,
-} from './climbers.interfaces'
-
+} from './climbers.interfaces';
+import { useUserStore } from '../user/user.store';
+import { useLayoutStore } from '../layout/layout.store';
+import { IPlotsVisibility } from '../layout/layout.interfaces';
+import { ICustomAllClimber } from '../user/user.interfaces';
+import { getClimbersIds } from './climbers.utils';
 export interface ClimbersState {
   climbers: IClimbers,
   // isFetchingAllClimb: false,
   fetchClimbers: () => void,
-  fetchClimbersAllClimb: (ids: number[]) => void,
+  fetchClimbersAllClimb: (ids?: number[]) => void,
   allClimbFetchStatus: string,
-  climberPreviewId: number | null;
-  setClimberPreviewId: (id: number | null) => void,
-  plotsVisibility: IPlotsVisibility;
-  setPlotsVisibility: (plotsVisibility: IPlotsVisibility) => void,
   setAllClimbFetchStatus: (status: string) => void;
 }
 
@@ -24,8 +23,6 @@ export const useClimbersStore = create<ClimbersState>()(
   devtools(
     (set, get) => ({
       climbers: {},
-      climberPreviewId: null,
-      plotsVisibility: {},
       allClimbFetchStatus: '',
       fetchClimbers: async () => {
         try {
@@ -38,11 +35,11 @@ export const useClimbersStore = create<ClimbersState>()(
               acc[climber.allClimbId] = climber
               return acc
             }, {}),
-            plotsVisibility: data.reduce((acc: IPlotsVisibility, climber: IClimber) => {
+          }));
+          useLayoutStore.getState().setPlotsVisibility(data.reduce((acc: IPlotsVisibility, climber: IClimber) => {
               acc[climber.allClimbId] = true
               return acc
-            }, {}),
-          }));
+            }, {}),);
         } catch {
           alert ('fetch error');
         }
@@ -55,12 +52,25 @@ export const useClimbersStore = create<ClimbersState>()(
         }));
       },
       
-      fetchClimbersAllClimb: async (ids: number[]) => {
+      fetchClimbersAllClimb: async (currentIds?: number[]) => {
         const { climbers, setAllClimbFetchStatus } = get();
+        const { climberPreviewId } = useLayoutStore.getState();
+        const { user, vkUser } = useUserStore.getState();
+        const currentUser = vkUser || user;
+
+        let ids = currentIds || getClimbersIds(currentUser);
+        if (climberPreviewId || climberPreviewId === 0) {
+          ids = [ids[climberPreviewId]];
+        }
+
+        if (!ids?.length) {
+          return;
+        }
 
         setAllClimbFetchStatus(`0/${ids.length}`);
         for (let i = 0; i < ids.length; i++) {
           const id = ids[i];
+          if (!id) return;
           try {
             const res = await fetch(`${getApiUrl()}/allClimb?id=${id}`, options);
             if (!res.ok) continue;
@@ -103,18 +113,6 @@ export const useClimbersStore = create<ClimbersState>()(
           }
         }
         setAllClimbFetchStatus('');
-      },
-      setClimberPreviewId: (climberPreviewId: ClimbersState['climberPreviewId']) => {
-        set((state: ClimbersState) => ({
-          ...state,
-          climberPreviewId,
-        }));
-      },
-      setPlotsVisibility: (plotsVisibility: IPlotsVisibility) => {
-        set((state: ClimbersState) => ({
-          ...state,
-          plotsVisibility,
-        }));
       }
     })
   )

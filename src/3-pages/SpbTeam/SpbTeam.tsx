@@ -1,7 +1,7 @@
 import teamImg from '../../7-shared/assets/images/team.jpg'
 import bgImg from '../../7-shared/assets/images/bg1.jpg'
-import TeamMember from '../../5-features/team/ui/TeamMember/TeamMember'
-import TeamTabs from '../../5-features/team/ui/TeamTabs/TeamTabs'
+import TeamMember from '../../6-entities/spbteam/ui/TeamMember/TeamMember'
+import TeamTabs from '../../6-entities/spbteam/ui/TeamTabs/TeamTabs'
 
 const SpbTeam = () => {
   return (

@@ -12,8 +12,8 @@ const Header = () => {
   return (
     <header
       className={'fixed z-30 w-full' 
-        + (isLandingPage ? ' ' : ' bg-gray-100')
-        + (isLandingPage && (scrollDirection === 'down' ? ' -translate-y-full' : ' translate-y-0'))
+        + (isLandingPage ? ' ' : ' bg-gray-100 ')
+        + (isLandingPage ? (scrollDirection === 'down' ? ' -translate-y-full' : ' translate-y-0') : '')
       }
       style={{
         backgroundImage: isLandingPage ? '' : `url("${bg1}")`,

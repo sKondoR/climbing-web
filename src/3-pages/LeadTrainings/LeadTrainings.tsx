@@ -1,4 +1,4 @@
-import LeadTraining from "../../5-features/lead-training/ui/LeadTraining/LeadTraining"
+import LeadTraining from "../../6-entities/lead-training/ui/LeadTraining/LeadTraining"
 
 const LeadTrainings = () => {
   return (

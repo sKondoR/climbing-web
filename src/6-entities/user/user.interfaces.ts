@@ -27,7 +27,7 @@ export interface IUser {
 }
 
 export interface IAllClimber {
-    allClimbId: number | null | undefined;
+    allClimbId: number;
     name: string | null;
 }  
 

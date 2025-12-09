@@ -6,17 +6,21 @@ import { filterRoutes, getClimbersIds } from '../../climbers.utils';
 import { IRoute, IChartSettings } from '../../climbers.interfaces';
 import RoutesFilter from '../RoutesFilter/RoutesFilter';
 import { GRADES_COLORS } from '../../../../7-shared/constants/routes.constants';
+import { useLayoutStore } from '../../../layout/layout.store';
 
 const ClimbersTabs = () => {
   const prefix = useId();
   const {
     climbers,
+  } = useClimbersStore();
+  const {
     climberPreviewId,
-  } = useClimbersStore()
+  } = useLayoutStore();
   const {
     user,
     vkUser,
   } = useUserStore()
+  
   const currentUser = vkUser || user;
   const [settings, setSettings] = useState({
     isLead: true,
@@ -25,10 +29,10 @@ const ClimbersTabs = () => {
     is7: true,
     is8: true,
     sortByCategory: false,
-  })
+  });
 
   if (!currentUser) return null;
-  const ids = getClimbersIds(currentUser)
+  const ids = getClimbersIds(currentUser);
   const allClimbId = climberPreviewId !== null ? ids[climberPreviewId] : undefined;
   if (!allClimbId) return null;
   const climber = climbers[allClimbId]
@@ -51,7 +55,7 @@ const ClimbersTabs = () => {
     <>
       <RoutesFilter settings={settings} onSettingsChange={onSettingsChange} />
       <div>
-        <div className="flex">
+        <div className="flex  mb-2">
           <h2 className="font-bold">{`${settings.isLead ? 'Трудность' : 'Боулдеринг'} (${routes.length}/${allRoutes.length})`}</h2>
           <label className="inline-flex items-center cursor-pointer ml-3">
             <span className={`mr-1 text-sm font-medium ${settings.sortByCategory ? 'text-gray-300' : 'text-gray-900'}`}>по дате</span>
@@ -63,7 +67,8 @@ const ClimbersTabs = () => {
         {routes?.map((route: IRoute) => {
           const bg = GRADES_COLORS[route.grade.slice(0, 2)]
           return <div key={`${route.isBoulder}${route.grade}${route.text}`}>
-            <span className="inline-block w-2 mr-1 mb-1" style={{ background: bg }}>&nbsp;</span>{route.grade} - {route.name} {route.isTopRope ? '(верхняя)' : ''}
+            <span className="inline-block w-2 mr-1 mb-1" style={{ background: bg }}>&nbsp;</span>
+            <span className="inline-block w-[55px] mr-1">{route.grade}</span>{route.name} {route.isTopRope ? '(верхняя)' : ''}
           </div>
         })}
       </div>
