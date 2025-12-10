@@ -1,6 +1,4 @@
 import { Sidebar } from 'flowbite-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
 
 import { useTeamStore } from '../../../../6-entities/spbteam/spbteam.store';
 import { ITeamGroup, ITeamMember } from '../../../../6-entities/spbteam/spbteam.interfaces';
@@ -18,11 +16,10 @@ const TeamTabs = () => {
     setPreviewId(tabIndex);
   }
 
-  const renderGroup = ({ label, icon, items, offset = 0 }: ITeamGroup) => (
+  const renderGroup = ({ label, items, offset = 0 }: ITeamGroup) => (
     <Sidebar.Collapse
       open
       label={`${label} (${items.length})`}
-      icon={() =><FontAwesomeIcon icon={icon} />}
     >
       {items.map(({ name, isCityTeam }: ITeamMember, index: number) => {
         const currentIndex = offset + index;
@@ -49,14 +46,12 @@ const TeamTabs = () => {
       <Sidebar.ItemGroup>
         {renderGroup({
           label: 'Тренеры',
-          icon: faStar,
           items: coaches as ITeamMember[],
           offset: 0,
         })}
         <hr />
         {renderGroup({
           label: 'Команда',
-          icon: faPeopleGroup,
           items: team as ITeamMember[],
           offset: coaches.length,
         })}

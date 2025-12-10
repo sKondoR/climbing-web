@@ -1,3 +1,5 @@
+import { IClimberGroup } from "../allclimber/climbers.interfaces";
+
 export enum IGrant {
     ADMIN = 0,
     USER = 1,
@@ -7,9 +9,7 @@ export interface IUnregisteredUser {
     id: number | null;
     allClimbId: number | null | undefined;
     grant: IGrant;
-    team: ICustomAllClimber[];
-    friends: ICustomAllClimber[];
-    pro: ICustomAllClimber[];
+    groups: IClimberGroup[];
 }
 
 export interface IUser {
@@ -20,9 +20,7 @@ export interface IUser {
     avatar_url: string | null;
     grant: IGrant;
     password: string | null;
-    team: ICustomAllClimber[];
-    friends: ICustomAllClimber[];
-    pro: ICustomAllClimber[];
+    groups: IClimberGroup[];
     token: string | null;
 }
 

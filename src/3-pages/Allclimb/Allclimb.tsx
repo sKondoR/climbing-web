@@ -14,7 +14,7 @@ import EditUserAllClimbButton from '../../5-features/editUserAllclimbers/ui/Edit
 import bg1 from '../../7-shared/assets/images/bg1.jpg';
 
 const Allclimb = () => {
-  const { addTeamToUser } = useUserStore();
+  const { addDefaultGroupsToUser } = useUserStore();
   const {
     climberPreviewId,
     setClimberPreviewId,
@@ -26,9 +26,9 @@ const Allclimb = () => {
 
   useEffect(() => {
     // for tests
-    addTeamToUser();
+    addDefaultGroupsToUser();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [addTeamToUser]);
+  }, [addDefaultGroupsToUser]);
 
   return (<>
     <aside className="fixed w-[700px] top-0 left-0 z-20 flex flex-col flex-shrink-0 h-full pt-[64px]

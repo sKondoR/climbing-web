@@ -1,5 +1,3 @@
- 
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 
 export interface ITeamMember {
     group: any;
@@ -13,7 +11,6 @@ export interface ITeamMember {
 
 export interface ITeamGroup {
     label: string,
-    icon: IconDefinition,
     items: ITeamMember[],
     offset: number,
 }

@@ -1,5 +1,5 @@
 import { ICustomAllClimber, IUnregisteredUser } from '../user/user.interfaces';
-import { IRoute, IChartSettings } from './climbers.interfaces'
+import { IRoute, IChartSettings, IClimberGroup } from './climbers.interfaces'
 
 export const filterRoutes = (routes: IRoute[], settings: IChartSettings) =>
     (routes || [])
@@ -23,6 +23,7 @@ export const filterRoutes = (routes: IRoute[], settings: IChartSettings) =>
         return 0;
       });
 
-export const getClimbersIds = (currentUser: IUnregisteredUser) => currentUser ?
-  [...currentUser.team, ...currentUser.friends, ...currentUser.pro]
-  .map(({ allClimbId }: ICustomAllClimber) => allClimbId) : []
+export const getClimbersIds = (currentUser: IUnregisteredUser): number[] =>
+  currentUser?.groups?.flatMap(
+    (group: IClimberGroup) => group.items.map((climber: ICustomAllClimber) => climber.allClimbId)
+  ) || [];

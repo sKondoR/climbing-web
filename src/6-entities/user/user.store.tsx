@@ -1,10 +1,12 @@
-import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
-import { getApiUrl, options } from '../../7-shared/constants/api.constants'
-import { TEAM } from '../spbteam/spbteam.constants'
-import { FRIENDS, PRO } from '../allclimber/climbers.constants'
-import { IUnregisteredUser, IUser, IVKCodeData, ICustomAllClimber } from './user.interfaces'
-import { RequestState } from '../../7-shared/types/request.types'
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
+import { faMedal, faPeopleGroup, faHandshakeAngle } from '@fortawesome/free-solid-svg-icons';
+
+import { getApiUrl, options } from '../../7-shared/constants/api.constants';
+import { TEAM } from '../spbteam/spbteam.constants';
+import { FRIENDS, PRO } from '../allclimber/climbers.constants';
+import { IUnregisteredUser, IUser, IVKCodeData, ICustomAllClimber } from './user.interfaces';
+import { RequestState } from '../../7-shared/types/request.types';
 
 interface UserState {
   status: string,
@@ -17,8 +19,8 @@ interface UserState {
   loginVk: (data: IVKCodeData) => Promise<void>,
   getVKProfile: () => Promise<void>,
   logoutVk: () => Promise<void>,
-  addTeamToUser: () => void,
-}
+  addDefaultGroupsToUser: () => void,
+};
 
 export const useUserStore = create<UserState>()(
   devtools(
@@ -28,9 +30,7 @@ export const useUserStore = create<UserState>()(
         id: 1,
         grant: 1,
         allClimbId: null,
-        team: [],
-        friends: [],
-        pro: [],
+        groups: [],
       },
       vkUser: null,
       error: null,
@@ -72,13 +72,16 @@ export const useUserStore = create<UserState>()(
               case 201:
                 return res.json();
               default:
-                await get().changeState('error', 'ВК ошибка');
-                return Promise.reject();
+                const error = `VK API error: ${res.statusText}`
+                await get().changeState('error', error);
+                return Promise.reject(new Error(`VK API error: ${error}`));
             }
           })
           .then(async(vkUser) => {
             await get().setVKUser(vkUser);
-          });
+          }).catch((error) => {
+            console.warn('Ошибка в цепочке обработки ВК:', error);
+          });;
       },
 
       getVKProfile: async() => {
@@ -99,13 +102,16 @@ export const useUserStore = create<UserState>()(
               case 201:
                 return res.json();
               default:
-                await get().changeState('error', 'ВК ошибка');
-                return Promise.reject();
+                const error = `VK API error: ${res.statusText}`
+                await get().changeState('error', error);
+                return Promise.reject(new Error(`VK API error: ${error}`));
             }
           })
           .then(async(vkUser) => {
-            await get().changeState('vkUser', vkUser);
-          });
+            await get().setVKUser(vkUser);
+          }).catch((error) => {
+            console.warn('Ошибка в цепочке обработки ВК:', error);
+          });;
       },
     
       logoutVk: async() => {
@@ -114,15 +120,33 @@ export const useUserStore = create<UserState>()(
         await get().changeState('status', RequestState.PENDING);
       },
 
-      addTeamToUser: async () => {
+      addDefaultGroupsToUser: async () => {
         if (get().vkUser) return;
+        const team = TEAM.filter(({ allClimbId }) => allClimbId).map(({ allClimbId }) => ({ allClimbId }) ) as ICustomAllClimber[];
         await set((state: UserState) => ({
           ...state,
           user: {
             ...state.user,
-            team: TEAM.filter(({ allClimbId }) => allClimbId).map(({ allClimbId }) => ({ allClimbId }) ) as ICustomAllClimber[],
-            friends: FRIENDS.filter(({ allClimbId }) => allClimbId).map(({ allClimbId }) => ({ allClimbId }) ) as ICustomAllClimber[],
-            pro: PRO.filter(({ allClimbId }) => allClimbId).map(({ allClimbId }) => ({ allClimbId }) ) as ICustomAllClimber[],
+            groups: [
+              {
+                label: 'команда',
+                icon: faPeopleGroup,
+                items: team,
+                offset: 0
+              },
+              {
+                label: 'друзья',
+                icon: faHandshakeAngle,
+                items: FRIENDS.map(({ allClimbId }) => ({ allClimbId }) ) as ICustomAllClimber[],
+                offset: team.length
+              },
+              {
+                label: 'про-спортсмены',
+                icon: faMedal,
+                items: PRO.map(({ allClimbId }) => ({ allClimbId }) ) as ICustomAllClimber[],
+                offset: team.length + FRIENDS.length
+              }
+            ],
           },
         }));
       },

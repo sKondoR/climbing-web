@@ -1,6 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMedal, faPeopleGroup, faHandshakeAngle } from '@fortawesome/free-solid-svg-icons';
-
 import { useClimbersStore } from '../../climbers.store';
 import { useUserStore } from '../../../user/user.store';
 import { IClimberGroup } from '../../climbers.interfaces';
@@ -41,11 +38,10 @@ const ClimbersTabs = () => {
     })
   }
 
-  const renderGroup = ({ label, icon, items, offset = 0 }: IClimberGroup) => (
+  const renderGroup = ({ label, items, offset = 0 }: IClimberGroup) => (
     <CollapsePanel
       open
       label={`${label} (${items.length})`}
-      icon={<FontAwesomeIcon className="mr-2 cursor-pointer" icon={icon} />}
       key={label}
       className="mb-2"
     >
@@ -80,24 +76,16 @@ const ClimbersTabs = () => {
     </CollapsePanel>
   )
 
+  let offset = 0;
   return <>
-    {renderGroup({
-      label: 'Команда',
-      icon: faPeopleGroup,
-      items: currentUser.team as ICustomAllClimber[],
-      offset: 0,
-    })}
-    {renderGroup({
-      label: 'Друзья',
-      icon: faHandshakeAngle,
-      items: currentUser.friends as ICustomAllClimber[],
-      offset: currentUser.team.length,
-    })}
-    {renderGroup({
-      label: 'Про-скалолазы',
-      icon: faMedal,
-      items: currentUser.pro as ICustomAllClimber[],
-      offset: currentUser.team.length + currentUser.friends.length,
+    {currentUser.groups.map((group: IClimberGroup) => {
+      const cGroup = renderGroup({
+        label: group.label,
+        items: group.items as ICustomAllClimber[],
+        offset,
+      });
+      offset += group.items.length;
+      return cGroup;
     })}
   </>
 }
