@@ -1,8 +1,9 @@
-import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
+import { useUserGroupsStore } from '../../5-features/editUserAllclimbers/userGroups.store'
 import {
   IPlotsVisibility,
-} from './layout.interfaces'
+} from './layout.interfaces';
 
 export interface LayoutState {
   climberPreviewId: number | null;
@@ -32,6 +33,7 @@ export const useLayoutStore = create<LayoutState>()(
       },
       isUserEdit: false,
       setIsUserEdit: (isUserEdit: boolean) => {
+        useUserGroupsStore.getState().getGroupsFromUser();
         set((state: LayoutState) => ({
           ...state,
           isUserEdit,

@@ -9,9 +9,11 @@ import ClimbersTabs from '../../6-entities/allclimber/ui/ClimbersTabs/ClimbersTa
 import { useUserStore } from '../../6-entities/user/user.store'
 import UpdateAllClimbButton from '../../5-features/updateAllclimbers/ui/UpdateAllClimbButton/UpdateAllClimbButton';
 import { useLayoutStore } from '../../6-entities/layout/layout.store';
-import EditUserAllClimbButton from '../../5-features/editUserAllclimbers/ui/EditUserAllClimbButton';
+import EditUserAllClimbButton from '../../5-features/editUserAllclimbers/ui/EditUserAllClimbButton/EditUserAllClimbButton';
 
 import bg1 from '../../7-shared/assets/images/bg1.jpg';
+import EditUserGroups from '../../5-features/editUserAllclimbers/ui/EditUserGroups/EditUserGroups';
+import AddUserGroup from '../../5-features/editUserAllclimbers/ui/AddUserGroup/AddUserGroup';
 
 const Allclimb = () => {
   const { addDefaultGroupsToUser } = useUserStore();
@@ -21,8 +23,6 @@ const Allclimb = () => {
     isUserEdit,
     setIsUserEdit,
   } = useLayoutStore();
-  
-  // import.meta.env.DEV && 
 
   useEffect(() => {
     // for tests
@@ -37,14 +37,14 @@ const Allclimb = () => {
         backgroundImage: `url("${bg1}")`,
       }}
     >
-    <div className={`flex flex-col flex-shrink-0 h-full ${climberPreviewId === null && !isUserEdit ? 'text-gray-200 bg-slate-700/80' : 'text-gray-800 bg-lime-500/90'} backdrop-blur-[2px]`}>
+    <div className={`flex flex-col flex-shrink-0 h-full ${climberPreviewId === null && !isUserEdit ? 'text-gray-200 bg-slate-700/80' : 'text-gray-800 bg-lime-300/90'} backdrop-blur-[2px]`}>
       {climberPreviewId === null && !isUserEdit &&
         <>
-          <div className="flex justify-between pt-3 pl-5 pr-5">
+          <div className="flex justify-between pt-3 pb-3 pl-5 pr-5">
             <h2 className="text-2xl mr-5">скалолазы AllClimb</h2>
             <EditUserAllClimbButton />
           </div>  
-          <div className="w-full h-full overflow-y-auto overflow-x-hidden pt-3 pb-3 pl-5 pr-5">
+          <div className="w-full h-full overflow-y-auto overflow-x-hidden pb-3">
             <ClimbersTabs />
           </div>
         </>
@@ -52,7 +52,10 @@ const Allclimb = () => {
       {isUserEdit &&
         <>
           <div className="flex justify-between pt-3 pl-5 pr-5">
-            <h2 className="text-2xl mr-5">редактировать</h2>
+            <h2 className="text-2xl mr-5">редактировать группы</h2>
+            <div className="grow">
+              <AddUserGroup />
+            </div>
             <div onClick={() => setIsUserEdit(false)} className="text-2xl cursor-pointer hover:text-orange-500">
               <FontAwesomeIcon
                 icon={faTimes}
@@ -60,8 +63,8 @@ const Allclimb = () => {
               />
             </div>
           </div> 
-          <div className="w-full h-full overflow-y-auto overflow-x-hidden pt-3 pb-3 pl-5 pr-5">
-            ...
+          <div className="w-full h-full overflow-y-auto overflow-x-hidden pt-3 pb-3">
+            <EditUserGroups />
           </div>
           {(climberPreviewId !== null || isUserEdit) && <UpdateAllClimbButton />}
         </>

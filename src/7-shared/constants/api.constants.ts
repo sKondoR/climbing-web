@@ -1,7 +1,6 @@
-export const LOCAL_API_URL = 'https://localhost:3000';
-export const API_URL = 'https://climbing-back.vercel.app';
+export const ALLCLIMB_URL = 'https://www.allclimb.com/ru'
 
-export const getApiUrl = () => import.meta.env.DEV ?  LOCAL_API_URL : API_URL;
+export const getApiUrl = () => import.meta.env.DEV ? import.meta.env.VITE_APP_LOCAL_BACK: import.meta.env.VITE_APP_HOST_BACK;
 
 export const options = {
     headers: new Headers({

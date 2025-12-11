@@ -1,5 +1,3 @@
-import { ICustomAllClimber } from '../user/user.interfaces';
-
 export interface IClimber {
     id: number;
     allClimbId: string;
@@ -22,11 +20,6 @@ export interface IClimbers {
     [U: string]: IClimber;
 }
 
-export interface IClimberGroup {
-    label: string;
-    items: ICustomAllClimber[];
-    offset?: number;
-}
 export interface IAllClimbLink {
     allClimbId: number;
     updatedAt: string | null;

@@ -1,30 +1,41 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import {
   Input,
   Menu,
   Button,
-  Chip,
 } from '@material-tailwind/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import EditableChips from './ui/EditableChips/EditableChips';
 
 interface MultiselectProps {
-  options: string[];
+  options?: string[] | null;
+  selected?: string[];
   placeholder?: string;
   className?: string;
+  isCreatable?: boolean;
+  isHiddenSelected?: boolean;
+  onChange: (values: string[]) => void;
 }
 
-const Multiselect = ({ options, placeholder = "Select options", className }: MultiselectProps) => {
+const Multiselect = ({
+  options = null,
+  placeholder = 'Select options',
+  selected = [],
+  onChange,
+  className,
+  isCreatable = false,
+  isHiddenSelected = false,
+}: MultiselectProps) => {
   const [query, setQuery] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
-  const [selected, setSelected] = useState<string[]>([]);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Фильтрация опций с учётом поискового запроса
-  const filteredOptions = options.filter((option) =>
+  const filteredOptions = options?.filter((option) =>
     option.toLowerCase().includes(query.toLowerCase())
-  );
+  ) || [];
 
   // Обработчик ввода
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,16 +45,21 @@ const Multiselect = ({ options, placeholder = "Select options", className }: Mul
 
   // Выбор/удаление опции
   const handleOptionClick = (option: string) => {
-    setSelected((prev) =>
-      prev.includes(option)
-        ? prev.filter((item) => item !== option)
-        : [...prev, option]
+    onChange(
+      selected.includes(option) ? selected.filter((item) => item !== option) : [...selected, option]
     );
   };
 
+  const addNew = useCallback(() => {
+    onChange(
+      selected.includes(query) ? selected : [...selected, query]
+    );
+    setQuery('');
+  }, [query]);
+
   // Удаление выбранной опции
-  const removeSelected = (optionToRemove: string) => {
-    setSelected((prev) => prev.filter((item) => item !== optionToRemove));
+  const removeSelected = (values: string[]) => {
+    onChange(values);
   };
 
   // Закрытие меню при клике вне компонента
@@ -77,34 +93,33 @@ const Multiselect = ({ options, placeholder = "Select options", className }: Mul
 
   return (
     <div className={className} ref={wrapperRef}>
-      <div className="flex flex-wrap gap-1 min-h-8 py-1">
+      <div className="flex flex-wrap gap-1 min-h-8 py-1 relative">
         <Input
           value={query}
           onChange={handleInputChange}
           onFocus={handleInputFocus}
-          className="w-80"
-          placeholder={selected.length === 0 ? placeholder : ''}
+          className={`w-full bg-white/80 ${isCreatable ? 'pr-10' : ''}`}
+          placeholder={placeholder}
           aria-expanded={open}
           autoComplete="off"
         />
-        {selected.map((option) => (
-          <Chip
-            key={option}
-            variant="ghost"
-            color="primary"
-            className="flex items-center px-2 py-1 text-sm"
-          >
-            {option}
+        {isCreatable && query.length ? (
             <FontAwesomeIcon
-              icon={faTimes}
-              className="cursor-pointer ml-1 h-3 w-3"
-              onClick={() => removeSelected(option)}
-              aria-label={`Remove ${option}`}
+              icon={faPlus}
+              className="cursor-pointer text-xl text-gray-800 hover:text-orange-500 absolute top-3 right-3 mt-[2px]"
+              onClick={() => addNew()}
+              aria-label={`Add new`}
             />
-          </Chip>
-        ))}
+        ) : null}
       </div>
-      <Menu open={open} placement="bottom-start">
+      {isHiddenSelected ? null : selected.map((option) => (
+        <EditableChips
+          key={option}
+          options={selected}
+          onChange={removeSelected}
+        />
+      ))}
+      {options !== null ? <Menu open={open} placement="bottom-start">
         <Menu.Trigger
           as={Button}
           size="sm"
@@ -142,7 +157,7 @@ const Multiselect = ({ options, placeholder = "Select options", className }: Mul
             </Menu.Item>
           )}
         </Menu.Content>
-      </Menu>
+      </Menu> : null}
     </div>
   );
 };

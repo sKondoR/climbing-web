@@ -1,5 +1,3 @@
-import { IClimberGroup } from "../allclimber/climbers.interfaces";
-
 export enum IGrant {
     ADMIN = 0,
     USER = 1,
@@ -40,3 +38,9 @@ export interface IVKCodeData {
     state: string;
     code_verifier: string;
 }  
+
+export interface IClimberGroup {
+    name: string;
+    items: ICustomAllClimber[];
+    offset?: number | undefined;
+}

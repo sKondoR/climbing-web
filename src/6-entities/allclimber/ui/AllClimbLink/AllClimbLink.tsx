@@ -1,11 +1,12 @@
 import { IAllClimbLink } from '../../climbers.interfaces'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareUpRight } from '@fortawesome/free-solid-svg-icons'
+import { ALLCLIMB_URL } from '../../../../7-shared/constants/api.constants'
 
 const AllClimbLink = ({ allClimbId, updatedAt }:IAllClimbLink) => (
   <>
     <a
-      href={`https://www.allclimb.com/ru/climber/${allClimbId}`}
+      href={`${ALLCLIMB_URL}/climber/${allClimbId}`}
       target="_blank"
       title={updatedAt ? `(обновленно: ${updatedAt})` : ''}
     >

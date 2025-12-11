@@ -22,7 +22,7 @@ const VKButton: React.FC = () => {
   const { vkUser, loginVk, logoutVk } = useUserStore()
 
   const isCodeInUrl = !!new URLSearchParams(search).get('code');
-  const redirectUrl = `${import.meta.env.MODE === 'development' ? import.meta.env.VITE_APP_LOCAL: import.meta.env.VITE_APP_HOST}/signin`;
+  const redirectUrl = `${import.meta.env.DEV ? import.meta.env.VITE_APP_LOCAL: import.meta.env.VITE_APP_HOST}/signin`;
   
   useEffect(() => {
     VKID.Config.init({

@@ -10,9 +10,9 @@ export interface ITeamMember {
 }
 
 export interface ITeamGroup {
-    label: string,
+    name: string,
     items: ITeamMember[],
-    offset: number,
+    offset?: number;
 }
 
 export interface IAllClimbLink {

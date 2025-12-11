@@ -25,7 +25,7 @@ export const TEAM = [
     { allClimbId: null , year: '2010', photoName: 'rorud', name: 'Рома Руднев' },
     { allClimbId: null , year: '2009', photoName: 'kista', name: 'Кирилл Стародубцев' },
     { allClimbId: null , year: '2011', photoName: 'ulsta', name: 'Ульяна Стародубцева' },
-    { allClimbId: null , year: '2012', photoName: 'rotar', name: 'Родион Таросенко' },
+    { allClimbId: null , year: '2012', photoName: 'rotar', name: 'Родион Тарасенко' },
     { allClimbId: null , year: '2014', photoName: 'ulche', name: 'Юля Червонцева' },
     { allClimbId: null , year: '2014', photoName: 'jeyar', name: 'Женя Ярославцев' },
 ];

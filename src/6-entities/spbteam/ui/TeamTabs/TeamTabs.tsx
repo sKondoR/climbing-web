@@ -16,10 +16,10 @@ const TeamTabs = () => {
     setPreviewId(tabIndex);
   }
 
-  const renderGroup = ({ label, items, offset = 0 }: ITeamGroup) => (
+  const renderGroup = ({ name, items, offset = 0 }: ITeamGroup) => (
     <Sidebar.Collapse
       open
-      label={`${label} (${items.length})`}
+      label={`${name} (${items.length})`}
     >
       {items.map(({ name, isCityTeam }: ITeamMember, index: number) => {
         const currentIndex = offset + index;
@@ -45,13 +45,13 @@ const TeamTabs = () => {
     <Sidebar.Items>
       <Sidebar.ItemGroup>
         {renderGroup({
-          label: 'Тренеры',
+          name: 'Тренеры',
           items: coaches as ITeamMember[],
           offset: 0,
         })}
         <hr />
         {renderGroup({
-          label: 'Команда',
+          name: 'Команда',
           items: team as ITeamMember[],
           offset: coaches.length,
         })}

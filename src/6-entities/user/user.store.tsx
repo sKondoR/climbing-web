@@ -7,6 +7,7 @@ import { TEAM } from '../spbteam/spbteam.constants';
 import { FRIENDS, PRO } from '../allclimber/climbers.constants';
 import { IUnregisteredUser, IUser, IVKCodeData, ICustomAllClimber } from './user.interfaces';
 import { RequestState } from '../../7-shared/types/request.types';
+import { useUserGroupsStore } from '../../5-features/editUserAllclimbers/userGroups.store';
 
 interface UserState {
   status: string,
@@ -20,6 +21,7 @@ interface UserState {
   getVKProfile: () => Promise<void>,
   logoutVk: () => Promise<void>,
   addDefaultGroupsToUser: () => void,
+  saveUserGroups: () => void,
 };
 
 export const useUserStore = create<UserState>()(
@@ -129,19 +131,19 @@ export const useUserStore = create<UserState>()(
             ...state.user,
             groups: [
               {
-                label: 'команда',
+                name: 'команда',
                 icon: faPeopleGroup,
                 items: team,
                 offset: 0
               },
               {
-                label: 'друзья',
+                name: 'друзья',
                 icon: faHandshakeAngle,
                 items: FRIENDS.map(({ allClimbId }) => ({ allClimbId }) ) as ICustomAllClimber[],
                 offset: team.length
               },
               {
-                label: 'про-спортсмены',
+                name: 'про-спортсмены',
                 icon: faMedal,
                 items: PRO.map(({ allClimbId }) => ({ allClimbId }) ) as ICustomAllClimber[],
                 offset: team.length + FRIENDS.length
@@ -149,6 +151,19 @@ export const useUserStore = create<UserState>()(
             ],
           },
         }));
+      },
+
+      saveUserGroups: () => {
+        const groups = useUserGroupsStore.getState().groups;
+        set((state: UserState) => ({
+          ...state,
+          user: {
+            ...state.user,
+            groups,
+          },
+        }));
+
+        console.log('iuser groups changes')
       },
     })
   )

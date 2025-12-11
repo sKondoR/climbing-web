@@ -1,7 +1,6 @@
 import { useClimbersStore } from '../../climbers.store';
 import { useUserStore } from '../../../user/user.store';
-import { IClimberGroup } from '../../climbers.interfaces';
-import { ICustomAllClimber } from '../../../user/user.interfaces';
+import { ICustomAllClimber, IClimberGroup } from '../../../user/user.interfaces';
 import CollapsePanel from '../../../../7-shared/ui/CollapsePanel/CollapsePanel';
 import { useLayoutStore } from '../../../layout/layout.store';
 
@@ -38,11 +37,12 @@ const ClimbersTabs = () => {
     })
   }
 
-  const renderGroup = ({ label, items, offset = 0 }: IClimberGroup) => (
+  const renderGroup = ({ name, items, offset = 0 }: IClimberGroup, index: number) => (
+    <div key={`${name}-${index}`} className="pl-5 pr-5 pt-2 pb-2 bg-white/10 mb-[6px]">
     <CollapsePanel
       open
-      label={`${label} (${items.length})`}
-      key={label}
+      label={`${name} (${items.length})`}
+      key={name}
       className="mb-2"
     >
       {items.map(({ allClimbId, customName }: ICustomAllClimber, index: number) => {
@@ -74,16 +74,17 @@ const ClimbersTabs = () => {
         );
       })}
     </CollapsePanel>
+    </div>
   )
 
   let offset = 0;
   return <>
-    {currentUser.groups.map((group: IClimberGroup) => {
+    {currentUser.groups.map((group: IClimberGroup, index: number) => {
       const cGroup = renderGroup({
-        label: group.label,
+        name: group.name,
         items: group.items as ICustomAllClimber[],
         offset,
-      });
+      }, index);
       offset += group.items.length;
       return cGroup;
     })}

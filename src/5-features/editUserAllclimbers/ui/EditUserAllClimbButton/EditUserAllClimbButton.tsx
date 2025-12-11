@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 
-import { useLayoutStore } from '../../../6-entities/layout/layout.store';
+import { useLayoutStore } from '../../../../6-entities/layout/layout.store';
 
 const EditUserAllClimbButton = () => {
   const { setIsUserEdit } = useLayoutStore();
