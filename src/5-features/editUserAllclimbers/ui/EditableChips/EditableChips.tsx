@@ -37,7 +37,6 @@ const EditableChips = ({
   return (
     <div className={`flex flex-wrap items-center ${className}`}>
       {options.map((option) => {
-        console.log('customName || allClimbId: ', option.customName, option.allClimbId.toString());
         return (
         <Chip
           key={option.allClimbId}

@@ -5,7 +5,7 @@ import {
   Button,
 } from '@material-tailwind/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
 import EditableChips from './ui/EditableChips/EditableChips';
 
 interface MultiselectProps {
@@ -98,7 +98,7 @@ const Multiselect = ({
           value={query}
           onChange={handleInputChange}
           onFocus={handleInputFocus}
-          className={`w-full bg-white/80 ${isCreatable ? 'pr-10' : ''}`}
+          className={`w-full border-none bg-white/40 py-1 px-2 ${isCreatable ? 'pr-10' : ''}`}
           placeholder={placeholder}
           aria-expanded={open}
           autoComplete="off"
@@ -143,11 +143,13 @@ const Multiselect = ({
                     isSelected ? 'bg-blue-50' : ''
                   }`}
                 >
-                  <input checked={isSelected}
-                    type="checkbox"
-                    className="w-4 h-4 rounded-xs bg-neutral-secondary-medium"
-                  />
-                  <span className={isSelected ? 'font-medium' : ''}>{option}</span>
+                  <div className="w-5">
+                    {isSelected  ? <FontAwesomeIcon
+                      icon={faCheck}
+                      className="cursor-pointer text-lime-500"
+                    /> : null}
+                  </div>
+                  <div className={isSelected ? 'font-medium' : ''}>{option}</div>
                 </div>
               );
             })

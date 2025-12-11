@@ -5,6 +5,8 @@ export interface IClimber {
     leads: IRoute[];
     boulders: IRoute[];
     updatedAt: string | null;
+    routesCount?: number;
+    scores?: number;
 }
 
 export interface IRoute {

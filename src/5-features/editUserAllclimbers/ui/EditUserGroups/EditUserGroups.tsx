@@ -39,8 +39,11 @@ const EditUserGroups = () => {
   return (<>
     {groups.map(({ name, items }: IClimberGroup, i) => {
       return (
-        <div key={name} className="pl-5 pr-5 pt-2 pb-2 bg-white/20 mb-[6px]">
-          <div className="flex items-center justify-between">
+        <div
+          key={`${name}-${i}`}
+          className="pl-5 pr-5 pt-2 pb-2 bg-white/20 mb-[6px]"
+        >
+          <div className="flex items-top justify-between">
             <div className="w-[60%] pr-5">
               <h2 className="text-xl mr-5 overflow-hidden">
               <EditableText

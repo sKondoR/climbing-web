@@ -4,7 +4,7 @@ import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 import { useClimbersStore } from '../../../../6-entities/allclimber/climbers.store';
 import { useLayoutStore } from '../../../../6-entities/layout/layout.store';
 
-const UpdateButton = () => {
+const UpdateAllClimbBtn = () => {
   const { fetchClimbersAllClimb, allClimbFetchStatus } = useClimbersStore();
   const { climberPreviewId } = useLayoutStore();
 
@@ -45,4 +45,4 @@ const UpdateButton = () => {
   )
 }
   
-export default UpdateButton;
+export default UpdateAllClimbBtn;

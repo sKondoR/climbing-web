@@ -21,7 +21,8 @@ interface UserState {
   getVKProfile: () => Promise<void>,
   logoutVk: () => Promise<void>,
   addDefaultGroupsToUser: () => void,
-  saveUserGroups: () => void,
+  fetchUpdateUser: (user: IUser) => Promise<void>,
+  saveUserGroups: () => Promise<void>,
 };
 
 export const useUserStore = create<UserState>()(
@@ -153,17 +154,38 @@ export const useUserStore = create<UserState>()(
         }));
       },
 
-      saveUserGroups: () => {
-        const groups = useUserGroupsStore.getState().groups;
-        set((state: UserState) => ({
-          ...state,
-          user: {
-            ...state.user,
-            groups,
-          },
-        }));
+      fetchUpdateUser: async (userData: Partial<IUser>): Promise<void> => {
+        try {
+          const res = await fetch(`${getApiUrl()}/users/${userData.id}`, {
+            ...options,
+            method: 'PATCH',
+            body: JSON.stringify(userData),
+          });
+          const data: IUser = await res.json();
+          console.log('fetchUpdateUser', data);
+          set((state: UserState) => ({
+            ...state,
+            user: {
+              ...state.user,
+              groups: data.groups,
+            },
+          }));
+          // return data;    
+        } catch {
+          alert ('fetch error');
+        }
+      },
 
-        console.log('iuser groups changes')
+      saveUserGroups: async () => {
+        const user = get().user;
+        const groups = useUserGroupsStore.getState().groups;
+
+        const data = await get().fetchUpdateUser({
+          ...user,
+          groups,
+        } as IUser);
+
+        console.log('User groups changes: ', data);
       },
     })
   )

@@ -3,7 +3,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 import { useLayoutStore } from '../../../../6-entities/layout/layout.store';
 
-const EditUserAllClimbButton = () => {
+const EditUserAllClimbBtn = () => {
   const { setIsUserEdit } = useLayoutStore();
   
   const onClick = () => {
@@ -19,4 +19,4 @@ const EditUserAllClimbButton = () => {
   )
 }
   
-export default EditUserAllClimbButton;
+export default EditUserAllClimbBtn;

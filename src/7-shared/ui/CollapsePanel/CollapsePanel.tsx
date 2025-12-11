@@ -28,11 +28,12 @@ export default function CollapseDemo({
   return (
     <>
       <div onClick={setIsOpen} className={`flex justify-between cursor-pointer ${className}`}>
-        <div>
+        <h3 className="text-xl">
           {icon}{label}
-        </div>
+        </h3>
         <FontAwesomeIcon
           icon={uncontrolledOpen ? faCaretDown : faCaretUp}
+          className="mt-2"
         />
       </div>
       <Collapse open={uncontrolledOpen}>
