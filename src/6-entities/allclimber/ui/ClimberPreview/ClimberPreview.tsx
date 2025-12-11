@@ -68,7 +68,7 @@ const ClimbersTabs = () => {
           const bg = GRADES_COLORS[route.grade.slice(0, 2)]
           return <div className="flex hover:bg-white/20" key={`${route.isBoulder}${route.grade}${route.text}`}>
             <span className="w-2 mr-1 mb-1" style={{ background: bg }}>&nbsp;</span>
-            <span className="w-[55px] mr-1">{route.grade}</span>
+            <span className="w-[55px] mr-1 text-sm mt-1">{route.grade}</span>
             <div className="grow">{route.name} {route.isTopRope ? '(верхняя)' : ''}</div>
             <div className="grow text-right text-sm mt-1">{route.region}</div>
           </div>
