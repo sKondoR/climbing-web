@@ -21,6 +21,7 @@ const Layout = () => {
   } = useUserStore();
 
   const {
+    climbers,
     fetchClimbers,
   } = useClimbersStore();
 
@@ -29,9 +30,13 @@ const Layout = () => {
   } = useTeamStore();
 
   useEffect(() => {
+    if(!climbers?.length) {
       fetchClimbers();
+    }
+  }, [climbers?.length]);
+
+  useEffect(() => {
       fetchTeam();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

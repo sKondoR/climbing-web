@@ -11,7 +11,7 @@ import { IPlotsVisibility } from '../layout/layout.interfaces';
 import { getClimbersIds } from './climbers.utils';
 export interface ClimbersState {
   climbers: IClimbers,
-  // isFetchingAllClimb: false,
+  isFetchingAllClimb: boolean,
   fetchClimbers: () => void,
   fetchClimbersAllClimb: (ids?: number[]) => void,
   allClimbFetchStatus: string,
@@ -22,14 +22,21 @@ export const useClimbersStore = create<ClimbersState>()(
   devtools(
     (set, get) => ({
       climbers: {},
+      isFetchingAllClimb: false,
       allClimbFetchStatus: '',
+
       fetchClimbers: async () => {
         try {
+          set((state: ClimbersState) => ({
+            ...state,
+            isFetchingAllClimb: true,
+          }));
           const res = await fetch(`${getApiUrl()}/climbers`, options) 
           const data = await res.json();
           console.log('fetchClimbers', data);
           set((state: ClimbersState) => ({
             ...state,
+            isFetchingAllClimb: false,
             climbers: data.reduce((acc: IClimbers, climber: IClimber) => {
               acc[climber.allClimbId] = climber
               return acc
@@ -40,6 +47,11 @@ export const useClimbersStore = create<ClimbersState>()(
               return acc
             }, {}),);
         } catch {
+          set((state: ClimbersState) => ({
+            ...state,
+            isFetchingAllClimb: false,
+          }));
+          // toDo: сделать нормальное уведомление
           alert ('fetch error');
         }
       },
@@ -74,15 +86,16 @@ export const useClimbersStore = create<ClimbersState>()(
             const res = await fetch(`${getApiUrl()}/allClimb?id=${id}`, options);
             if (!res.ok) continue;
 
-            const { name, leads, boulders, routesCount } = await res.json();
+            const { name, leads, boulders, routesCount, scores } = await res.json();
 
             if (!name) {
-              console.log(`Allclimb ${id} is up-to-date`);
+              console.log(`Allclimb ${id} не требует обновления`);
               setAllClimbFetchStatus(`${i+1}/${ids.length}`);
               continue;
             }
 
             const existed = climbers[id];
+            // toDo: упростить
             const climberData = {
               id: existed?.id,
               allClimbId: id,
@@ -90,6 +103,7 @@ export const useClimbersStore = create<ClimbersState>()(
               leads,
               boulders,
               routesCount,
+              scores,
             };
 
             // Сохраняем в БД
@@ -108,6 +122,7 @@ export const useClimbersStore = create<ClimbersState>()(
               allClimbFetchStatus: `${i+1}/${ids.length}`,
             }));
           } catch (error) {
+            // toDO: сделать нормальное уведомление
             console.error(`Error fetching climber ${id}:`, error);
           }
         }

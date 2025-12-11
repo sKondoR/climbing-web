@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import CustomModal from '../../7-shared/ui/CustomModal/CustomModal';
 
 import ClimberInfo from '../../6-entities/allclimber/ui/ClimberInfo/ClimberInfo';
 import ClimberPreview from '../../6-entities/allclimber/ui/ClimberPreview/ClimberPreview';
@@ -15,9 +16,12 @@ import bg1 from '../../7-shared/assets/images/bg1.jpg';
 import EditUserGroups from '../../5-features/editUserAllclimbers/ui/EditUserGroups/EditUserGroups';
 import AddUserGroup from '../../5-features/editUserAllclimbers/ui/AddUserGroup/AddUserGroup';
 import SaveUserGroupsBtn from '../../5-features/saveUserGroups/ui/SaveUserGroupsBtn/SaveUserGroupsBtn';
+import { useClimbersStore } from '../../6-entities/allclimber/climbers.store';
+import { Spinner } from '@material-tailwind/react/dist/components/spinner';
 
 const Allclimb = () => {
   const { addDefaultGroupsToUser } = useUserStore();
+  const { isFetchingAllClimb } = useClimbersStore();
   const {
     climberPreviewId,
     setClimberPreviewId,
@@ -31,6 +35,17 @@ const Allclimb = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addDefaultGroupsToUser]);
 
+  if (isFetchingAllClimb) {
+    return <CustomModal
+      defaultOpen={true}
+      title="test"
+    >
+      <div className="flex px-10 py-10 justify-center">
+        <div className="flex align-items"><Spinner className="mr-5 text-lg"/> Идет загрузка AllClimb скалолазов...</div>
+      </div>
+    </CustomModal>
+  }
+
   // text-gray-200 bg-slate-700/80
   return (<>
     <aside className="fixed w-[700px] top-0 left-0 z-20 flex flex-col flex-shrink-0 h-full pt-[64px]
@@ -39,7 +54,7 @@ const Allclimb = () => {
         backgroundImage: `url("${bg1}")`,
       }}
     >
-    <div className={`flex flex-col flex-shrink-0 h-full text-gray-800 ${climberPreviewId === null && !isUserEdit ? 'bg-lime-300/90' : 'bg-lime-300/90'} backdrop-blur-[2px]`}>
+      <div className={`flex flex-col flex-shrink-0 h-full text-gray-800 ${climberPreviewId === null && !isUserEdit ? 'bg-lime-300/90' : 'bg-lime-300/90'} backdrop-blur-[2px]`}>
       {climberPreviewId === null && !isUserEdit &&
         <>
           <div className="flex pt-3 pb-3 pl-5 pr-5">
@@ -96,7 +111,7 @@ const Allclimb = () => {
               />
             </div>}
           </div> 
-          <div className="w-full h-full overflow-y-auto overflow-x-hidden pt-3 pb-3 pl-5 pr-5">     
+          <div className="w-full h-full overflow-y-auto overflow-x-hidden pt-3 pb-3 pl-5 pr-3">     
             <ClimberPreview />
           </div>
           {(climberPreviewId !== null || isUserEdit) && <UpdateAllClimbBtn />}

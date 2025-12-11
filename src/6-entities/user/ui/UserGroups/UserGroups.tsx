@@ -50,8 +50,9 @@ const UserGroups = () => {
       className="mb-2"
     >
       {items.map(({ allClimbId, customName }: ICustomAllClimber, index: number) => {
-        if (!allClimbId) return;
-        const { routesCount, name } = climbers[allClimbId];
+        if (!(allClimbId && climbers?.[allClimbId])) return;
+        // toDo: добавить нотификацию
+        const { name, routesCount, scores } = climbers[allClimbId];
         const text = customName || name || allClimbId;        
         const currentIndex = offset + index;
         const isPlotVisible = plotsVisibility[allClimbId];
@@ -81,7 +82,7 @@ const UserGroups = () => {
               {routesCount}
             </div>
             <div className="w-[20%] px-2">
-              ...
+              {scores}
             </div>
             <div className="w-7"></div>
           </li>

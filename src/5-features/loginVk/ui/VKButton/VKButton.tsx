@@ -101,7 +101,7 @@ const VKButton: React.FC = () => {
   return (
     <div className="flex align-middle text-white">
       <button
-        className="w-10 h-10 rounded-full py-1 px-2 bg-white/40 text-white hover:bg-white hover:text-indigo-900 text-bold"
+        className="w-10 h-10 rounded-full py-1 px-2 text-white bg-blue-500 hover:bg-blue-600 text-bold"
         onClick={handleClick}
         disabled={isCodeInUrl}
       >
