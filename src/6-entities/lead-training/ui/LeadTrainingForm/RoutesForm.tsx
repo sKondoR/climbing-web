@@ -31,15 +31,17 @@ const RoutesForm = () => {
   }, [trainings, selectedDate])
   
   const submit = () => {
-    setLeadTraining({
-      id: existedTraining?.id,
-      date: selectedDate,
-      userId: user?.id || TEST_USER_ID, //hardcoded user id
-      routes: routes ? routes.split(' ') : [],
-      withStops: withStops ? withStops.split(' ') : [],
-      topRopes: topRopes ? topRopes.split(' ') : [],
-    })
-    setOpenConfirm(false)
+    if ('id' in user) {
+      setLeadTraining({
+        id: existedTraining?.id,
+        date: selectedDate,
+        userId: user?.id || TEST_USER_ID, //hardcoded user id
+        routes: routes ? routes.split(' ') : [],
+        withStops: withStops ? withStops.split(' ') : [],
+        topRopes: topRopes ? topRopes.split(' ') : [],
+      });
+      setOpenConfirm(false);
+    }
   };
 
   const handleDecline = () => setOpenConfirm(false)

@@ -18,8 +18,10 @@ const LeadTraining = () => {
   } = useLeadTrainingStore()
   
   useEffect(() => {
-    if(user?.id !== undefined) fetchLeadTraining(user.id || TEST_USER_ID)
-  }, [fetchLeadTraining, user?.id]);
+    if ('id' in user) {
+      if(user?.id !== undefined) fetchLeadTraining(user.id || TEST_USER_ID);
+    }
+  }, [fetchLeadTraining]);
 
   if (isLeadTrainingFetching) return 'Loading...'
   
