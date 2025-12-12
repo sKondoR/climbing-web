@@ -19,7 +19,7 @@ const VKButton: React.FC = () => {
   const [isError, setIsError] = useState(false);
   const [isEntering, setIsEntering] = useState(false);
   const [isLogging, setIsLogging] = useState(false);
-  const { vkUser, loginVk, logoutVk } = useUserStore()
+  const { user, loginVk, logoutVk } = useUserStore()
 
   const isCodeInUrl = !!new URLSearchParams(search).get('code');
   const redirectUrl = `${import.meta.env.DEV ? import.meta.env.VITE_APP_LOCAL: import.meta.env.VITE_APP_HOST}/signin`;
@@ -73,18 +73,20 @@ const VKButton: React.FC = () => {
     navigate('/');
   };
 
-  if (vkUser) {
+  if ('id' in user) {
     return (
       <div className="flex align-middle text-white">
-        <img
+        {'avatar_url' in user ? <img
           className="w-10 h-10 rounded-full"
-          src={vkUser.avatar_url as string}
+          src={user.avatar_url as string}
           alt="vk avatar"
-        />
+        /> : null}
+        {'name' in user ?
         <div
           className="text-left leading-none ml-2 mr-2 mt-1"
-          style={{ textAlign: 'left' }}>{vkUser.name?.split(' ').map((v: string, i: Key) => (<div key={i}>{v}</div>))}
+          style={{ textAlign: 'left' }}>{user.name?.split(' ').map((v: string, i: Key) => (<div key={i}>{v}</div>))}
         </div>
+        : null}
         <div
           className="text-2xl text-white hover:text-orange-500 cursor-pointer"
           onClick={handleLogout}

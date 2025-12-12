@@ -4,16 +4,12 @@ export enum IGrant {
 }
 
 export interface IUnregisteredUser {
-    id: number | null;
-    allClimbId: number | null | undefined;
-    grant: IGrant;
     groups: IClimberGroup[];
 }
 
 export interface IUser {
     id: number;
     vk_id: number | null;
-    allClimbId: number | null| undefined;
     name: string | null;
     avatar_url: string | null;
     grant: IGrant;

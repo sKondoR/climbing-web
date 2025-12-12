@@ -66,10 +66,9 @@ export const useClimbersStore = create<ClimbersState>()(
       fetchClimbersAllClimb: async (currentIds?: number[]) => {
         const { climbers, setAllClimbFetchStatus } = get();
         const { climberPreviewId } = useLayoutStore.getState();
-        const { user, vkUser } = useUserStore.getState();
-        const currentUser = vkUser || user;
+        const { user } = useUserStore.getState();
 
-        let ids = currentIds || getClimbersIds(currentUser);
+        let ids = currentIds || getClimbersIds(user);
         if (climberPreviewId || climberPreviewId === 0) {
           ids = [ids[climberPreviewId]];
         }

@@ -15,11 +15,9 @@ const ClimberInfo = () => {
   } = useLayoutStore();
   const {
     user,
-    vkUser,
   } = useUserStore();
-  const currentUser = vkUser || user;
-  if (!currentUser) return null;
-  const ids = useMemo(() => getClimbersIds(currentUser), [currentUser]);
+  if (!user) return null;
+  const ids = useMemo(() => getClimbersIds(user), [user]);
   const allClimbId = climberPreviewId != null ? ids[climberPreviewId] : undefined;
   if (!allClimbId) return null;
   const climber = climbers[allClimbId];

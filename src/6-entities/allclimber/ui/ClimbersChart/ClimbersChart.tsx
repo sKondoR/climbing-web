@@ -52,11 +52,9 @@ const ClimbersChart = () => {
       plotsVisibility,
     } = useLayoutStore();
     const {
-      vkUser,
       user,
     } = useUserStore();
     
-    const currentUser = vkUser || user;
     const [settings, setSettings] = useState({
       isLead: true,
       isTopRope: false,
@@ -67,7 +65,7 @@ const ClimbersChart = () => {
     })
 
     if (!user) return
-    const ids = getClimbersIds(currentUser)
+    const ids = getClimbersIds(user)
     const visibleIds = ids?.filter((id) => !!plotsVisibility[id as number])
 
     const grades = filterGrades(settings)

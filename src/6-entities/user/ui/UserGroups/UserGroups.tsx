@@ -20,18 +20,14 @@ const UserGroups = () => {
   } = useLayoutStore();
 
   const {
-    vkUser,
     user,
   } = useUserStore();
 
-  const currentUser = vkUser || user;  
-  if (!currentUser) return null;
+  if (!user) return null;
 
   const onActiveChange = (tabIndex: number) => {
     setClimberPreviewId(climberPreviewId === tabIndex ? null : tabIndex);
   };
-
-  if (!currentUser) return;
 
   const onChange = (e: React.MouseEvent<SVGSVGElement, MouseEvent>, id: number): void => {
     e.stopPropagation()
@@ -94,7 +90,7 @@ const UserGroups = () => {
 
   let offset = 0;
   return <>
-    {currentUser.groups.map((group: IClimberGroup, index: number) => {
+    {user.groups.map((group: IClimberGroup, index: number) => {
       const cGroup = renderGroup({
         name: group.name,
         items: group.items as ICustomAllClimber[],

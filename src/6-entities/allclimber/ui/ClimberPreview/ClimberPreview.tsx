@@ -18,10 +18,8 @@ const ClimbersTabs = () => {
   } = useLayoutStore();
   const {
     user,
-    vkUser,
   } = useUserStore()
   
-  const currentUser = vkUser || user;
   const [settings, setSettings] = useState({
     isLead: true,
     isTopRope: true,
@@ -31,8 +29,8 @@ const ClimbersTabs = () => {
     sortByCategory: false,
   });
 
-  if (!currentUser) return null;
-  const ids = getClimbersIds(currentUser);
+  if (!user) return null;
+  const ids = getClimbersIds(user);
   const allClimbId = climberPreviewId !== null ? ids[climberPreviewId] : undefined;
   if (!allClimbId) return null;
   const climber = climbers[allClimbId]
