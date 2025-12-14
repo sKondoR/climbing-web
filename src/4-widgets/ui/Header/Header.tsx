@@ -22,7 +22,7 @@ const Header = () => {
       <div className={`w-full h-full ${isLandingPage ? '' : 'bg-gradient-to-b from-black/100 to-black/50'}`}>
         <div className={`flex pt-3 pb-3 pr-5 pl-5 justify-between items-center ${isLandingPage ? '' : 'bg-teal-400/30'}`}>
           <h1 className="text-3xl text-white">Spb<span className="text-orange-500">Climb</span>Kids</h1>
-          <Menu />
+          <Menu isHeaderMenu={true} />
           <VKButton />
         </div>
       </div>
