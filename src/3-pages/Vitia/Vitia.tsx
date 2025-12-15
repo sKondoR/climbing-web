@@ -24,7 +24,7 @@ const Progress = () => {
         }}
       >
         <div className={`flex flex-col flex-shrink-0 h-full text-gray-800 bg-lime-300/90 backdrop-blur-[2px]`}>
-          <div className="py-5 pr-5">
+          <div className="py-5">
             <VerticalMenu />
           </div>
         </div>

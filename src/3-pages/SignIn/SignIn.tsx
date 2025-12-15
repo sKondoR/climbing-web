@@ -1,14 +1,21 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import Loading  from '../../7-shared/ui/Loading/Loading'
+
+import Spinner from '@material-tailwind/react/dist/components/spinner';
+import CustomModal from '../../7-shared/ui/CustomModal/CustomModal';
 
 const SignIn = () => {
     return (
     <div>
       <div className="flex flex-row justify-center">
-        <h3 className="m-6">Пожалуйста дождитесь окончания запроса профиля пользователя ВК</h3>
       </div>
-      <Loading />
+    <CustomModal
+      defaultOpen={true}
+    >
+      <div className="flex px-10 py-10 justify-center">
+        <div className="flex align-items"><Spinner className="mr-5 text-lg"/>
+          Пожалуйста дождитесь окончания запроса профиля пользователя ВК...
+        </div>
+      </div>
+    </CustomModal>
     </div>)
 }
   

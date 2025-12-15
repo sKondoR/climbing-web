@@ -1,11 +1,11 @@
 import { useId } from 'react';
-import { IChartSettings } from '../../climbers.interfaces'
+import { IChartSettings } from '../../types/chart.types';
 
 const RoutesFilter = ({
   settings,
   onSettingsChange,
 }: {
-  settings: IChartSettings,
+  settings: IChartSettings, 
   onSettingsChange: (settings: IChartSettings) => void,
 }) => {
   const prefix = useId();

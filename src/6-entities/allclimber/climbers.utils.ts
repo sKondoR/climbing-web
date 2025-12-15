@@ -1,5 +1,6 @@
 import { ICustomAllClimber, IUnregisteredUser, IClimberGroup } from '../user/user.interfaces';
-import { IRoute, IChartSettings } from './climbers.interfaces'
+import { IRoute } from './climbers.interfaces';
+import { IChartSettings } from '../../7-shared/types/chart.types';
 
 export const filterRoutes = (routes: IRoute[], settings: IChartSettings) =>
     (routes || [])

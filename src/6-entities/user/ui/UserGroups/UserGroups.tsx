@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,8 +8,8 @@ import { ICustomAllClimber, IClimberGroup } from '../../user.interfaces';
 import CollapsePanel from '../../../../7-shared/ui/CollapsePanel/CollapsePanel';
 import { useLayoutStore } from '../../../layout/layout.store';
 
-
 const UserGroups = () => {
+  const [groupVisibility, setGroupVisibility] = useState<Record<string, boolean>>({});
   const {
     climbers,
   } = useClimbersStore();
@@ -25,23 +26,57 @@ const UserGroups = () => {
 
   if (!user) return null;
 
+  useEffect(() => {
+    setGroupVisibility(
+      user.groups.reduce((acc: { [x: string]: boolean; }, _group: IClimberGroup, index: number) => {
+        acc[index] = true;
+        return acc;
+      }, {})
+    );
+  }, []);
+
   const onActiveChange = (tabIndex: number) => {
     setClimberPreviewId(climberPreviewId === tabIndex ? null : tabIndex);
   };
 
-  const onChange = (e: React.MouseEvent<SVGSVGElement, MouseEvent>, id: number): void => {
+  const onChange = (e: React.MouseEvent<SVGSVGElement, MouseEvent>, index: number): void => {
     e.stopPropagation()
     setPlotsVisibility({
       ...plotsVisibility,
-      [id]: !plotsVisibility[id],
+      [index]: !plotsVisibility[index],
     })
+  }
+
+  const handleGroupVisibilityClick = (index: number, e?: React.MouseEvent<SVGSVGElement>) => {
+    e?.stopPropagation();
+    
+    const visibility = user.groups[index].items.reduce(
+      (acc: { [x: string]: boolean; }, item: ICustomAllClimber) => {
+      acc[item.allClimbId] = !groupVisibility[index];
+      return acc;
+    }, {});
+    setPlotsVisibility(visibility);
+    setGroupVisibility({
+      ...groupVisibility,
+      [index]: groupVisibility?.[index] ? false : true
+    });
   }
 
   const renderGroup = ({ name, items, offset = 0 }: IClimberGroup, index: number) => (
     <div key={`${name}-${index}`} className="pl-5 pr-5 pt-2 pb-2 bg-white/20 mb-[6px]">
     <CollapsePanel
       open
-      label={`${name} (${items.length})`}
+      // label={`${name} (${items.length})`}
+      label={<>
+        <div className="inline-block w-7 text-sm">
+          <FontAwesomeIcon
+            icon={groupVisibility[index] ? faEye : faEyeSlash}
+            onClick={(e) => handleGroupVisibilityClick(index, e)}
+            className={`cursor-pointer pt-2 ${groupVisibility[index] ? 'text-orange-500' : 'text-gray-500 hover:text-orange-500'}`}
+          />
+        </div>
+        {`${name} (${items.length})`}
+      </>}
       key={name}
       className="mb-2"
     >
@@ -55,7 +90,7 @@ const UserGroups = () => {
         return (
           <li className="flex" key={`${allClimbId}-${index}`}>
             <div className="grow flex items-center pr-2">
-              <div className="w-7">
+              <div className="w-7 text-sm">
                 <FontAwesomeIcon
                   icon={isPlotVisible ? faEye : faEyeSlash}
                   onClick={(e) => onChange(e, allClimbId)}

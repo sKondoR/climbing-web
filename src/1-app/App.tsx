@@ -3,6 +3,8 @@ import './App.css'
 import Layout from '../4-widgets/ui/Layout/Layout'
 import { Routes, Route } from 'react-router-dom'
 import { PATHS } from '../7-shared/constants/paths.constants'
+import CustomModal from '../7-shared/ui/CustomModal/CustomModal'
+import { Spinner } from 'flowbite-react'
 
 const LandingPage = lazy(() => import('../3-pages/Landing/Landing'))
 const VitiaPage = lazy(() => import('../3-pages/Vitia/Vitia'))
@@ -17,7 +19,16 @@ const NoMatch = lazy(() => import('../3-pages/NoMatch/NoMatch'))
 
 const App = () => {
   return (
-    <Suspense fallback={<>Loading...</>}>
+    <Suspense fallback={
+      <CustomModal
+        defaultOpen={true}
+        title="test"
+      >
+        <div className="flex px-10 py-10 justify-center">
+          <div className="flex align-items"><Spinner className="mr-5 text-lg"/> Идет загрузка...</div>
+        </div>
+      </CustomModal>
+    }>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<LandingPage />} />

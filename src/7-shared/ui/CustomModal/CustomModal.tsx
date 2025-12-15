@@ -5,7 +5,7 @@ import {
 } from '@material-tailwind/react';
 
 export type ICustomDialog = {
-    title: string;
+    title?: string;
     defaultOpen: boolean;
     className?: string;
     children?: React.ReactNode | string;

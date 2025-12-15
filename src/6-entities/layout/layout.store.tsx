@@ -12,7 +12,7 @@ export interface LayoutState {
   setPlotsVisibility: (plotsVisibility: IPlotsVisibility) => void,
   isUserEdit: boolean;
   setIsUserEdit: (isUserEdit: boolean) => void,
-}
+};
 
 export const useLayoutStore = create<LayoutState>()(
   devtools(
@@ -39,7 +39,7 @@ export const useLayoutStore = create<LayoutState>()(
           isUserEdit,
         }));
       }
-    })
+    }),
   )
 )
 

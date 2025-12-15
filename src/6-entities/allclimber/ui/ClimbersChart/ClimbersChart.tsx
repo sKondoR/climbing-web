@@ -3,8 +3,9 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } fro
 
 import { useClimbersStore } from '../../climbers.store'
 import { useUserStore } from '../../../user/user.store'
-import { IClimbers, IChartSettings } from '../../climbers.interfaces'
-import RoutesFilter from '../RoutesFilter/RoutesFilter'
+import { IClimbers } from '../../climbers.interfaces'
+import { IChartSettings } from '../../../../7-shared/types/chart.types';
+import RoutesFilter from '../../../../7-shared/ui/RoutesFilter/RoutesFilter'
 import { getClimbersIds } from '../../climbers.utils';
 import { GRADES_COLORS } from '../../../../7-shared/constants/routes.constants';
 import { useLayoutStore } from '../../../layout/layout.store';
