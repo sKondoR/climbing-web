@@ -14,9 +14,10 @@ export interface ClimbersState {
   climbers: IClimbers,
   isFetchingAllClimb: boolean,
   fetchClimbers: () => void,
-  fetchClimbersAllClimb: (ids?: number[]) => void,
+  fetchClimbersAllclimb: (ids?: number[]) => void,
   allClimbFetchStatus: string,
   setAllClimbFetchStatus: (status: string) => void;
+  fetchNewClimbersAllclimb: () => void,
 }
 
 export const useClimbersStore = create<ClimbersState>()(
@@ -68,7 +69,7 @@ export const useClimbersStore = create<ClimbersState>()(
         }));
       },
       
-      fetchClimbersAllClimb: async (currentIds?: number[]) => {
+      fetchClimbersAllclimb: async (currentIds?: number[]) => {
         const { climbers, setAllClimbFetchStatus } = get();
         const { climberPreviewId } = useLayoutStore.getState();
         const { user } = useUserStore.getState();
@@ -131,8 +132,18 @@ export const useClimbersStore = create<ClimbersState>()(
           }
         }
         setAllClimbFetchStatus('');
-      }
-    })
+      },
+
+      fetchNewClimbersAllclimb: () => {
+        const { climbers } = get();
+        const existedIds = Object.keys(climbers).map(Number);
+        const { user } = useUserStore.getState();
+        const newIds = getClimbersIds(user).filter(id => !existedIds.includes(id));
+        if (!newIds.length) {
+          get().fetchClimbersAllclimb(newIds);
+        }        
+      },
+    }),
   )
 )
 
