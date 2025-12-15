@@ -139,7 +139,7 @@ export const useClimbersStore = create<ClimbersState>()(
         const existedIds = Object.keys(climbers).map(Number);
         const { user } = useUserStore.getState();
         const newIds = getClimbersIds(user).filter(id => !existedIds.includes(id));
-        if (!newIds.length) {
+        if (newIds.length) {
           get().fetchClimbersAllclimb(newIds);
         }        
       },

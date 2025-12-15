@@ -21,7 +21,7 @@ const UpdateAllClimbBtn = () => {
 
   return (
     <div className="flex flex-wrap bg-slate-500/70">
-      <div className={`py-3 px-5 text-white ${isAllClimbFetching ? 'grow' : ''}`}>
+      <div className={`py-3 px-5 text-white ${isAllClimbFetching ? 'grow text-center' : ''}`}>
         <FontAwesomeIcon
           icon={faArrowsRotate}
           className={`${isAllClimbFetching ? 'animate-[spin_1s_linear_infinite]' : ''} mr-2`}
