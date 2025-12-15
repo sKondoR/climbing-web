@@ -75,21 +75,21 @@ const EditableText = ({
       {/* Иконка редактирования */}
       {!isEdit ? <FontAwesomeIcon
         icon={faPencil}
-        className="cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 hidden group-hover:block"
+        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 hidden group-hover:block`}
         onClick={handleEditClick}
         aria-label={`Edit ${text}`}
       /> : null}
       {/* Иконка сохранения */}
       {isEdit ? <FontAwesomeIcon
         icon={faSave}
-        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 hidden group-hover:block ${isEdit ? 'block' : ''}`}
+        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 ${isEdit ? 'block' : 'hidden group-hover:block'}`}
         onClick={handleSaveClick}
         aria-label={`Save ${text}`}
       /> : null}
       {/* Иконка удаления */}
       <FontAwesomeIcon
         icon={faTimes}
-        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 hidden group-hover:block ${isEdit ? 'block' : ''}`} 
+        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 ${isEdit ? 'block' : 'hidden group-hover:block'}`} 
         onClick={handleRemoveClick}
         aria-label={`Remove ${text}`}
       />
