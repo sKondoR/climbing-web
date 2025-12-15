@@ -21,13 +21,14 @@ const UpdateAllClimbBtn = () => {
 
   return (
     <div className="flex flex-wrap bg-slate-500/70">
-      <div className="py-3 px-5 border-r-2 border-white/50 text-white">
+      <div className={`py-3 px-5 text-white ${isAllClimbFetching ? 'grow' : ''}`}>
         <FontAwesomeIcon
           icon={faArrowsRotate}
           className={`${isAllClimbFetching ? 'animate-[spin_1s_linear_infinite]' : ''} mr-2`}
         />
-        обновить из Allclimb:
+        {isAllClimbFetching ? `обновляю из AllClimb ${allClimbFetchStatus}...` : 'обновить из Allclimb'}
       </div>
+
       {!isAllClimbFetching ?
       <button
         type="button"
@@ -35,7 +36,7 @@ const UpdateAllClimbBtn = () => {
           grow group relative rounded-none p-3 text-white flex items-center justify-center
           ${allClimbFetchStatus ? 'bg-slate-500' : 'bg-slate-500 hover:bg-slate-600'}
           overflow-hidden transition-colors
-          disabled:opacity-70 disabled:cursor-not-allowed border-0 border-r-2 border-white/50
+          disabled:opacity-70 disabled:cursor-not-allowed border-0 border-r-2 border-l-2 border-white/50
         `}
         onClick={onClick}
         disabled={isAllClimbFetching}
@@ -46,6 +47,7 @@ const UpdateAllClimbBtn = () => {
           <div className="relative h-full w-8 bg-white/20"></div>
         </div>
       </button> : null}
+
       {!isUpdateSingleClimber && !isAllClimbFetching ?
       <button
         type="button"
@@ -64,15 +66,6 @@ const UpdateAllClimbBtn = () => {
           <div className="relative h-full w-8 bg-white/20"></div>
         </div>
       </button> : null}
-      {isAllClimbFetching ? (
-        <div className="py-3 px-5 text-white">
-          <FontAwesomeIcon
-            icon={faArrowsRotate}
-            className={`${isAllClimbFetching ? 'animate-[spin_1s_linear_infinite]' : ''} mr-2`}
-          />
-          обновляю из AllClimb ${allClimbFetchStatus}...
-        </div>
-      ) : null}
     </div>
   )
 }
