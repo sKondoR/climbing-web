@@ -28,6 +28,7 @@ const UpdateAllClimbBtn = () => {
         />
         обновить из Allclimb:
       </div>
+      {!isAllClimbFetching ?
       <button
         type="button"
         className={`
@@ -40,17 +41,13 @@ const UpdateAllClimbBtn = () => {
         disabled={isAllClimbFetching}
         aria-busy={isAllClimbFetching}
       >
-        {isAllClimbFetching ?
-          `обновляю из AllClimb ${allClimbFetchStatus}...` :
-          `${isUpdateSingleClimber ? 'скалолаза' : 'всех'}`
-        }
-        {!isAllClimbFetching &&
+        {isUpdateSingleClimber ? 'скалолаза' : 'всех'}
         <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]">
           <div className="relative h-full w-8 bg-white/20"></div>
         </div>
-        }
-      </button>
-      {isUpdateSingleClimber ? null : <button
+      </button> : null}
+      {!isUpdateSingleClimber && !isAllClimbFetching ?
+      <button
         type="button"
         className={`
           grow group relative rounded-none p-3 text-white flex items-center justify-center
@@ -62,16 +59,20 @@ const UpdateAllClimbBtn = () => {
         disabled={isAllClimbFetching}
         aria-busy={isAllClimbFetching}
       >
-        {isAllClimbFetching ?
-          `обновляю из AllClimb ${allClimbFetchStatus}...` :
-          `только новых`
-        }
-        {!isAllClimbFetching &&
+        только новых
         <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]">
           <div className="relative h-full w-8 bg-white/20"></div>
         </div>
-        }
-      </button>}
+      </button> : null}
+      {isAllClimbFetching ? (
+        <div className="py-3 px-5 text-white">
+          <FontAwesomeIcon
+            icon={faArrowsRotate}
+            className={`${isAllClimbFetching ? 'animate-[spin_1s_linear_infinite]' : ''} mr-2`}
+          />
+          обновляю из AllClimb ${allClimbFetchStatus}...
+        </div>
+      ) : null}
     </div>
   )
 }
