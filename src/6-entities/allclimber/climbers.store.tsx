@@ -9,6 +9,7 @@ import { useUserStore } from '../user/user.store';
 import { useLayoutStore } from '../layout/layout.store';
 import { IPlotsVisibility } from '../layout/layout.interfaces';
 import { getClimbersIds } from './climbers.utils';
+import { useNotificationsStore } from '../notification/notification.store';
 export interface ClimbersState {
   climbers: IClimbers,
   isFetchingAllClimb: boolean,
@@ -26,12 +27,13 @@ export const useClimbersStore = create<ClimbersState>()(
       allClimbFetchStatus: '',
 
       fetchClimbers: async () => {
+        const url = `${getApiUrl()}/climbers`;
         try {
           set((state: ClimbersState) => ({
             ...state,
             isFetchingAllClimb: true,
           }));
-          const res = await fetch(`${getApiUrl()}/climbers`, options) 
+          const res = await fetch(url, options) 
           const data = await res.json();
           console.log('fetchClimbers', data);
           set((state: ClimbersState) => ({
@@ -46,13 +48,16 @@ export const useClimbersStore = create<ClimbersState>()(
               acc[climber.allClimbId] = true
               return acc
             }, {}),);
-        } catch {
+        } catch (error) {
           set((state: ClimbersState) => ({
             ...state,
             isFetchingAllClimb: false,
           }));
-          // toDo: сделать нормальное уведомление
-          alert ('fetch error');
+          useNotificationsStore.getState().addNotification({
+            type: 'error',
+            message: `Ошибка загрузки fetchClimbers: ${url}`,
+            code: error as string,
+          })
         }
       },
 

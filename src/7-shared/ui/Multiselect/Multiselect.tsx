@@ -103,14 +103,6 @@ const Multiselect = ({
           aria-expanded={open}
           autoComplete="off"
         />
-        {isCreatable && query.length ? (
-            <FontAwesomeIcon
-              icon={faPlus}
-              className="cursor-pointer text-xl text-gray-800 hover:text-orange-500 absolute top-3 right-3 mt-[2px]"
-              onClick={() => addNew()}
-              aria-label={`Add new`}
-            />
-        ) : null}
       </div>
       {isHiddenSelected ? null : selected.map((option) => (
         <EditableChips
@@ -158,6 +150,17 @@ const Multiselect = ({
               Нет результатов
             </Menu.Item>
           )}
+          {isCreatable && query.length && !options.includes(query) ? (
+            <>
+            <FontAwesomeIcon
+              icon={faPlus}
+              className="cursor-pointer text-xl text-gray-800 hover:text-orange-500 absolute top-3 right-3 mt-[2px]"
+              onClick={() => addNew()}
+              aria-label="Найти на AllClimb и добавить"
+            />
+              Найти на AllClimb и добавить
+            </>
+          ) : null}
         </Menu.Content>
       </Menu> : null}
     </div>

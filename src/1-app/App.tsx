@@ -4,7 +4,8 @@ import Layout from '../4-widgets/ui/Layout/Layout'
 import { Routes, Route } from 'react-router-dom'
 import { PATHS } from '../7-shared/constants/paths.constants'
 import CustomModal from '../7-shared/ui/CustomModal/CustomModal'
-import { Spinner } from 'flowbite-react'
+import { Spinner } from '@material-tailwind/react'
+import Notifications from '../6-entities/notification/ui/Notifications/Notifications'
 
 const LandingPage = lazy(() => import('../3-pages/Landing/Landing'))
 const VitiaPage = lazy(() => import('../3-pages/Vitia/Vitia'))
@@ -68,6 +69,7 @@ const App = () => {
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
+      <Notifications />
     </Suspense>
   )
 }

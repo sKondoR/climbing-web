@@ -61,7 +61,8 @@ const EditUserGroups = () => {
                 options={climberOptions}
                 placeholder="выберите скалолазов"
                 onChange={(values) => setGroupItems(i, values)}
-                isHiddenSelected={true}
+                isHiddenSelected
+                isCreatable
               />
             </div>
           </div>

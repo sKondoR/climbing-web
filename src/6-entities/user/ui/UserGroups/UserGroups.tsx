@@ -49,13 +49,15 @@ const UserGroups = () => {
 
   const handleGroupVisibilityClick = (index: number, e?: React.MouseEvent<SVGSVGElement>) => {
     e?.stopPropagation();
-    
     const visibility = user.groups[index].items.reduce(
       (acc: { [x: string]: boolean; }, item: ICustomAllClimber) => {
       acc[item.allClimbId] = !groupVisibility[index];
       return acc;
     }, {});
-    setPlotsVisibility(visibility);
+    setPlotsVisibility({
+      ...plotsVisibility,
+      ...visibility
+    });
     setGroupVisibility({
       ...groupVisibility,
       [index]: groupVisibility?.[index] ? false : true
@@ -73,6 +75,7 @@ const UserGroups = () => {
             icon={groupVisibility[index] ? faEye : faEyeSlash}
             onClick={(e) => handleGroupVisibilityClick(index, e)}
             className={`cursor-pointer pt-2 ${groupVisibility[index] ? 'text-orange-500' : 'text-gray-500 hover:text-orange-500'}`}
+            title="показать/спрятать графики группы"
           />
         </div>
         {`${name} (${items.length})`}
@@ -95,6 +98,7 @@ const UserGroups = () => {
                   icon={isPlotVisible ? faEye : faEyeSlash}
                   onClick={(e) => onChange(e, allClimbId)}
                   className={`cursor-pointer pt-2 ${isPlotVisible ? 'text-orange-500' : 'text-gray-500 hover:text-orange-500'}`}
+                  title="показать/спрятать графики скалолаза"
                 />
               </div>
               <div className={

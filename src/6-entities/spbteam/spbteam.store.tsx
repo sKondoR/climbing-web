@@ -4,6 +4,7 @@ import { getApiUrl, options } from '../../7-shared/constants/api.constants';
 import {
   ITeamMember,
 } from './spbteam.interfaces';
+import { useNotificationsStore } from '../notification/notification.store';
 
 export interface TeamState {
   coaches: ITeamMember[],
@@ -20,10 +21,11 @@ export const useTeamStore = create<TeamState>()(
       team: [],
       previewId: 0,
       fetchTeam: async () => {
-        const res = await fetch(`${getApiUrl()}/team`, options) 
-        const data = await res.json();
-
-        set((state: TeamState) => ({
+        const url = `${getApiUrl()}/team`;
+        try {
+          const res = await fetch(url, options) 
+          const data = await res.json();
+          set((state: TeamState) => ({
           ...state,
           coaches: data.filter(({ isCoach }: ITeamMember) => isCoach),
           team: data.filter(({ isCoach }: ITeamMember) => !isCoach)
@@ -38,7 +40,18 @@ export const useTeamStore = create<TeamState>()(
               }
               return 0;
             }),
-        }));
+          }));
+        } catch (error) {
+          set((state: TeamState) => ({
+            ...state,
+            isFetchingAllClimb: false,
+          }));
+          useNotificationsStore.getState().addNotification({
+            type: 'error',
+            message: `Ошибка загрузки fetchTeam: ${url}`,
+            code: error as string,
+          })
+        }
       },
       setPreviewId: (previewId: number) => {
         set((state: TeamState) => ({

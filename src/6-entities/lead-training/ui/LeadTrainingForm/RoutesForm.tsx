@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import ConfirmModal from '../../../../7-shared/ui/ConfirmModal/ConfirmModal'
 import { useLeadTrainingStore } from '../../../../6-entities/lead-training/lead-training.store'
 import { useUserStore } from '../../../../6-entities/user/user.store';
+import { Checkbox } from '@material-tailwind/react';
 
 const TEST_USER_ID = 1;
 
@@ -63,6 +64,13 @@ const RoutesForm = () => {
 
   return <>
     введите трассы через пробел
+    <Checkbox
+      defaultChecked
+      id="checked-checkbox"
+    >
+      <Checkbox.Indicator />
+      с нижней страховкой
+    </Checkbox>
     <TextInput
       value={routes}
       disabled={!selectedDate}

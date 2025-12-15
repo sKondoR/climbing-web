@@ -10,7 +10,7 @@ import { PRIVATE_ROUTES } from '../../../7-shared/constants/paths.constants';
 import useIsPage from '../../../7-shared/hooks/useIsPage';
 import { useHealthyStore } from '../../../6-entities/healthy/healthy.store';
 import CustomModal from '../../../7-shared/ui/CustomModal/CustomModal';
-import { Spinner } from 'flowbite-react';
+import { Spinner } from '@material-tailwind/react';
 
 const Layout = () => {
   const { isHealthy, isHealthyFetching } = useHealthyStore();
