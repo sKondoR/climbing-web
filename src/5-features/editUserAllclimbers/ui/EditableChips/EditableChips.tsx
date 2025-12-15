@@ -3,6 +3,7 @@ import {
 } from '@material-tailwind/react';
 import { ICustomAllClimber } from '../../../../6-entities/user/user.interfaces';
 import EditableText from '../../../../7-shared/ui/EditableText/EditableText';
+import { useClimbersStore } from '../../../../6-entities/allclimber/climbers.store';
 
 interface EditableChipsProps {
   options?: ICustomAllClimber[];
@@ -18,6 +19,8 @@ const EditableChips = ({
   onEdit,
   className,
 }: EditableChipsProps) => {
+  const { climbers } = useClimbersStore();  
+  const climberOptions = Object.keys(climbers);
 
   const handleOnRemove = (allClimbId: number) => {
     onChange(
@@ -37,11 +40,14 @@ const EditableChips = ({
   return (
     <div className={`flex flex-wrap items-center ${className}`}>
       {options.map((option) => {
+        const isNotLoadedClimber = !climberOptions.includes(`${option.allClimbId}`);
         return (
         <Chip
           key={option.allClimbId}
           variant="ghost"
-          className="group flex items-center px-2 py-1 text-sm border-slate-500 mb-1 mr-1"
+          className={`group flex items-center px-2 py-1 text-sm mb-1 mr-1
+            ${isNotLoadedClimber ? 'border-lime-500' : 'border-slate-500'}
+          `}
         > 
           <EditableText
             value={option.customName || ''}
