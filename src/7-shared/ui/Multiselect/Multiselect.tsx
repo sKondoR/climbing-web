@@ -44,23 +44,26 @@ const Multiselect = ({
   };
 
   // Выбор/удаление опции
-  const handleOptionClick = (option: string) => {
+  const handleOptionClick = useCallback((option: string) => {
     onChange(
-      selected.includes(option) ? selected.filter((item) => item !== option) : [...selected, option]
+      selected.includes(option)
+        ? selected.filter((item) => item !== option)
+        : [...selected, option]
     );
-  };
+  }, [selected, onChange]);
 
+  // Добавление новой опции (если creatable)
   const addNew = useCallback(() => {
-    onChange(
-      selected.includes(query) ? selected : [...selected, query]
-    );
-    setQuery('');
-  }, [query]);
+    if (query.trim() && !selected.includes(query)) {
+      onChange([...selected, query.trim()]);
+      setQuery('');
+    }
+  }, [query, selected, onChange]);
 
   // Удаление выбранной опции
-  const removeSelected = (values: string[]) => {
+  const removeSelected = useCallback((values: string[]) => {
     onChange(values);
-  };
+  }, [onChange]);
 
   // Закрытие меню при клике вне компонента
   useEffect(() => {
