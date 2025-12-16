@@ -49,6 +49,8 @@ const ClimbersTabs = () => {
 
   const allRoutes = settings.isLead ? leads : boulders
   const routes = filterRoutes(allRoutes, settings);
+  console.log('settings: ', settings);
+  console.log('routes: ', routes);
   
   return (
     <>
