@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { faMedal, faPeopleGroup, faHandshakeAngle } from '@fortawesome/free-solid-svg-icons';
+import { nanoid } from 'nanoid';
 
 import { getApiUrl, options } from '../../7-shared/constants/api.constants';
 import { TEAM } from '../spbteam/spbteam.constants';
@@ -117,19 +118,22 @@ export const useUserStore = create<UserState>()(
             ...state.user,
             groups: [
               {
+                id: nanoid(),
                 name: 'команда',
                 icon: faPeopleGroup,
                 items: team,
                 offset: 0
               },
               {
+                id: nanoid(),
                 name: 'друзья',
                 icon: faHandshakeAngle,
                 items: FRIENDS.map(({ allClimbId }) => ({ allClimbId }) ) as ICustomAllClimber[],
                 offset: team.length
               },
               {
-                name: 'про-спортсмены',
+                id: nanoid(),
+                name: 'про',
                 icon: faMedal,
                 items: PRO.map(({ allClimbId }) => ({ allClimbId }) ) as ICustomAllClimber[],
                 offset: team.length + FRIENDS.length
