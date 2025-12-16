@@ -48,6 +48,7 @@ const EditableChips = ({
           className={`group flex items-center px-2 py-1 text-sm mb-1 mr-1
             ${isNotLoadedClimber ? 'bg-lime-500/80 border-lime-500' : 'border-slate-500'}
           `}
+          title="скалолаз еще не загружен из Allclimb"
         > 
           <EditableText
             value={option.customName || ''}

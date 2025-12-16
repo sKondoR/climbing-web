@@ -112,7 +112,7 @@ export const useClimbersStore = create<ClimbersState>()(
             };
 
             // Сохраняем в БД
-            await fetch(`${getApiUrl()}/climbers/${existed?.id || ''}`, {
+            await fetch(`${getApiUrl()}/climbers${existed?.id ? `/${existed.id}` : ''}`, {
               ...options,
               method: existed?.id ? 'PATCH' : 'POST',
               body: JSON.stringify(climberData),
@@ -128,7 +128,7 @@ export const useClimbersStore = create<ClimbersState>()(
             }));
           } catch (error) {
             // toDO: сделать нормальное уведомление
-            console.error(`Error fetching climber ${id}:`, error);
+            console.error(`Ошибка загрузки ${id}:`, error);
           }
         }
         setAllClimbFetchStatus('');

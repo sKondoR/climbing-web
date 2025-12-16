@@ -50,7 +50,8 @@ const EditUserGroups = () => {
                 value={name}
                 onSave={(value: string) => handleSave(value, i)}
                 onRemove={() => handleRemove(i)}
-                className="text-xl"
+                inputClassName="text-xl"
+                iconClassName="text-xl"
               >
                 {name}
               </EditableText>

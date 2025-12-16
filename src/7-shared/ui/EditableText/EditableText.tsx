@@ -7,6 +7,8 @@ interface EditableChipsItemProps {
   onSave: (value: string) => void;
   onRemove: () => void;
   className?: string;
+  inputClassName?: string;
+  iconClassName?: string;
   placeholder?: string;
   children?: React.ReactNode | string;
 }
@@ -16,6 +18,8 @@ const EditableText = ({
   onSave,
   onRemove,
   className = '',
+  inputClassName = '',
+  iconClassName = '',
   children,
 }: EditableChipsItemProps) => {
   const [text, setText] = useState(value);
@@ -67,7 +71,7 @@ const EditableText = ({
           value={text}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          className="font-sans font-medium text-sm w-fix min-w-10 px-[1px] py-0 bg-white/30 rounded-none border-[0]"
+          className={`font-sans font-medium text-sm w-fix min-w-10 px-[1px] py-0 bg-white/30 rounded-none border-[0] ${inputClassName}`}
           placeholder={text}
         />
         : children
@@ -75,21 +79,21 @@ const EditableText = ({
       {/* Иконка редактирования */}
       {!isEdit ? <FontAwesomeIcon
         icon={faPencil}
-        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 hidden group-hover:block`}
+        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 hidden group-hover:block ${iconClassName}`}
         onClick={handleEditClick}
         aria-label={`Edit ${text}`}
       /> : null}
       {/* Иконка сохранения */}
       {isEdit ? <FontAwesomeIcon
         icon={faSave}
-        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 ${isEdit ? 'block' : 'hidden group-hover:block'}`}
+        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 ${iconClassName} ${isEdit ? 'block' : 'hidden group-hover:block'}`}
         onClick={handleSaveClick}
         aria-label={`Save ${text}`}
       /> : null}
       {/* Иконка удаления */}
       <FontAwesomeIcon
         icon={faTimes}
-        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 ${isEdit ? 'block' : 'hidden group-hover:block'}`} 
+        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 ${iconClassName} ${isEdit ? 'block' : 'hidden group-hover:block'}`} 
         onClick={handleRemoveClick}
         aria-label={`Remove ${text}`}
       />
