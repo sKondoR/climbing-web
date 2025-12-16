@@ -125,15 +125,15 @@ const Multiselect = ({
           ref={menuRef}
         > 
           {isCreatable && query.length && !options.includes(query) ? (
-            <>
-            <FontAwesomeIcon
-              icon={faPlus}
-              className="cursor-pointer text-xl text-gray-800 hover:text-orange-500 absolute top-3 right-3 mt-[2px]"
-              onClick={() => addNew()}
-              aria-label="добавить новое"
-            />
+            <div className="px-3 py-2">
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="cursor-pointer text-gray-800 hover:text-orange-500"
+                onClick={() => addNew()}
+                aria-label="добавить новое"
+              />
               добавить новое
-            </>
+            </div>
           ) : null}
           {filteredOptions.length > 0 ? (
             filteredOptions.map((option) => {
