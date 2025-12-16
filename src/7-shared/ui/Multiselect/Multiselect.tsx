@@ -143,12 +143,14 @@ const Multiselect = ({
           ref={menuRef}
         > 
           {isCreatable && query.length && !options.includes(query) ? (
-            <div className="px-3 py-2">
+            <div
+              className="px-3 py-2 cursor-pointer text-gray-800 hover:text-orange-500" 
+              onClick={() => addNew()}
+              aria-label="добавить новое"
+            >
               <FontAwesomeIcon
                 icon={faPlus}
-                className="cursor-pointer text-gray-800 hover:text-orange-500"
-                onClick={() => addNew()}
-                aria-label="добавить новое"
+                className="mr-2"                
               />
               добавить новое
             </div>
