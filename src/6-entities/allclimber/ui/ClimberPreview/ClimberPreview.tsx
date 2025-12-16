@@ -2,7 +2,7 @@ import { useState, useId } from 'react';
 
 import { useClimbersStore } from '../../climbers.store';
 import { useUserStore } from '../../../user/user.store';
-import { filterRoutes, getClimbersIds } from '../../climbers.utils';
+import { filterRoutes, getClimbersIds, getRouteKey } from '../../climbers.utils';
 import { IRoute } from '../../climbers.interfaces';
 import { IChartSettings } from '../../../../7-shared/types/chart.types';
 import RoutesFilter from '../../../../7-shared/ui/RoutesFilter/RoutesFilter';
@@ -49,8 +49,6 @@ const ClimbersTabs = () => {
 
   const allRoutes = settings.isLead ? leads : boulders
   const routes = filterRoutes(allRoutes, settings);
-  console.log('settings: ', settings);
-  console.log('routes: ', routes);
   
   return (
     <>
@@ -67,7 +65,7 @@ const ClimbersTabs = () => {
         </div>
         {routes?.map((route: IRoute) => {
           const bg = GRADES_COLORS[route.grade.slice(0, 2)]
-          return <div className="flex hover:bg-white/20" key={`${route.isBoulder}${route.grade}${route.text}`}>
+          return <div className="flex hover:bg-white/20" key={getRouteKey(route)}>
             <span className="w-2 mr-1 mb-1" style={{ background: bg }}>&nbsp;</span>
             <span className="w-[55px] mr-1 text-sm mt-1">{route.grade}</span>
             <div className="grow">{route.name} {route.isTopRope ? '(верхняя)' : ''}</div>
