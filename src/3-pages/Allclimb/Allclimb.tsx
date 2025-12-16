@@ -15,9 +15,9 @@ import EditUserAllClimbBtn from '../../5-features/editUserAllclimbers/ui/EditUse
 import bg1 from '../../7-shared/assets/images/bg1.jpg';
 import EditUserGroups from '../../5-features/editUserAllclimbers/ui/EditUserGroups/EditUserGroups';
 import AddUserGroup from '../../5-features/editUserAllclimbers/ui/AddUserGroup/AddUserGroup';
-import SaveUserGroupsBtn from '../../5-features/saveUserGroups/ui/SaveUserGroupsBtn/SaveUserGroupsBtn';
 import { useClimbersStore } from '../../6-entities/allclimber/climbers.store';
 import { Spinner } from '@material-tailwind/react/dist/components/spinner';
+import SaveUserGroupsBtn from '../../5-features/saveUserGroups/ui/SaveUserGroupsBtn/SaveUserGroupsBtn';
 
 const Allclimb = () => {
   const { addDefaultGroupsToUser } = useUserStore();
@@ -26,7 +26,6 @@ const Allclimb = () => {
     climberPreviewId,
     setClimberPreviewId,
     isUserEdit,
-    setIsUserEdit,
   } = useLayoutStore();
 
   useEffect(() => {
@@ -85,14 +84,8 @@ const Allclimb = () => {
             <h2 className="text-2xl mr-5">редактировать группы</h2>
             <div className="grow">
               <AddUserGroup />
-              <SaveUserGroupsBtn />
             </div>
-            <div onClick={() => setIsUserEdit(false)} className="text-2xl cursor-pointer hover:text-orange-500">
-              <FontAwesomeIcon
-                icon={faTimes}
-                className="mt-1"
-              />
-            </div>
+            <SaveUserGroupsBtn />
           </div> 
           <div className="w-full h-full overflow-y-auto overflow-x-hidden pt-3 pb-3">
             <EditUserGroups />

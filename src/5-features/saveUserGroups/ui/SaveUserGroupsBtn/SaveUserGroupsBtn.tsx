@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useUserStore } from '../../../../6-entities/user/user.store';
 import { useLayoutStore } from '../../../../6-entities/layout/layout.store';
 
@@ -13,13 +13,16 @@ const SaveUserGroupsBtn = () => {
   };
 
   return (
-    <FontAwesomeIcon
-        icon={faSave}
-        className="cursor-pointer text-xl text-gray-800 hover:text-orange-500 mt-2 ml-5"
-        onClick={onClick}
-        aria-label="Сохранить группы"
-        title="Сохранить группы"
-    />
+    <div
+      onClick={onClick}
+      title="сохранить и выйти"
+      className="text-2xl cursor-pointer hover:text-orange-500"
+    >
+      <FontAwesomeIcon
+        icon={faTimes}
+        className="mt-1"
+      />
+    </div>
   )
 }
   
