@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
-import CustomModal from '../../7-shared/ui/CustomModal/CustomModal';
+// import CustomModal from '../../7-shared/ui/CustomModal/CustomModal';
 
 import ClimberInfo from '../../6-entities/allclimber/ui/ClimberInfo/ClimberInfo';
 import ClimberPreview from '../../6-entities/allclimber/ui/ClimberPreview/ClimberPreview';
@@ -16,7 +16,7 @@ import bg1 from '../../7-shared/assets/images/bg1.jpg';
 import EditUserGroups from '../../5-features/editUserAllclimbers/ui/EditUserGroups/EditUserGroups';
 import AddUserGroup from '../../5-features/editUserAllclimbers/ui/AddUserGroup/AddUserGroup';
 import { useClimbersStore } from '../../6-entities/allclimber/climbers.store';
-import { Spinner } from '@material-tailwind/react/dist/components/spinner';
+// import { Spinner } from '@material-tailwind/react/dist/components/spinner';
 import SaveUserGroupsBtn from '../../5-features/saveUserGroups/ui/SaveUserGroupsBtn/SaveUserGroupsBtn';
 
 const Allclimb = () => {
@@ -35,14 +35,14 @@ const Allclimb = () => {
   }, [addDefaultGroupsToUser]);
 
   if (isFetchingAllClimb) {
-    return <CustomModal
-      defaultOpen={true}
-      title="test"
-    >
-      <div className="flex px-10 py-10 justify-center">
-        <div className="flex align-items"><Spinner className="mr-5 text-lg"/> Идет загрузка AllClimb скалолазов...</div>
-      </div>
-    </CustomModal>
+    // return <CustomModal
+    //   defaultOpen={true}
+    //   title="test"
+    // >
+    //   <div className="flex px-10 py-10 justify-center">
+    //     <div className="flex align-items"><Spinner className="mr-5 text-lg"/> Идет загрузка AllClimb скалолазов...</div>
+    //   </div>
+    // </CustomModal>
   }
 
   // text-gray-200 bg-slate-700/80
