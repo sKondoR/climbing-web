@@ -65,6 +65,7 @@ const EditUserGroups = () => {
                 onChange={(values) => setGroupItems(i, values)}
                 isHiddenSelected
                 isCreatable
+                inputValidRegex={/^[0-9]*$/}
               />
             </div>
           </div>

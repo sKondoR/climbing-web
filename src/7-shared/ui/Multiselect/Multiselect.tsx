@@ -16,6 +16,9 @@ interface MultiselectProps {
   isCreatable?: boolean;
   isHiddenSelected?: boolean;
   onChange: (values: string[]) => void;
+  // Optional regular expression to validate input on keydown
+  // Example: /^[0-9]*$/ for digits only
+  inputValidRegex?: RegExp;
 }
 
 const Multiselect = ({
@@ -26,6 +29,8 @@ const Multiselect = ({
   className,
   isCreatable = false,
   isHiddenSelected = false,
+  inputValidRegex,
+
 }: MultiselectProps) => {
   const [query, setQuery] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
@@ -94,6 +99,15 @@ const Multiselect = ({
     e?.stopPropagation();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  if (inputValidRegex) {
+    const isValidInput = inputValidRegex.test(e.key);
+    if (!isValidInput) {
+      e.preventDefault();
+    }
+  }
+};
+
   return (
     <div className={className} ref={wrapperRef}>
       <div className="flex flex-wrap gap-1 min-h-8 py-1 relative">
@@ -105,6 +119,7 @@ const Multiselect = ({
           placeholder={placeholder}
           aria-expanded={open}
           autoComplete="off"
+          onKeyDown={handleKeyDown}
         />
       </div>
       {isHiddenSelected ? null : selected.map((option) => (
