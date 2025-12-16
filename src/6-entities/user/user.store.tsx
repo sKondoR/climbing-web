@@ -169,7 +169,9 @@ export const useUserStore = create<UserState>()(
       saveUserGroups: async () => {
         const user = get().user as IUser;
         const groups = useUserGroupsStore.getState().groups;
-
+        if (JSON.stringify(user.groups) === JSON.stringify(groups)){
+          return;
+        }
         if (user?.id) {
           const data = await get().fetchUpdateUser({
             ...user,
