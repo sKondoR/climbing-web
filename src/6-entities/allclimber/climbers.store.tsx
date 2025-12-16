@@ -58,7 +58,7 @@ export const useClimbersStore = create<ClimbersState>()(
             type: 'error',
             message: `Ошибка загрузки fetchClimbers: ${url}`,
             code: error as string,
-          });
+          })
         }
       },
 
@@ -89,16 +89,11 @@ export const useClimbersStore = create<ClimbersState>()(
           if (!id) return;
           try {
             const res = await fetch(`${getApiUrl()}/allClimb?id=${id}`, options);
-            const data = await res.json()
             if (!res.ok) {
-              useNotificationsStore.getState().addNotification({
-                type: 'error',
-                message: data,
-              });
               continue;
             };
 
-            const { name, leads, boulders, routesCount, scores } = data;
+            const { name, leads, boulders, routesCount, scores } = await res.json();
 
             if (!name) {
               console.log(`Allclimb ${id} не требует обновления`);
