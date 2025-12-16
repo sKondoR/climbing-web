@@ -123,7 +123,18 @@ const Multiselect = ({
           className="max-h-60 overflow-auto w-80 mt-1 z-50 rounded-md shadow-lg bg-white"
           onClick={stopPropagation}
           ref={menuRef}
-        >
+        > 
+          {isCreatable && query.length && !options.includes(query) ? (
+            <>
+            <FontAwesomeIcon
+              icon={faPlus}
+              className="cursor-pointer text-xl text-gray-800 hover:text-orange-500 absolute top-3 right-3 mt-[2px]"
+              onClick={() => addNew()}
+              aria-label="добавить новое"
+            />
+              добавить новое
+            </>
+          ) : null}
           {filteredOptions.length > 0 ? (
             filteredOptions.map((option) => {
               const isSelected = selected.includes(option);
@@ -146,21 +157,10 @@ const Multiselect = ({
               );
             })
           ) : (
-            <Menu.Item disabled className="cursor-default px-3 py-2 text-sm text-gray-400">
-              Нет результатов
-            </Menu.Item>
+            <div className="cursor-default px-3 py-2 text-sm text-gray-400">
+              ничего не найдено
+            </div>
           )}
-          {isCreatable && query.length && !options.includes(query) ? (
-            <>
-            <FontAwesomeIcon
-              icon={faPlus}
-              className="cursor-pointer text-xl text-gray-800 hover:text-orange-500 absolute top-3 right-3 mt-[2px]"
-              onClick={() => addNew()}
-              aria-label="Найти на AllClimb и добавить"
-            />
-              Найти на AllClimb и добавить
-            </>
-          ) : null}
         </Menu.Content>
       </Menu> : null}
     </div>
