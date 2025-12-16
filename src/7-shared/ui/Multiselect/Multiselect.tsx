@@ -23,7 +23,7 @@ interface MultiselectProps {
 
 const Multiselect = ({
   options = null,
-  placeholder = 'Select options',
+  placeholder = 'Выберите из списка',
   selected = [],
   onChange,
   className,

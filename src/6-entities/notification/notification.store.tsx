@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { INotification } from './notification.interfaces';
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
 
 const NOTIFICATION_TIMEOUT = 1000000;
 
