@@ -9,6 +9,7 @@ import { FRIENDS, PRO } from '../allclimber/climbers.constants';
 import { IUnregisteredUser, IUser, IVKCodeData, ICustomAllClimber, IClimberGroup } from './user.interfaces';
 import { RequestState } from '../../7-shared/types/request.types';
 import { useUserGroupsStore } from '../../5-features/editUserAllclimbers/userGroups.store';
+import { decompressFromEncodedURIComponent } from 'lz-string';
 
 interface UserState {
   status: string,
@@ -215,8 +216,11 @@ export const useUserStore = create<UserState>()(
       },
 
       restoreUserGroupsFromUrl: (searchParams: URLSearchParams) => {
-        const groupsParam = searchParams.get('share');
-        const groups = (groupsParam ? JSON.parse(groupsParam) : []).map((group: IClimberGroup) => ({
+        // const groupsParam = searchParams.get('share');
+        console.log('> ', searchParams);
+        const jsonString = decompressFromEncodedURIComponent(JSON.stringify(searchParams));
+        const data = JSON.parse(jsonString || '[]');
+        const groups = data.map((group: IClimberGroup) => ({
           ...group,
           id: nanoid(),
         }));
