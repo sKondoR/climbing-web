@@ -44,11 +44,10 @@ const EditableChips = ({
         const existedClimber = climbers[option.allClimbId];
         const name = option.customName || existedClimber?.name || '';
         return (
-        <Chip
+        <div
           key={option.allClimbId}
-          variant="ghost"
-          className={`group flex items-center px-2 py-1 text-sm mb-1 mr-1
-            ${isNotLoadedClimber ? 'bg-amber-300 border-amber-300' : 'bg-lime-500/80 border-lime-500/80'}
+          className={`group flex items-center px-2 py-1 text-sm mb-1 mr-1 rounded-md
+            ${isNotLoadedClimber ? 'bg-amber-300 border-amber-500' : 'bg-lime-300 border-lime-500'}
           `}
           title={isNotLoadedClimber ? 'новый' : `allclimbId: ${option.allClimbId}`}
         > 
@@ -60,7 +59,7 @@ const EditableChips = ({
           >
             {name ||  `${option.allClimbId}/новый` }
           </EditableText>
-        </Chip>
+        </div>
       )})}
     </div>
   );
