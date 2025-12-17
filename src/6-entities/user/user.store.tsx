@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 import { getApiUrl, options } from '../../7-shared/constants/api.constants';
 import { TEAM } from '../spbteam/spbteam.constants';
 import { FRIENDS, PRO } from '../allclimber/climbers.constants';
-import { IUnregisteredUser, IUser, IVKCodeData, ICustomAllClimber } from './user.interfaces';
+import { IUnregisteredUser, IUser, IVKCodeData, ICustomAllClimber, IClimberGroup } from './user.interfaces';
 import { RequestState } from '../../7-shared/types/request.types';
 import { useUserGroupsStore } from '../../5-features/editUserAllclimbers/userGroups.store';
 
@@ -23,6 +23,7 @@ interface UserState {
   addDefaultGroupsToUser: () => void,
   fetchUpdateUser: (user: IUser) => Promise<void>,
   saveUserGroups: () => Promise<void>,
+  restoreUserGroupsFromUrl: (searchParams: URLSearchParams) => void;
 };
 
 export const useUserStore = create<UserState>()(
@@ -212,6 +213,24 @@ export const useUserStore = create<UserState>()(
           }));
         }
       },
+
+      restoreUserGroupsFromUrl: (searchParams: URLSearchParams) => {
+        const groupsParam = searchParams.get('share');
+        const groups = (groupsParam ? JSON.parse(groupsParam) : []).map((group: IClimberGroup) => ({
+          ...group,
+          id: nanoid(),
+        }));
+        set((state: UserState) => ({
+          ...state,
+          user: {
+            ...state.user,
+            groups,
+          },
+        }));
+        const url = new URL(window.location.href);
+        url.search = '';
+        window.history.replaceState({}, document.title, url.toString());
+      }
     })
   )
 )

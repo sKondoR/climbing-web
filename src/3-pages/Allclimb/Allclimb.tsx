@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-// import CustomModal from '../../7-shared/ui/CustomModal/CustomModal';
+import { useSearchParams } from 'react-router-dom';
 
 import { useUserStore } from '../../6-entities/user/user.store';
 import { useLayoutStore } from '../../6-entities/layout/layout.store';
@@ -9,20 +9,28 @@ import { AllclimbClimbers } from '../../4-widgets/ui/AllclimbClimbers';
 import { AllclimbEditClimber } from '../../4-widgets/ui/AllclimbEditClimber';
 import { AllclimbClimberPreview } from '../../4-widgets/ui/AllclimbClimberPreview';
 import ClimbersChart from '../../6-entities/allclimber/ui/ClimbersChart/ClimbersChart';
-import { Loading } from '../../7-shared/ui/Loading';
 import bg1 from '../../7-shared/assets/images/bg1.jpg';
 
 const Allclimb = () => {
-  const { addDefaultGroupsToUser } = useUserStore();
+  const [searchParams] = useSearchParams();
+  const {
+    addDefaultGroupsToUser,
+    restoreUserGroupsFromUrl,
+  } = useUserStore();
   const {
     climbers,
     fetchClimbers,
-    isFetchingAllClimb
   } = useClimbersStore();
   const {
     climberPreviewId,
     isUserEdit,
   } = useLayoutStore();
+
+  useEffect(() => {
+    if(searchParams) {
+      restoreUserGroupsFromUrl(searchParams);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if(!climbers?.length) {
@@ -35,10 +43,6 @@ const Allclimb = () => {
     // addDefaultGroupsToUser();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addDefaultGroupsToUser]);
-
-  if (isFetchingAllClimb) {
-    return <Loading text="загрузка AllClimb скалолазов..." />
-  }
 
   // text-gray-200 bg-slate-700/80
   return (<>
