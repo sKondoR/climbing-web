@@ -10,6 +10,5 @@ export const copyLinkToClipboard = async (groups: IClimberGroup[]) => {
     }));
     const jsonString = JSON.stringify(data);
     const compressed = compressToEncodedURIComponent(jsonString);
-    const urlSafeCompressed = compressed.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-    await navigator.clipboard.writeText(`${getHostUrl()}/${PATHS.allclimb.to.replace('/', '')}?q=${urlSafeCompressed}`);
+    await navigator.clipboard.writeText(`${getHostUrl()}/${PATHS.allclimb.to.replace('/', '')}?q=${compressed}`);
 };

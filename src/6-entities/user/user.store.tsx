@@ -216,9 +216,8 @@ export const useUserStore = create<UserState>()(
       },
 
       restoreUserGroupsFromUrl: (searchParams: URLSearchParams) => {
-        const urlSafeCompressed = searchParams.get('q') || '';
-        if (!urlSafeCompressed) return;
-        const compressed = urlSafeCompressed.replace(/-/g, '+').replace(/_/g, '/');
+        const compressed = searchParams.get('q') || '';
+        if (!compressed) return;
         const jsonString = decompressFromEncodedURIComponent(compressed);
         const originalJson = JSON.parse(jsonString);
         const groups = originalJson.map((group: IClimberGroup) => ({
