@@ -41,6 +41,8 @@ const EditableChips = ({
     <div className={`flex flex-wrap items-center ${className}`}>
       {options.map((option) => {
         const isNotLoadedClimber = !climberOptions.includes(`${option.allClimbId}`);
+        const existedClimber = climbers[option.allClimbId];
+        const visibleName = option.customName || existedClimber?.name
         return (
         <Chip
           key={option.allClimbId}
@@ -48,7 +50,7 @@ const EditableChips = ({
           className={`group flex items-center px-2 py-1 text-sm mb-1 mr-1
             ${isNotLoadedClimber ? 'bg-lime-500/80 border-lime-500' : 'border-slate-500'}
           `}
-          title="скалолаз еще не загружен из Allclimb"
+          title={isNotLoadedClimber ? 'скалолаз еще не загружен из Allclimb' : ''}
         > 
           <EditableText
             value={option.customName || ''}
@@ -56,7 +58,8 @@ const EditableChips = ({
             onRemove={() => handleOnRemove(option.allClimbId)}
             placeholder={option.allClimbId.toString()}
           >
-            {option.customName || option.allClimbId.toString()}
+            {option.allClimbId}
+            {visibleName ? `:${visibleName}` : '/новый'}
           </EditableText>
         </Chip>
       )})}
