@@ -9,7 +9,7 @@ import { FRIENDS, PRO } from '../allclimber/climbers.constants';
 import { IUnregisteredUser, IUser, IVKCodeData, ICustomAllClimber, IClimberGroup } from './user.interfaces';
 import { RequestState } from '../../7-shared/types/request.types';
 import { useUserGroupsStore } from '../../5-features/editUserAllclimbers/userGroups.store';
-import { decompressFromEncodedURIComponent } from 'lz-string';
+import { decompressFromUTF16 } from 'lz-string';
 
 interface UserState {
   status: string,
@@ -216,9 +216,31 @@ export const useUserStore = create<UserState>()(
       },
 
       restoreUserGroupsFromUrl: (searchParams: URLSearchParams) => {
-        // const groupsParam = searchParams.get('share');
-        console.log('> ', searchParams);
-        const jsonString = decompressFromEncodedURIComponent(JSON.stringify(searchParams));
+        debugger;
+        const q = searchParams.get('q');
+        console.log('Raw q:', q);
+
+        if (q) {
+          const decompressed = decompressFromUTF16(q);
+          console.log('Decompressed:', decompressed); // Is this null?
+
+          if (!decompressed) {
+            console.error('Decompression failed! Possible causes:');
+            console.error('- Invalid compression method used');
+            console.error('- String was double/triple encoded');
+            console.error('- Corrupted or truncated query param');
+          } else {
+            try {
+              const parsed = JSON.parse(decompressed);
+              console.log('Parsed JSON:', parsed);
+            } catch (e) {
+              console.error('Decompressed string is not valid JSON:', decompressed);
+            }
+          }
+        } else {
+          console.log('No "q" param found in URL');
+        }
+        const jsonString =  '';
         const data = JSON.parse(jsonString || '[]');
         const groups = data.map((group: IClimberGroup) => ({
           ...group,
