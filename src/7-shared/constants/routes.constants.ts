@@ -15,3 +15,5 @@ export const GRADES_COLORS: Record<string, string> = {
     '8b': '#475569',
     '8c': '#334155',
 }
+
+export const GRADES = Object.keys(GRADES_COLORS);

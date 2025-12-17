@@ -1,55 +1,14 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-import { useClimbersStore } from '../../climbers.store'
-import { useUserStore } from '../../../user/user.store'
-import { IClimbers } from '../../climbers.interfaces'
+import { useClimbersStore } from '../../climbers.store';
+import { useUserStore } from '../../../user/user.store';
 import { IChartSettings } from '../../../../7-shared/types/chart.types';
-import RoutesFilter from '../../../../7-shared/ui/RoutesFilter/RoutesFilter'
+import RoutesFilter from '../../../../7-shared/ui/RoutesFilter/RoutesFilter';
 import { getClimbersIds } from '../../climbers.utils';
 import { GRADES_COLORS } from '../../../../7-shared/constants/routes.constants';
 import { useLayoutStore } from '../../../layout/layout.store';
-
-const GRADES = Object.keys(GRADES_COLORS);
-let maxRoutes = 0;
-
-const filterGrades = (settings: IChartSettings): string[] =>
-  GRADES.filter((g) =>
-    g.startsWith('6') && settings.is6 ||
-    g.startsWith('7') && settings.is7 ||
-    g.startsWith('8') && settings.is8)
-
-const prepareData = (ids: number[], climbers: IClimbers, grades: string[], isLead: boolean, isTopRope: boolean) => {
-  maxRoutes = 0;
-  return ids?.filter((id: number) => !!climbers[id])
-    // не показывать если нет данных
-    .filter((id: number) => {
-      const cl = climbers[id];
-      return cl?.[isLead ? 'leads' : 'boulders'].length > 0;
-    })
-    // раскладывает данные по категориям
-    .map((id: number) => {
-      const cl = climbers[id];
-      let result: Record<string, number> = grades.reduce((acc: Record<string, number>, g: string) => {
-        acc[g] = 0;
-        return acc;
-      }, {});
-      cl?.[isLead ? 'leads' : 'boulders']
-        .filter((r) => !isLead || (isTopRope || !r.isTopRope))
-        .forEach((r) => {
-          const key = r.grade.slice(0, 2);
-          if (result[key] === maxRoutes) maxRoutes++;
-          result = {
-            ...result,
-            [key]: result[key] + 1
-          };
-        })
-      return {
-        name: cl.name,
-        ...result,
-      };
-    })
-}
+import { filterGrades, prepareChartData } from './chart.utils';
 
 const ClimbersChart = () => {
     const {
@@ -76,7 +35,7 @@ const ClimbersChart = () => {
     const visibleIds = ids?.filter((id) => !!plotsVisibility[id as number])
 
     const grades = filterGrades(settings)
-    const data = prepareData(visibleIds as number[], climbers, grades, settings.isLead, settings.isTopRope);
+    const { data, maxRoutes } = prepareChartData(visibleIds as number[], climbers, grades, settings.isLead, settings.isTopRope);
 
     const onSettingsChange = (newSettings: IChartSettings) => setSettings(newSettings)
 
@@ -116,3 +75,4 @@ const ClimbersChart = () => {
   }
 
   export default ClimbersChart;
+
