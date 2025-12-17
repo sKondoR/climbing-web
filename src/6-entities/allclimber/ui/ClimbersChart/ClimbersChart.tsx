@@ -22,6 +22,12 @@ const filterGrades = (settings: IChartSettings): string[] =>
 const prepareData = (ids: number[], climbers: IClimbers, grades: string[], isLead: boolean, isTopRope: boolean) => {
   maxRoutes = 0;
   return ids?.filter((id: number) => !!climbers[id])
+    // не показывать если нет данных
+    .filter((id: number) => {
+      const cl = climbers[id];
+      return cl?.[isLead ? 'leads' : 'boulders'].length > 0;
+    })
+    // раскладывает данные по категориям
     .map((id: number) => {
       const cl = climbers[id];
       let result: Record<string, number> = grades.reduce((acc: Record<string, number>, g: string) => {
