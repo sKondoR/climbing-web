@@ -1,10 +1,20 @@
+import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareArrowUpRight } from '@fortawesome/free-solid-svg-icons';
-// import bg1 from '../../7-shared/assets/images/bg1.jpg';
+
 import Banner from './Banner';
 import SportGroups from './SportGroups';
+import { useTeamStore } from '../../6-entities/spbteam/spbteam.store';
 
 const Landing = () => {
+  const {
+    fetchTeam,
+  } = useTeamStore();
+
+  useEffect(() => {
+    fetchTeam();
+  }, []);
+
   return (
     <>
       <Banner />

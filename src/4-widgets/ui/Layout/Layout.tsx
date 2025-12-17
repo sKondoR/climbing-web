@@ -1,11 +1,8 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import Header from '../../../4-widgets/ui/Header/Header';
-import { useClimbersStore } from '../../../6-entities/allclimber/climbers.store';
+import { Header } from '../../../4-widgets/ui/Header';
 import { useUserStore } from '../../../6-entities/user/user.store';
-import { useTeamStore } from '../../../6-entities/spbteam/spbteam.store';
-// import { PRIVATE_ROUTES } from '../../../7-shared/constants/paths.constants';
 
 import useIsPage from '../../../7-shared/hooks/useIsPage';
 import { useHealthyStore } from '../../../6-entities/healthy/healthy.store';
@@ -30,25 +27,6 @@ const Layout = () => {
     getVKProfile,
     logoutVk,
   } = useUserStore();
-
-  const {
-    climbers,
-    fetchClimbers,
-  } = useClimbersStore();
-
-  const {
-    fetchTeam,
-  } = useTeamStore();
-
-  useEffect(() => {
-    if(!climbers?.length) {
-      fetchClimbers();
-    }
-  }, [climbers?.length]);
-
-  useEffect(() => {
-      fetchTeam();
-  }, []);
 
   useEffect(() => {
     if (!user?.id && status !== RequestState.LOADING) {
