@@ -42,7 +42,7 @@ const EditableChips = ({
       {options.map((option) => {
         const isNotLoadedClimber = !climberOptions.includes(`${option.allClimbId}`);
         const existedClimber = climbers[option.allClimbId];
-        const visibleName = option.customName || existedClimber?.name
+        const name = option.customName || existedClimber?.name || '';
         return (
         <Chip
           key={option.allClimbId}
@@ -53,12 +53,12 @@ const EditableChips = ({
           title={isNotLoadedClimber ? 'новый' : `allclimbId: ${option.allClimbId}`}
         > 
           <EditableText
-            value={option.customName || ''}
+            value={name}
             onSave={(value: string) => handleOnEdit(value, option.allClimbId)}
             onRemove={() => handleOnRemove(option.allClimbId)}
             placeholder={option.allClimbId.toString()}
           >
-            {visibleName ? `:${visibleName}` : `${option.allClimbId}/новый`}
+            {name ||  `${option.allClimbId}/новый` }
           </EditableText>
         </Chip>
       )})}
