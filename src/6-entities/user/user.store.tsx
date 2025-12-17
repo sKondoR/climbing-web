@@ -9,7 +9,7 @@ import { FRIENDS, PRO } from '../allclimber/climbers.constants';
 import { IUnregisteredUser, IUser, IVKCodeData, ICustomAllClimber, IClimberGroup } from './user.interfaces';
 import { RequestState } from '../../7-shared/types/request.types';
 import { useUserGroupsStore } from '../../5-features/editUserAllclimbers/userGroups.store';
-import { decompressFromUTF16 } from 'lz-string';
+import { decompressFromEncodedURIComponent } from 'lz-string';
 
 interface UserState {
   status: string,
@@ -221,7 +221,7 @@ export const useUserStore = create<UserState>()(
         console.log('Raw q:', q);
 
         if (q) {
-          const decompressed = decompressFromUTF16(q);
+          const decompressed = decompressFromEncodedURIComponent(q);
           console.log('Decompressed:', decompressed); // Is this null?
 
           if (!decompressed) {
