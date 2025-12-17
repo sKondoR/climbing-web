@@ -1,5 +1,7 @@
-import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
+import { nanoid } from 'nanoid';
+
 import {
   IClimberGroup,
 } from '../../6-entities/user/user.interfaces';
@@ -25,7 +27,11 @@ export const useUserGroupsStore = create<UserGroupsState>()(
         const { groups } = useUserStore.getState().user;
         set((state: UserGroupsState) => ({
             ...state,
-            groups,
+            groups: groups.map((group) => ({
+              ...group,
+              // toDo: поддерживать старые сохраненные группы без id, потом можно удалить
+              id: group.id || nanoid()
+            })),
         }));
       }
     })
