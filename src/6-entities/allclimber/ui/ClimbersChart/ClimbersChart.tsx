@@ -82,7 +82,7 @@ const ClimbersChart = () => {
 
     const CHART_FOOTER_HEIGHT = 80;
     const BAR_HEIGHT = grades.length * 10;
-    const CHART_HEIGHT = visibleIds.length * BAR_HEIGHT;
+    const CHART_HEIGHT = data.length * BAR_HEIGHT;
     return (
       <>
         <RoutesFilter settings={settings} onSettingsChange={onSettingsChange} />
