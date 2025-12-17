@@ -47,8 +47,14 @@ const SortableGroup = ({
     transition,
   } = useSortable({ id });
 
+  console.log('transform', transform);
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Transform.toString({
+      x: transform?.x || 0,
+      y: transform?.y || 0,
+      scaleX: transform?.scaleX || 1,
+      scaleY: 1,
+    }),
     transition,
   };
 
