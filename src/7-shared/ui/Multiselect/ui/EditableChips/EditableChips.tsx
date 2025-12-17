@@ -45,7 +45,7 @@ const EditableChipsItem = ({
 const EditableChips = ({
   options = [],
   onChange,
-  className,
+  className = '',
 }: EditableChipsProps) => {
 
   const handleOnRemove = (option: string) => {

@@ -26,7 +26,7 @@ const Multiselect = ({
   placeholder = 'Выберите из списка',
   selected = [],
   onChange,
-  className,
+  className = '',
   isCreatable = false,
   isHiddenSelected = false,
   inputValidRegex,

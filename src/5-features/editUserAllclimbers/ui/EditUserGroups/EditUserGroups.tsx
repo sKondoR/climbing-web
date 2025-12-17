@@ -23,6 +23,7 @@ import EditableChips from '../EditableChips/EditableChips';
 import { useUserGroupsStore } from '../../userGroups.store';
 import { IClimberGroup, ICustomAllClimber } from '../../../../6-entities/user/user.interfaces';
 import EditableText from '../../../../7-shared/ui/EditableText/EditableText';
+import { reorderGroupItemsByIds } from '../../userGroups.utils';
 
 interface SortableGroupProps {
   id: string;
@@ -60,11 +61,11 @@ const SortableGroup = ({
 
   const climberOptions = Object.keys(climbers);
 
-  const setGroupItems = (index: number, values: string[]) => {
-      setUserGroups(groups.map((group, i) => ({
-        ...group,
-        items: index === i ? values.map((v: string) => ({ customName: '', allClimbId: Number(v) })) : group.items,
-      })));
+  const setGroupItems = (index: number, idsArr: string[]) => {
+    setUserGroups(groups.map((group, i) => ({
+      ...group,
+      items: index === i ? reorderGroupItemsByIds(group.items, idsArr) : group.items,
+    })));
   };
 
   const setItems = (index: number, values: ICustomAllClimber[]) => {
@@ -109,6 +110,7 @@ const SortableGroup = ({
               value={name}
               onSave={(value: string) => handleSave(value, index)}
               onRemove={() => handleRemove(index)}
+              className="text-xl"
               inputClassName="text-xl"
               iconClassName="text-xl"
             >

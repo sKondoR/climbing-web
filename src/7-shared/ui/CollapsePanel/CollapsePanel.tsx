@@ -16,7 +16,7 @@ export default function CollapseDemo({
   label,
   children,
   icon,
-  className,
+  className = '',
 }: CollapsePanelProps) {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(open);
   

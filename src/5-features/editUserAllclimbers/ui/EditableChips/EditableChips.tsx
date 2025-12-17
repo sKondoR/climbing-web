@@ -14,7 +14,7 @@ const EditableChips = ({
   options = [],
   onChange,
   onEdit,
-  className,
+  className = '',
 }: EditableChipsProps) => {
   const { climbers } = useClimbersStore();  
   const climberOptions = Object.keys(climbers);

@@ -13,7 +13,7 @@ export type ICustomDialog = {
 
 const CustomDialog = ({
   defaultOpen = false,
-  className,
+  className = '',
   children,
 }: ICustomDialog) => {
   const [open] = useState(defaultOpen);
