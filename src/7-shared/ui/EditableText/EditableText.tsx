@@ -67,11 +67,14 @@ const EditableText = ({
       {isEdit ?
         <input
           type="text"
+          name="editable"
           ref={inputRef}
           value={text}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          className={`font-sans font-medium text-sm w-fix min-w-10 px-[1px] py-0 bg-white/30 rounded-none border-[0] ${inputClassName}`}
+          className={`font-sans font-medium text-sm w-fix min-w-10 px-[1px] py-0
+            bg-white/30 rounded-none border-[0] focus:border-[0] shadow-none focus:shadow-none
+            ${inputClassName}`}
           placeholder={text}
         />
         : children

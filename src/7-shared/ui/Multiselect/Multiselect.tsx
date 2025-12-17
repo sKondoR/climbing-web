@@ -110,7 +110,7 @@ const Multiselect = ({
 
   return (
     <div className={className} ref={wrapperRef}>
-      <div className="flex flex-wrap gap-1 min-h-8 py-1 relative">
+      <div className="flex flex-wrap relative">
         <Input
           value={query}
           onChange={handleInputChange}

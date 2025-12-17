@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { nanoid } from 'nanoid'
 
 import { useUserGroupsStore } from '../../userGroups.store';
 
@@ -9,7 +10,11 @@ const AddUserGroup = () => {
   const setGroups = () => {
       setUserGroups([
         ...groups,
-        { name: 'Новая группа', items: [] }
+        {
+          id: nanoid(),
+          name: 'Новая группа',
+          items: [],
+        }
       ]);
   }
 

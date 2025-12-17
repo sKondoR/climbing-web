@@ -64,8 +64,8 @@ const UserGroups = () => {
     });
   }
 
-  const renderGroup = ({ name, items, offset = 0 }: IClimberGroup, index: number) => (
-    <div key={`${name}-${index}`} className="pl-5 pr-5 pt-2 pb-2 bg-white/20 mb-[6px]">
+  const renderGroup = ({ id, name, items, offset = 0 }: IClimberGroup, index: number) => (
+    <div key={id || `${name}-${index}`} className="pl-5 pr-5 pt-2 pb-2 bg-white/20 mb-[6px]">
     <CollapsePanel
       open
       // label={`${name} (${items.length})`}
@@ -87,7 +87,8 @@ const UserGroups = () => {
         if (!(allClimbId && climbers?.[allClimbId])) return;
         // toDo: добавить нотификацию
         const { name, routesCount, scores } = climbers[allClimbId];
-        const text = customName || name || allClimbId;        
+        const text = customName || name || allClimbId;
+        // toDo: использовать allclimbId вместо offset        
         const currentIndex = offset + index;
         const isPlotVisible = plotsVisibility[allClimbId];
         return (
@@ -131,6 +132,7 @@ const UserGroups = () => {
   return <>
     {user.groups.map((group: IClimberGroup, index: number) => {
       const cGroup = renderGroup({
+        id: group.id,
         name: group.name,
         items: group.items as ICustomAllClimber[],
         offset,

@@ -36,6 +36,7 @@ export interface IVKCodeData {
 }  
 
 export interface IClimberGroup {
+    id: string;
     name: string;
     items: ICustomAllClimber[];
     offset?: number | undefined;
