@@ -84,12 +84,12 @@ const SortableGroup = ({
       className="pl-5 pr-5 pt-2 pb-2 bg-white/20 mb-[6px]"
       ref={setNodeRef}
       {...attributes}
-      
+      {...listeners}
       style={style}
     >
       <div className="flex items-top justify-between">
         <div
-          {...listeners}
+          //{...listeners}
           className="w-6 cursor-pointer pr-1 py-1"
           title="изменить порядок групп"
         >
@@ -151,7 +151,7 @@ const EditUserGroups = () => {
 
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
-
+    console.log('handleDragEnd');
     if (active?.id && over?.id && active.id !== over.id) {
       const oldIndex = groups.findIndex((group) => group.id === active.id);
       const newIndex = groups.findIndex((group) => group.id === over.id);
