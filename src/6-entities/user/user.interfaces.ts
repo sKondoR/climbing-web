@@ -4,6 +4,7 @@ export enum IGrant {
 }
 
 export interface IUnregisteredUser {
+    id?: number;
     groups: IClimberGroup[];
 }
 

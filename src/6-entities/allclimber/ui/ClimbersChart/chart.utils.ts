@@ -21,17 +21,17 @@ export const prepareChartData = (
   const data = ids?.filter((id: number) => !!climbers[id])
     // не показывать если нет данных
     .filter((id: number) => {
-      const cl = climbers[id];
-      return cl?.[isLead ? 'leads' : 'boulders'].length > 0;
+      const climber = climbers[id];
+      return climber?.[isLead ? 'leads' : 'boulders'].length > 0;
     })
     // раскладывает данные по категориям
     .map((id: number) => {
-      const cl = climbers[id];
+      const climber = climbers[id];
       let result: Record<string, number> = grades.reduce((acc: Record<string, number>, g: string) => {
         acc[g] = 0;
         return acc;
       }, {});
-      cl?.[isLead ? 'leads' : 'boulders']
+      climber?.[isLead ? 'leads' : 'boulders']
         .filter((r) => !isLead || (isTopRope || !r.isTopRope))
         .forEach((r) => {
           const key = r.grade.slice(0, 2);
@@ -42,7 +42,7 @@ export const prepareChartData = (
           };
         })
       return {
-        name: cl.name,
+        name: climber.name,
         ...result,
       };
     });

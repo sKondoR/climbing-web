@@ -54,12 +54,13 @@ const Layout = () => {
     if (PRIVATE_ROUTES.includes(pathname as string) && !token)
       return navigate('/signin');
 
-    // if (!user?.id && status !== RequestState.LOADING && token) {
-    //   // getVKProfile().catch(() => {
-    //   //   navigate('/signin');
-    //   //   logoutVk();
-    //   // });
-    // }
+    if (!user?.id && token) {
+      // toDo: for testing auth
+      getVKProfile().catch(() => {
+        navigate('/signin');
+        logoutVk();
+      });
+    }
   }, [user, status, navigate, pathname, getVKProfile, logoutVk]);
 
     if (isHealthyFetching || !isHealthy) {
