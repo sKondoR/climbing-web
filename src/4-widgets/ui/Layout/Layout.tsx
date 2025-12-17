@@ -5,12 +5,13 @@ import Header from '../../../4-widgets/ui/Header/Header';
 import { useClimbersStore } from '../../../6-entities/allclimber/climbers.store';
 import { useUserStore } from '../../../6-entities/user/user.store';
 import { useTeamStore } from '../../../6-entities/spbteam/spbteam.store';
-import { PRIVATE_ROUTES } from '../../../7-shared/constants/paths.constants';
+// import { PRIVATE_ROUTES } from '../../../7-shared/constants/paths.constants';
 
 import useIsPage from '../../../7-shared/hooks/useIsPage';
 import { useHealthyStore } from '../../../6-entities/healthy/healthy.store';
 import CustomModal from '../../../7-shared/ui/CustomModal/CustomModal';
 import { Spinner } from '@material-tailwind/react';
+import { RequestState } from '../../../7-shared/types/request.types';
 
 const Layout = () => {
   const { isHealthy, isHealthyFetching } = useHealthyStore();
@@ -25,6 +26,7 @@ const Layout = () => {
   const {
     user,
     status,
+    login,
     getVKProfile,
     logoutVk,
   } = useUserStore();
@@ -49,18 +51,15 @@ const Layout = () => {
   }, []);
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
-
-    if (PRIVATE_ROUTES.includes(pathname as string) && !token)
-      return navigate('/signin');
-
-    if (!user?.id && token) {
-      // toDo: for testing auth
-      getVKProfile().catch(() => {
+    if (!user?.id && status !== RequestState.LOADING) {
+      login().catch(() => {
         navigate('/signin');
         logoutVk();
       });
     }
+
+    // if (PRIVATE_ROUTES.includes(pathname as string) && !token)
+    //   return navigate('/signin');
   }, [user, status, navigate, pathname, getVKProfile, logoutVk]);
 
     if (isHealthyFetching || !isHealthy) {

@@ -16,6 +16,7 @@ interface UserState {
   error: string | null,
   fetchUser: (id: number) => void,
   setUser: (user: IUser) => void,
+  login: () => Promise<void>,
   loginVk: (data: IVKCodeData) => Promise<void>,
   getVKProfile: () => Promise<void>,
   logoutVk: () => Promise<void>,
@@ -43,13 +44,38 @@ export const useUserStore = create<UserState>()(
           user,
           state: RequestState.SUCCESS,
         }));
-
-        console.log('User:', user)
     
-        if (user?.['token']) {
-          sessionStorage.setItem('token', user?.token);
+        if (user?.password && user?.vk_id) {
+          sessionStorage.setItem('password', user.password);
+          sessionStorage.setItem('vk_id', user.vk_id.toString());
         }
       },
+
+      login: async (): Promise<void> => {
+        const vk_id = Number(sessionStorage.getItem('vk_id'));
+        const password = sessionStorage.getItem('password');
+        if (!vk_id || !password) return;
+        return fetch(`${getApiUrl()}/auth/login`, {
+          method: 'POST',
+          body: JSON.stringify({ vk_id, password }),
+          ...options,
+        })
+          .then(async(res) => {
+            switch (res.status) {
+              case 200:
+              case 201:
+                return res.json();
+              default:
+                return Promise.reject(new Error(`Auth login error: ${res.statusText}`));
+            }
+          })
+          .then(async(vkUser) => {
+            await get().setUser(vkUser);
+          }).catch((error) => {
+            console.warn('Ошибка при логине:', error);
+          });
+      },
+
       loginVk: async (data: IVKCodeData) => {
         return fetch(`${getApiUrl()}/auth/login/vk`, {
           method: 'POST',
@@ -62,8 +88,7 @@ export const useUserStore = create<UserState>()(
               case 201:
                 return res.json();
               default:
-                const error = `VK API error: ${res.statusText}`;
-                return Promise.reject(new Error(`VK API error: ${error}`));
+                return Promise.reject(new Error(`VK API error: ${res.statusText}`));
             }
           })
           .then(async(vkUser) => {
