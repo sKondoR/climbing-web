@@ -12,5 +12,5 @@ export const copyLinkToClipboard = async (groups: IClimberGroup[]) => {
     params.append('share', JSON.stringify(data));
     const jsonString = JSON.stringify(params);
     const compressed = compressToEncodedURIComponent(jsonString);
-    await navigator.clipboard.writeText(`${getHostUrl()}${PATHS.allclimb.to}?q=${compressed}`);
+    await navigator.clipboard.writeText(`${getHostUrl()}/${PATHS.allclimb.to.replace('/', '')}?q=${compressed}`);
 };
