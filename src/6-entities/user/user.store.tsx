@@ -9,7 +9,7 @@ import { FRIENDS, PRO } from '../allclimber/climbers.constants';
 import { IUnregisteredUser, IUser, IVKCodeData, ICustomAllClimber, IClimberGroup } from './user.interfaces';
 import { RequestState } from '../../7-shared/types/request.types';
 import { useUserGroupsStore } from '../../5-features/editUserAllclimbers/userGroups.store';
-import { decompressFromBase64 } from 'lz-string';
+import { decompressFromEncodedURIComponent } from 'lz-string';
 
 interface UserState {
   status: string,
@@ -219,7 +219,7 @@ export const useUserStore = create<UserState>()(
         const urlSafeCompressed = searchParams.get('q') || '';
         if (!urlSafeCompressed) return;
         const compressed = urlSafeCompressed.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonString = decompressFromBase64(compressed);
+        const jsonString = decompressFromEncodedURIComponent(compressed);
         const originalJson = JSON.parse(jsonString);
         const groups = originalJson.map((group: IClimberGroup) => ({
           ...group,
