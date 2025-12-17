@@ -216,33 +216,10 @@ export const useUserStore = create<UserState>()(
       },
 
       restoreUserGroupsFromUrl: (searchParams: URLSearchParams) => {
-        debugger;
         const q = searchParams.get('q');
-        console.log('Raw q:', q);
-
-        if (q) {
-          const decompressed = decompressFromEncodedURIComponent(q);
-          console.log('Decompressed:', decompressed); // Is this null?
-
-          if (!decompressed) {
-            console.error('Decompression failed! Possible causes:');
-            console.error('- Invalid compression method used');
-            console.error('- String was double/triple encoded');
-            console.error('- Corrupted or truncated query param');
-          } else {
-            try {
-              const parsed = JSON.parse(decompressed);
-              console.log('Parsed JSON:', parsed);
-            } catch (e) {
-              console.error('Decompressed string is not valid JSON:', decompressed);
-            }
-          }
-        } else {
-          console.log('No "q" param found in URL');
-        }
-        const jsonString =  '';
-        const data = JSON.parse(jsonString || '[]');
-        const groups = data.map((group: IClimberGroup) => ({
+        const decompressed = q ? decompressFromEncodedURIComponent(q) : '[]';
+        const parsed = JSON.parse(decompressed);
+        const groups = parsed.map((group: IClimberGroup) => ({
           ...group,
           id: nanoid(),
         }));
