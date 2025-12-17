@@ -46,8 +46,8 @@ const EditableChips = ({
         return (
         <div
           key={option.allClimbId}
-          className={`group flex items-center px-2 py-1 text-sm mb-1 mr-1 rounded-md
-            ${isNotLoadedClimber ? 'bg-amber-300 border-amber-500' : 'bg-lime-300 border-lime-500'}
+          className={`group flex items-center px-2 py-1 text-sm mb-1 mr-1 rounded-md border-2
+            ${isNotLoadedClimber ? 'border-lime-500' : 'bg-lime-300 border-lime-500'}
           `}
           title={isNotLoadedClimber ? 'новый' : `allclimbId: ${option.allClimbId}`}
         > 
@@ -57,7 +57,8 @@ const EditableChips = ({
             onRemove={() => handleOnRemove(option.allClimbId)}
             placeholder={option.allClimbId.toString()}
           >
-            {name ||  `${option.allClimbId}/новый` }
+            {name ||  `${option.allClimbId}`}
+            {isNotLoadedClimber ? '/новый' : ''}
           </EditableText>
         </div>
       )})}
