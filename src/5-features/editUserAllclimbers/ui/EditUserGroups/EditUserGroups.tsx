@@ -15,15 +15,14 @@ import {
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
-
 import {CSS} from '@dnd-kit/utilities';
 
-import Multiselect from '../../../../7-shared/ui/Multiselect/Multiselect';
-import EditableChips from '../EditableChips/EditableChips';
 import { useUserGroupsStore } from '../../userGroups.store';
+import { reorderGroupItemsByIds } from '../../userGroups.utils';;
+import EditableChips from '../EditableChips/EditableChips';
 import { IClimberGroup, ICustomAllClimber } from '../../../../6-entities/user/user.interfaces';
-import EditableText from '../../../../7-shared/ui/EditableText/EditableText';
-import { reorderGroupItemsByIds } from '../../userGroups.utils';
+import { EditableText } from '../../../../7-shared/ui/EditableText';
+import { Multiselect } from '../../../../7-shared/ui/Multiselect';
 
 interface SortableGroupProps {
   id: string;
@@ -48,7 +47,6 @@ const SortableGroup = ({
     transition,
   } = useSortable({ id });
 
-  console.log('transform', transform);
   const style = {
     transform: CSS.Transform.toString({
       x: transform?.x || 0,

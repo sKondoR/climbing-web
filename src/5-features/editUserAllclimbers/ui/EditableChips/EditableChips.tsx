@@ -1,5 +1,5 @@
 import { ICustomAllClimber } from '../../../../6-entities/user/user.interfaces';
-import EditableText from '../../../../7-shared/ui/EditableText/EditableText';
+import { EditableText } from '../../../../7-shared/ui/EditableText';
 import { useClimbersStore } from '../../../../6-entities/allclimber/climbers.store';
 
 interface EditableChipsProps {

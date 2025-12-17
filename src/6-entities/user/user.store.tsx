@@ -176,7 +176,6 @@ export const useUserStore = create<UserState>()(
             body: JSON.stringify(userData),
           });
           const data: IUser = await res.json();
-          console.log('fetchUpdateUser', data);
           set((state: UserState) => ({
             ...state,
             user: {

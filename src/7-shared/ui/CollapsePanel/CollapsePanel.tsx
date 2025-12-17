@@ -11,7 +11,7 @@ interface CollapsePanelProps {
   className?: string;
 }
 
-export default function CollapseDemo({
+export default function CollapsePanel({
   open,
   label,
   children,

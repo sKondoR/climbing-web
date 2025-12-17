@@ -5,12 +5,12 @@ import { useUserStore } from '../../6-entities/user/user.store';
 import { useLayoutStore } from '../../6-entities/layout/layout.store';
 import { useClimbersStore } from '../../6-entities/allclimber/climbers.store';
 
-import bg1 from '../../7-shared/assets/images/bg1.jpg';
-// import { Spinner } from '@material-tailwind/react/dist/components/spinner';
 import { AllclimbClimbers } from '../../4-widgets/ui/AllclimbClimbers';
 import { AllclimbEditClimber } from '../../4-widgets/ui/AllclimbEditClimber';
 import { AllclimbClimberPreview } from '../../4-widgets/ui/AllclimbClimberPreview';
 import ClimbersChart from '../../6-entities/allclimber/ui/ClimbersChart/ClimbersChart';
+import { Loading } from '../../7-shared/ui/Loading';
+import bg1 from '../../7-shared/assets/images/bg1.jpg';
 
 const Allclimb = () => {
   const { addDefaultGroupsToUser } = useUserStore();
@@ -37,14 +37,7 @@ const Allclimb = () => {
   }, [addDefaultGroupsToUser]);
 
   if (isFetchingAllClimb) {
-    // return <CustomModal
-    //   defaultOpen={true}
-    //   title="test"
-    // >
-    //   <div className="flex px-10 py-10 justify-center">
-    //     <div className="flex align-items"><Spinner className="mr-5 text-lg"/> Идет загрузка AllClimb скалолазов...</div>
-    //   </div>
-    // </CustomModal>
+    return <Loading text="загрузка AllClimb скалолазов..." />
   }
 
   // text-gray-200 bg-slate-700/80
