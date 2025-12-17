@@ -63,7 +63,7 @@ const EditableText = ({
   };
 
   return (
-    <div className={`group flex items-center ${className}`}>
+    <div className={`flex items-center ${className}`}>
       {isEdit ?
         <input
           type="text"
@@ -82,21 +82,21 @@ const EditableText = ({
       {/* Иконка редактирования */}
       {!isEdit ? <FontAwesomeIcon
         icon={faPencil}
-        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 hidden group-hover:block ${iconClassName}`}
+        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 ${iconClassName}`}
         onClick={handleEditClick}
         aria-label={`Edit ${text}`}
       /> : null}
       {/* Иконка сохранения */}
       {isEdit ? <FontAwesomeIcon
         icon={faSave}
-        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 ${iconClassName} ${isEdit ? 'block' : 'hidden group-hover:block'}`}
+        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 ${iconClassName} ${isEdit ? 'block' : 'hidden'}`}
         onClick={handleSaveClick}
         aria-label={`Save ${text}`}
       /> : null}
       {/* Иконка удаления */}
       <FontAwesomeIcon
         icon={faTimes}
-        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 ${iconClassName} ${isEdit ? 'block' : 'hidden group-hover:block'}`} 
+        className={`cursor-pointer hover:text-orange-500 ml-1 h-3 w-3 ${iconClassName}`} 
         onClick={handleRemoveClick}
         aria-label={`Remove ${text}`}
       />

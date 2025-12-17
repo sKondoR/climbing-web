@@ -48,7 +48,7 @@ const EditableChips = ({
           key={option.allClimbId}
           variant="ghost"
           className={`group flex items-center px-2 py-1 text-sm mb-1 mr-1
-            ${isNotLoadedClimber ? 'bg-lime-500/80 border-lime-500' : 'border-slate-500'}
+            ${isNotLoadedClimber ? 'bg-amber-300 border-amber-300' : 'bg-lime-500/80 border-lime-500/80'}
           `}
           title={isNotLoadedClimber ? 'новый' : `allclimbId: ${option.allClimbId}`}
         > 
