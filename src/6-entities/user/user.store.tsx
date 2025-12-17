@@ -227,9 +227,9 @@ export const useUserStore = create<UserState>()(
             groups,
           },
         }));
-        // const url = new URL(window.location.href);
-        // url.search = '';
-        // window.history.replaceState({}, document.title, url.toString());
+        const url = new URL(window.location.href);
+        url.search = '';
+        window.history.replaceState({}, document.title, url.toString());
       }
     })
   )
