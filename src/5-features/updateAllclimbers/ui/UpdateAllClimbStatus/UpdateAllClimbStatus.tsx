@@ -15,7 +15,7 @@ const UpdateAllClimbStatus: React.FC = () => {
       <div className="py-3 px-5 text-white grow text-center">
         <FontAwesomeIcon
           icon={faArrowsRotate}
-          className="nimate-[spin_1s_linear_infinite] mr-2"
+          className="animate-[spin_1s_linear_infinite] mr-2"
         />
         {`обновляю из AllClimb ${allClimbFetchStatus}...`}
       </div>
