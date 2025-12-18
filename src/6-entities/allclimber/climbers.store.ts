@@ -58,7 +58,7 @@ export const useClimbersStore = create<ClimbersState>()(
             type: 'error',
             message: `Ошибка загрузки fetchClimbers: ${url}`,
             code: error as string,
-          })
+          });
         }
       },
 

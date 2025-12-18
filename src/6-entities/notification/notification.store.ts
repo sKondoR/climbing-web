@@ -3,7 +3,7 @@ import { devtools } from 'zustand/middleware';
 import { INotification } from './notification.interfaces';
 import { nanoid } from 'nanoid';
 
-const NOTIFICATION_TIMEOUT = 1000000;
+const NOTIFICATION_DELAY = 300000;
 
 export interface NotificationsState {
   notifications: INotification[],
@@ -30,7 +30,7 @@ export const useNotificationsStore = create<NotificationsState>()(
             ...state,
             notifications: state.notifications.filter((n) => n.id !== id),
           }));
-        }, NOTIFICATION_TIMEOUT);
+        }, notification.delay || NOTIFICATION_DELAY);
       },
       removeNotification: (removeId: INotification['id']) => {
         set((state: NotificationsState) => ({

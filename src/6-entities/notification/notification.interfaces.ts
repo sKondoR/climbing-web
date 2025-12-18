@@ -5,4 +5,5 @@ export interface INotification {
     type: NotificationType;
     message: string;
     code?: string;
+    delay?: number;
 };
