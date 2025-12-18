@@ -12,6 +12,8 @@ interface MultiselectProps {
   options?: string[] | null;
   selected?: string[];
   placeholder?: string;
+  dropdownPlaceholder?: string;
+  addNewPlaceholder?: string;
   className?: string;
   isCreatable?: boolean;
   isHiddenSelected?: boolean;
@@ -24,6 +26,8 @@ interface MultiselectProps {
 const Multiselect = ({
   options = null,
   placeholder = 'Выберите из списка',
+  dropdownPlaceholder = '',
+  addNewPlaceholder = 'Добавить новое',
   selected = [],
   onChange,
   className = '',
@@ -152,16 +156,19 @@ const Multiselect = ({
         > 
           {isNewOption ? (
             <div
-              className="px-3 py-2 cursor-pointer text-gray-800 hover:text-orange-500" 
+              className="px-3 py-1 cursor-pointer text-gray-800 hover:text-orange-500" 
               onClick={() => addNew()}
-              aria-label="добавить новое"
+              aria-label={addNewPlaceholder}
             >
               <FontAwesomeIcon
                 icon={faPlus}
                 className="mr-2"                
               />
-              добавить новое
+              {addNewPlaceholder}
             </div>
+          ) : null}
+          {dropdownPlaceholder ? (
+            <div className="px-3 py-1">{dropdownPlaceholder}</div>
           ) : null}
           {filteredOptions.length > 0 ? (
             filteredOptions.map((option) => {

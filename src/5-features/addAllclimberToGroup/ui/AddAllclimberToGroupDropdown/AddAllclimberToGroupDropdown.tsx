@@ -37,6 +37,8 @@ const AddAllclimberToGroupDropdown = ({
       selected={selectedOptions}
       options={climberOptions}
       placeholder="найти и добавить по allclimbId"
+      dropdownPlaceholder="уже загруженные скалолазы"
+      addNewPlaceholder="добавить нового скалолаза"
       onChange={(values) => setGroupItems(index, values)}
       isHiddenSelected
       isCreatable
