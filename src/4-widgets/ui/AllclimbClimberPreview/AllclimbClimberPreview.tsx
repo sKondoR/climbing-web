@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import UpdateAllClimbStatus from '../../../5-features/updateAllclimbers/ui/UpdateAllClimbStatus/UpdateAllClimbStatus';
 import { useLayoutStore } from '../../../6-entities/layout/layout.store';
+
+import UpdateAllClimbBtn from '../../../5-features/updateAllclimbers/ui/UpdateAllClimbBtn/UpdateAllClimbBtn';
 import ClimberInfo from '../../../6-entities/allclimber/ui/ClimberInfo/ClimberInfo';
 import ClimberPreview from '../../../6-entities/allclimber/ui/ClimberPreview/ClimberPreview';
 
@@ -10,6 +11,7 @@ const AllclimbClimberPreview = () => {
   const {
     climberPreviewId,
     setClimberPreviewId,
+    isUserEdit,
   } = useLayoutStore();
 
   return (<>
@@ -25,7 +27,7 @@ const AllclimbClimberPreview = () => {
     <div className="w-full h-full overflow-y-auto overflow-x-hidden pt-3 pb-3 pl-5 pr-3">     
       <ClimberPreview />
     </div>
-    <UpdateAllClimbStatus />
+    {(climberPreviewId !== null || isUserEdit) && <UpdateAllClimbBtn />}
   </>)
 }
   
