@@ -23,6 +23,7 @@ interface UserState {
   logoutVk: () => Promise<void>,
   addDefaultGroupsToUser: () => void,
   fetchUpdateUser: (user: IUser) => Promise<void>,
+  saveToUser: () => Promise<void>,
   saveUserGroups: () => Promise<void>,
   restoreUserGroupsFromUrl: (searchParams: URLSearchParams) => void;
 };
@@ -45,7 +46,7 @@ export const useUserStore = create<UserState>()(
           ...state,
           user: {
             ...user,
-            groups: state.user.groups || user.groups,
+            groups: state.user.groups?.length ? state.user.groups : user.groups,
           },
           state: RequestState.SUCCESS,
         }));
@@ -195,11 +196,21 @@ export const useUserStore = create<UserState>()(
               ...state.user,
               groups: data.groups,
             },
-          }));
-          // return data;    
+          }));  
         } catch {
           // toDo: сделать нормальное уведомление
           alert ('fetch error');
+        }
+      },
+
+      saveToUser: async () => {
+        const user = get().user as IUser;
+        const groups = useUserGroupsStore.getState().groups;
+        if (user?.vk_id) {
+          await get().fetchUpdateUser({
+            ...user,
+            groups,
+          } as IUser);
         }
       },
 
@@ -209,21 +220,13 @@ export const useUserStore = create<UserState>()(
         if (JSON.stringify(user.groups) === JSON.stringify(groups)){
           return;
         }
-        if (user?.id) {
-          const data = await get().fetchUpdateUser({
-            ...user,
+        set((state: UserState) => ({
+          ...state,
+          user: {
+            ...state.user,
             groups,
-          } as IUser);
-          console.log('User groups changes: ', data);
-        } else {
-          set((state: UserState) => ({
-            ...state,
-            user: {
-              ...state.user,
-              groups,
-            },
-          }));
-        }
+          },
+        }));
       },
 
       restoreUserGroupsFromUrl: (searchParams: URLSearchParams) => {

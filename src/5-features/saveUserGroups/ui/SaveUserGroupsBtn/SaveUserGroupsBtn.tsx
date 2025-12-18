@@ -1,28 +1,46 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faSave } from '@fortawesome/free-solid-svg-icons';
 import { useUserStore } from '../../../../6-entities/user/user.store';
 import { useLayoutStore } from '../../../../6-entities/layout/layout.store';
 
 const SaveUserGroupsBtn = () => {
-  const { saveUserGroups } = useUserStore();
+  const { user, saveUserGroups, saveToUser } = useUserStore();
   const { setIsUserEdit } = useLayoutStore();
 
-  const onClick = (): void => {
+  const onSaveClick = (): void => {
+    saveToUser();
+    setIsUserEdit(false);
+  };
+  const onExitClick = (): void => {
     saveUserGroups();
     setIsUserEdit(false);
   };
 
   return (
-    <div
-      onClick={onClick}
-      title="сохранить и выйти"
-      className="text-2xl cursor-pointer hover:text-orange-500"
-    >
-      <FontAwesomeIcon
-        icon={faTimes}
-        className="mt-1"
-      />
-    </div>
+    <>
+      {'vk_id' in user ? (
+        <div
+          onClick={onSaveClick}
+          title="сохранить в базу"
+          className="text-xl cursor-pointer hover:text-orange-500 mr-3"
+        >
+          <FontAwesomeIcon
+            icon={faSave}
+            className="mt-[7px]"
+          />
+        </div>
+      ) : null}
+      <div
+        onClick={onExitClick}
+        title="сохранить локально"
+        className="text-2xl cursor-pointer hover:text-orange-500"
+      >
+        <FontAwesomeIcon
+          icon={faTimes}
+          className=""
+        />
+      </div>
+    </>
   )
 }
   
