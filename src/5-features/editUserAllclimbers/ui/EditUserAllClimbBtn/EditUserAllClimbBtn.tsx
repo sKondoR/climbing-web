@@ -13,7 +13,7 @@ const EditUserAllClimbBtn = () => {
   return (
     <FontAwesomeIcon
       icon={faCog}
-      className="text-2xl pt-1 cursor-pointer hover:text-orange-500"
+      className="text-xl pt-1 cursor-pointer hover:text-orange-500 mt-[4px]"
       onClick={onClick}
     />
   )

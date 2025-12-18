@@ -33,7 +33,7 @@ const AllclimbClimbers = () => {
                 title="баллы за 10 лучших трасс за год"
               />
             </div>
-            <div className="w-7">
+            <div className="w-5">
               <EditUserAllClimbBtn />
             </div>
           </>}

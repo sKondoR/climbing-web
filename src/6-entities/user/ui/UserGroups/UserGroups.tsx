@@ -125,7 +125,7 @@ const UserGroups = () => {
             <div className="w-[20%] py-1 px-2 text-sm">
               {scores}
             </div>
-            <div className="w-7"></div>
+            <div className="w-5"></div>
           </li>
         );
       })}
