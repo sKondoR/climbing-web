@@ -3,6 +3,7 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 import EditUserAllClimbBtn from '../../../5-features/editUserAllclimbers/ui/EditUserAllClimbBtn/EditUserAllClimbBtn';
 import { ShareAllclimbGroupsBtn } from '../../../5-features/shareAllclimbGroups/ui/ShareAllclimbGroupsBtn';
+import UpdateAllClimbStatus from '../../../5-features/updateAllclimbers/ui/UpdateAllClimbStatus/UpdateAllClimbStatus';
 import UserGroups from '../../../6-entities/user/ui/UserGroups/UserGroups';
 import { useClimbersStore } from '../../../6-entities/allclimber/climbers.store';
 import { Loading } from '../../../7-shared/ui/Loading';
@@ -43,6 +44,7 @@ const AllclimbClimbers = () => {
             : <UserGroups />
           }          
         </div>
+        <UpdateAllClimbStatus />
       </>
   ) 
 }

@@ -53,15 +53,15 @@ const Allclimb = () => {
       }}
     >
       <div className={`flex flex-col flex-shrink-0 h-full text-gray-800 ${climberPreviewId === null && !isUserEdit ? 'bg-lime-300/90' : 'bg-lime-300/90'} backdrop-blur-[2px]`}>
-      {climberPreviewId === null && !isUserEdit ?
-        <AllclimbClimbers />
-      : null }
-      {isUserEdit ?
-        <AllclimbEditClimber />
-      : null}
-      {climberPreviewId !== null && !isUserEdit ?
-        <AllclimbClimberPreview />
-      : null}    
+        {climberPreviewId === null && !isUserEdit ?
+          <AllclimbClimbers />
+        : null }
+        {isUserEdit ?
+          <AllclimbEditClimber />
+        : null}
+        {climberPreviewId !== null && !isUserEdit ?
+          <AllclimbClimberPreview />
+        : null}    
       </div>
     </aside>
     <div className="relative h-full overflow-y-auto ml-[700px]">
