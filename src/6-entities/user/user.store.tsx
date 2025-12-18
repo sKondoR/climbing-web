@@ -43,7 +43,10 @@ export const useUserStore = create<UserState>()(
       setUser: (user: IUser) => {
         set((state: UserState) => ({
           ...state,
-          user,
+          user: {
+            ...user,
+            groups: state.user.groups || user.groups,
+          },
           state: RequestState.SUCCESS,
         }));
     
@@ -54,6 +57,10 @@ export const useUserStore = create<UserState>()(
       },
 
       login: async (): Promise<void> => {
+        set((state: UserState) => ({
+          ...state,
+          state: RequestState.LOADING,
+        }));
         const vk_id = Number(sessionStorage.getItem('vk_id'));
         const password = sessionStorage.getItem('password');
         if (!vk_id || !password) return;
@@ -79,6 +86,10 @@ export const useUserStore = create<UserState>()(
       },
 
       loginVk: async (data: IVKCodeData) => {
+        set((state: UserState) => ({
+          ...state,
+          state: RequestState.LOADING,
+        }));
         return fetch(`${getApiUrl()}/auth/login/vk`, {
           method: 'POST',
           body: JSON.stringify(data),
@@ -224,6 +235,8 @@ export const useUserStore = create<UserState>()(
           ...group,
           id: nanoid(),
         }));
+        // const { setUserGroups } = useUserGroupsStore.getState();
+        // setUserGroups(userGroups);
         set((state: UserState) => ({
           ...state,
           user: {

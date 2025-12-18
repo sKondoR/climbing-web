@@ -1,11 +1,11 @@
-import { useMemo } from 'react';
+import { useMemo, ReactNode } from 'react';
 
 import { useUserGroupsStore } from '../../../editUserAllclimbers/userGroups.store';
 import { reorderGroupItemsByIds } from '../../../editUserAllclimbers/userGroups.utils';
 
 import { useClimbersStore } from '../../../../6-entities/allclimber/climbers.store';
 import { IClimberGroup, ICustomAllClimber } from '../../../../6-entities/user/user.interfaces';
-import { Multiselect } from '../../../../7-shared/ui/Multiselect';
+import { Option, Multiselect } from '../../../../7-shared/ui/Multiselect';
 
 interface SortableGroupProps {
   selected?: ICustomAllClimber[];
@@ -32,10 +32,28 @@ const AddAllclimberToGroupDropdown = ({
     })));
   };
 
+  const renderOption = (option: Option): ReactNode => {
+    console.log('renderOption: ', option);
+    if (
+      typeof option === 'object' &&
+      option !== null &&
+      'allClimbId' in option
+    ) {
+      const typedOption = option as { allClimbId: unknown };
+      console.log('>>> ', typeof typedOption.allClimbId === 'number', typeof typedOption.allClimbId === 'number' );
+      if (typeof typedOption.allClimbId === 'number') {
+        return <>{option.allClimbId} {climbers[option.allClimbId].name}</>;
+      }
+    }
+    return String(option);
+  }
+
   return (
     <Multiselect
       selected={selectedOptions}
       options={climberOptions}
+      optionKey="allClimbId"
+      renderOption={renderOption}
       placeholder="найти и добавить по allclimbId"
       dropdownPlaceholder="уже загруженные скалолазы"
       addNewPlaceholder="добавить нового скалолаза"

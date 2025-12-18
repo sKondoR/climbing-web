@@ -83,8 +83,13 @@ const UserGroups = () => {
       key={name}
       className="mb-2"
     >
-      {items.map(({ allClimbId, customName }: ICustomAllClimber, index: number) => {
-        if (!(allClimbId && climbers?.[allClimbId])) return;
+      {items?.map(({ allClimbId, customName }: ICustomAllClimber, index: number) => {
+        if (!allClimbId) return;
+        if (!(allClimbId && climbers?.[allClimbId])) return (
+          <li className="flex py-1 text-sm hover:bg-lime-500/20" key={`${allClimbId}-${index}`}>
+            allClimbId {allClimbId} не загружен в базу
+          </li>
+        );
         // toDo: добавить нотификацию
         const { name, routesCount, scores } = climbers[allClimbId];
         const text = customName || name || allClimbId;
@@ -109,15 +114,15 @@ const UserGroups = () => {
                 key={currentIndex}
                 onClick={() => onActiveChange(currentIndex)}
               >
-                <span className="flex-1 whitespace-nowrap pr-3">
+                <span className="flex-1 text-sm whitespace-nowrap pr-3">
                   {text}
                 </span>
               </div>
             </div>
-            <div className="w-[20%] px-2">
+            <div className="w-[20%] py-1 px-2 text-sm">
               {routesCount}
             </div>
-            <div className="w-[20%] px-2">
+            <div className="w-[20%] py-1 px-2 text-sm">
               {scores}
             </div>
             <div className="w-7"></div>

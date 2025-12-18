@@ -1,15 +1,18 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, ReactNode } from 'react';
 import {
-  Input,
   Menu,
   Button,
 } from '@material-tailwind/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
 import EditableChips from './ui/EditableChips/EditableChips';
+import MultiselectDropdown from './ui/MultiselectDropdown/MultiselectDropdown';
+import MultiselectInput from './ui/MultiselectInput/MultiselectInput';
+
+export type Option = string | number | Record<string, any>;
 
 interface MultiselectProps {
-  options?: string[] | null;
+  options?: Option[];
+  optionKey?: string;
+  renderOption?: (option: Option) => React.ReactNode;
   selected?: string[];
   placeholder?: string;
   dropdownPlaceholder?: string;
@@ -23,8 +26,14 @@ interface MultiselectProps {
   inputValidRegex?: RegExp;
 }
 
+const isRecord = (obj: any): obj is Record<string, any> => {
+  return obj !== null && typeof obj === 'object' && !Array.isArray(obj);
+}
+
 const Multiselect = ({
-  options = null,
+  options = [],
+  optionKey,
+  renderOption = (option: Option): ReactNode => <>{option}</>,
   placeholder = 'Выберите из списка',
   dropdownPlaceholder = '',
   addNewPlaceholder = 'Добавить новое',
@@ -41,35 +50,15 @@ const Multiselect = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  const getOptionKey = (option: Option) => optionKey && isRecord(option) ? option[optionKey] : option;
+  const dropdownOptions = options.map(getOptionKey);
+
   // Фильтрация опций с учётом поискового запроса
   const filteredOptions = options?.filter((option) =>
-    option.toLowerCase().includes(query.toLowerCase())
+    getOptionKey(option).toLowerCase().includes(query.toLowerCase())
   ) || [];
 
-  const isNewOption = isCreatable && query.trim().length && !options?.includes(query.trim());
-
-  // Обработчик ввода
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-    setOpen(true);
-  };
-
-  // Выбор/удаление опции
-  const handleOptionClick = useCallback((option: string) => {
-    onChange(
-      selected.includes(option)
-        ? selected.filter((item) => item !== option)
-        : [...selected, option]
-    );
-  }, [selected, onChange]);
-
-  // Добавление новой опции (если creatable)
-  const addNew = useCallback(() => {
-    if (query.trim() && !selected.includes(query)) {
-      onChange([...selected, query.trim()]);
-      setQuery('');
-    }
-  }, [query, selected, onChange]);
+  const isNewOption = isCreatable && !!query.trim().length && !dropdownOptions?.includes(query.trim());
 
   // Удаление выбранной опции
   const removeSelected = useCallback((values: string[]) => {
@@ -96,42 +85,24 @@ const Multiselect = ({
     };
   }, [open]);
 
-  // Фокусировка ввода при открытии меню
-  const handleInputFocus = () => {
-    setOpen(true);
-  };
 
   const stopPropagation = (e: React.MouseEvent) => {
     e?.stopPropagation();
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (isNewOption && e.key === 'Enter') {
-      addNew();
-    }
-    if (e.key === 'Backspace' || e.key === 'Delete') {
-      return;
-    }
-    if (inputValidRegex) {
-      const isValidInput = inputValidRegex.test(e.key);
-      if (!isValidInput) {
-        e.preventDefault();
-      }
-    }
-  };
-
   return (
     <div className={className} ref={wrapperRef}>
       <div className="flex flex-wrap relative">
-        <Input
-          value={query}
-          onChange={handleInputChange}
-          onFocus={handleInputFocus}
-          className={`w-full border-none bg-white/40 py-1 px-2 ${isCreatable ? 'pr-10' : ''}`}
+        <MultiselectInput
+          query={query}
+          setQuery={setQuery}
+          setOpen={setOpen}
+          selected={selected}
           placeholder={placeholder}
-          aria-expanded={open}
-          autoComplete="off"
-          onKeyDown={handleKeyDown}
+          onChange={onChange}
+          isCreatable={isCreatable}
+          inputValidRegex={inputValidRegex}
+          isNewOption={isNewOption}
         />
       </div>
       {isHiddenSelected ? null : selected.map((option) => (
@@ -141,7 +112,7 @@ const Multiselect = ({
           onChange={removeSelected}
         />
       ))}
-      {options !== null ? <Menu open={open} placement="bottom-start">
+      {dropdownOptions.length ? <Menu open={open} placement="bottom-start">
         <Menu.Trigger
           as={Button}
           size="sm"
@@ -154,48 +125,18 @@ const Multiselect = ({
           onClick={stopPropagation}
           ref={menuRef}
         > 
-          {isNewOption ? (
-            <div
-              className="px-3 py-1 cursor-pointer text-gray-800 hover:text-orange-500" 
-              onClick={() => addNew()}
-              aria-label={addNewPlaceholder}
-            >
-              <FontAwesomeIcon
-                icon={faPlus}
-                className="mr-2"                
-              />
-              {addNewPlaceholder}
-            </div>
-          ) : null}
-          {dropdownPlaceholder ? (
-            <div className="px-3 py-1">{dropdownPlaceholder}</div>
-          ) : null}
-          {filteredOptions.length > 0 ? (
-            filteredOptions.map((option) => {
-              const isSelected = selected.includes(option);
-              return (
-                <div
-                  key={option}
-                  onClick={() => handleOptionClick(option)}
-                  className={`flex items-center gap-2 px-3 py-2 cursor-pointer text-sm hover:bg-blue-gray-50 ${
-                    isSelected ? 'bg-blue-50' : ''
-                  }`}
-                >
-                  <div className="w-5">
-                    {isSelected  ? <FontAwesomeIcon
-                      icon={faCheck}
-                      className="cursor-pointer text-lime-500"
-                    /> : null}
-                  </div>
-                  <div className={isSelected ? 'font-medium' : ''}>{option}</div>
-                </div>
-              );
-            })
-          ) : (
-            <div className="cursor-default px-3 py-2 text-sm text-gray-400">
-              ничего не найдено
-            </div>
-          )}
+          <MultiselectDropdown
+            query={query}
+            setQuery={setQuery}
+            filteredOptions={filteredOptions}
+            getOptionKey={getOptionKey}
+            renderOption={renderOption}
+            selected={selected}
+            dropdownPlaceholder={dropdownPlaceholder}
+            addNewPlaceholder={addNewPlaceholder}
+            onChange={onChange}
+            isNewOption={isNewOption}
+          />
         </Menu.Content>
       </Menu> : null}
     </div>

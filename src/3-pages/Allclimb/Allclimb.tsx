@@ -10,10 +10,12 @@ import { AllclimbEditClimber } from '../../4-widgets/ui/AllclimbEditClimber';
 import { AllclimbClimberPreview } from '../../4-widgets/ui/AllclimbClimberPreview';
 import ClimbersChart from '../../6-entities/allclimber/ui/ClimbersChart/ClimbersChart';
 import bg1 from '../../7-shared/assets/images/bg1.jpg';
+import { RequestState } from '../../7-shared/types/request.types';
 
 const Allclimb = () => {
   const [searchParams] = useSearchParams();
   const {
+    status,
     addDefaultGroupsToUser,
     restoreUserGroupsFromUrl,
   } = useUserStore();
@@ -27,10 +29,10 @@ const Allclimb = () => {
   } = useLayoutStore();
 
   useEffect(() => {
-    if(searchParams) {
+    if(searchParams && status !== RequestState.LOADING) {
       restoreUserGroupsFromUrl(searchParams);
     }
-  }, [searchParams]);
+  }, [searchParams, status]);
 
   useEffect(() => {
     if(!climbers?.length) {
