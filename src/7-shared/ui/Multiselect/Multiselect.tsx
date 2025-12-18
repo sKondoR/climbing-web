@@ -42,7 +42,7 @@ const Multiselect = ({
     option.toLowerCase().includes(query.toLowerCase())
   ) || [];
 
-  const isNewOption = isCreatable && query.trim().length && !filteredOptions.length;
+  const isNewOption = isCreatable && query.trim().length && !options?.includes(query.trim());
 
   // Обработчик ввода
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
