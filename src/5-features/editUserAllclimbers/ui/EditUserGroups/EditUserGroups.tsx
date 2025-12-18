@@ -1,4 +1,3 @@
-import { useClimbersStore } from '../../../../6-entities/allclimber/climbers.store';
 import {
   DndContext,
   closestCenter,
@@ -18,11 +17,10 @@ import { faSort } from '@fortawesome/free-solid-svg-icons';
 import {CSS} from '@dnd-kit/utilities';
 
 import { useUserGroupsStore } from '../../userGroups.store';
-import { reorderGroupItemsByIds } from '../../userGroups.utils';;
 import EditableChips from '../EditableChips/EditableChips';
 import { IClimberGroup, ICustomAllClimber } from '../../../../6-entities/user/user.interfaces';
 import { EditableText } from '../../../../7-shared/ui/EditableText';
-import { Multiselect } from '../../../../7-shared/ui/Multiselect';
+import AddAllclimberToGroupDropdown from '../../../addAllclimberToGroup/ui/AddAllclimberToGroupDropdown/AddAllclimberToGroupDropdown';
 
 interface SortableGroupProps {
   id: string;
@@ -37,7 +35,6 @@ const SortableGroup = ({
   items = [],
   index,
 }: SortableGroupProps) => {
-  const { climbers } = useClimbersStore();
   const { groups, setUserGroups } = useUserGroupsStore();
   const {
     setNodeRef,
@@ -55,15 +52,6 @@ const SortableGroup = ({
       scaleY: 1,
     }),
     transition,
-  };
-
-  const climberOptions = Object.keys(climbers);
-
-  const setGroupItems = (index: number, idsArr: string[]) => {
-    setUserGroups(groups.map((group, i) => ({
-      ...group,
-      items: index === i ? reorderGroupItemsByIds(group.items, idsArr) : group.items,
-    })));
   };
 
   const setItems = (index: number, values: ICustomAllClimber[]) => {
@@ -117,14 +105,9 @@ const SortableGroup = ({
           </h2>
         </div>
         <div className="w-[40%] relative">
-          <Multiselect
-            selected={items.map(({ allClimbId }: ICustomAllClimber) => allClimbId.toString())}
-            options={climberOptions}
-            placeholder="найти и добавить по allclimbId"
-            onChange={(values) => setGroupItems(index, values)}
-            isHiddenSelected
-            isCreatable
-            inputValidRegex={/^[0-9]*$/}
+          <AddAllclimberToGroupDropdown
+            selected={items}
+            index={index}
           />
         </div>
       </div>

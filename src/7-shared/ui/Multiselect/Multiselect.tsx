@@ -42,6 +42,8 @@ const Multiselect = ({
     option.toLowerCase().includes(query.toLowerCase())
   ) || [];
 
+  const isNewOption = isCreatable && query.trim().length && !filteredOptions.length;
+
   // Обработчик ввода
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -78,7 +80,7 @@ const Multiselect = ({
         (menuRef.current && !menuRef.current.contains(event.target as Node))
       ) {
         setOpen(false);
-        setQuery(''); // Сброс поискового запроса при закрытии
+        setQuery('');
       }
     };
 
@@ -100,13 +102,19 @@ const Multiselect = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  if (inputValidRegex) {
-    const isValidInput = inputValidRegex.test(e.key);
-    if (!isValidInput) {
-      e.preventDefault();
+    if (isNewOption && e.key === 'Enter') {
+      addNew();
     }
-  }
-};
+    if (e.key === 'Backspace' || e.key === 'Delete') {
+      return;
+    }
+    if (inputValidRegex) {
+      const isValidInput = inputValidRegex.test(e.key);
+      if (!isValidInput) {
+        e.preventDefault();
+      }
+    }
+  };
 
   return (
     <div className={className} ref={wrapperRef}>
@@ -142,7 +150,7 @@ const Multiselect = ({
           onClick={stopPropagation}
           ref={menuRef}
         > 
-          {isCreatable && query.length && !options.includes(query) ? (
+          {isNewOption ? (
             <div
               className="px-3 py-2 cursor-pointer text-gray-800 hover:text-orange-500" 
               onClick={() => addNew()}
