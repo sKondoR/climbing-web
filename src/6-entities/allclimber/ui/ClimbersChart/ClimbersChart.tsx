@@ -24,9 +24,11 @@ const ClimbersChart = () => {
     const [settings, setSettings] = useState({
       isLead: true,
       isTopRope: false,
+      is5: false,
       is6: false,
       is7: true,
       is8: true,
+      is9: false,
       sortByCategory: false,
     })
 

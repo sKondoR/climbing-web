@@ -34,6 +34,10 @@ const RoutesFilter = ({
       <div className="flex">
         <div className="text-sm mt-1">категории</div>
         <div className="ml-3">
+          <input id={`is5${prefix}`} type="checkbox" checked={settings.is5} onChange={(e) => onChange(e, 'is5')} className="w-4 h-4 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+          <label htmlFor={`is5${prefix}`} className="ms-1 text-sm font-medium text-gray-900">5</label>
+        </div>
+        <div className="ml-3">
           <input id={`is6${prefix}`} type="checkbox" checked={settings.is6} onChange={(e) => onChange(e, 'is6')} className="w-4 h-4 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
           <label htmlFor={`is6${prefix}`} className="ms-1 text-sm font-medium text-gray-900">6</label>
         </div>
@@ -44,6 +48,10 @@ const RoutesFilter = ({
         <div className="ml-3">
           <input id={`is8${prefix}`} type="checkbox" checked={settings.is8} onChange={(e) => onChange(e, 'is8')} className="w-4 h-4 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
           <label htmlFor={`is8${prefix}`} className="ms-1 text-sm font-medium text-gray-900">8</label>
+        </div>
+        <div className="ml-3">
+          <input id={`is9${prefix}`} type="checkbox" checked={settings.is9} onChange={(e) => onChange(e, 'is9')} className="w-4 h-4 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+          <label htmlFor={`is9${prefix}`} className="ms-1 text-sm font-medium text-gray-900">9</label>
         </div>
       </div>
     </div>

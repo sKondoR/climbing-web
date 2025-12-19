@@ -23,6 +23,7 @@ export const filterRoutes = (routes: IRoute[], settings: IChartSettings) =>
         }
         return 0;
       });
+      
 export const getRouteKey = (route: IRoute): string =>
   `${route.name}${route.grade}${route.region}`;
 
