@@ -1,6 +1,7 @@
 import { useId } from 'react';
 import { IChartSettings } from '../../types/chart.types';
 import { Toggle } from '../Toggle';
+import { GRADES_COLORS } from '../../constants/routes.constants';
 
 const RoutesFilter = ({
   settings,
@@ -45,17 +46,35 @@ const RoutesFilter = ({
         <div className="text-sm">категории</div>
         {['is5', 'is6', 'is7', 'is8', 'is9'].map((label: string) => {
           const isChecked = label in settings ? settings[label as keyof IChartSettings] : false;
+          const color = GRADES_COLORS[`${label[2]}c`];
           return (
-          <div className={`ml-1 w-5 h-5 text-blue-500 ${settings[label as keyof IChartSettings] ? 'bg-blue-500 border-blue-500' : 'bg-gray-100 border-gray-500'} rounded focus:ring-blue-500 focus:ring-2 relative`}>
+          <div className={`ml-1 w-5 h-5 rounded relative bg-gray-100 select-none`}
+            style={{
+              color,
+              backgroundColor: `${settings[label as keyof IChartSettings] ? color : ''}`,
+              borderColor: color
+            }}
+          >
             <input id={`${label}${prefix}`} type="checkbox" checked={isChecked} onChange={(e) => onChange(e, label)} className="hidden" />
-            <label htmlFor={`${label}${prefix}`} className={`w-5 h-5 leading-none pt-[1px] cursor-pointer text-center font-bold ${isChecked ? 'text-white' : 'text-gray-300'} absolute top-0 left-0`}>
+            <label
+              htmlFor={`${label}${prefix}`}
+              className={`w-5 h-5 leading-none pt-[1px] cursor-pointer text-center font-bold absolute top-0 left-0
+                ${isChecked ? 'text-white' : 'text-gray-400'}`}
+            >
               {label[2]}
             </label>
           </div>);
         })}
+        <div className="hidden">
+          <div className="bg-sky-600"></div>
+          <div className="bg-emerald-500"></div>
+          <div className="bg-pink-500"></div>
+          <div className="bg-yellow-500"></div>
+          <div className="bg-purple-600"></div>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default RoutesFilter;

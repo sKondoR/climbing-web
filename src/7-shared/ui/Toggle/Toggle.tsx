@@ -11,7 +11,7 @@ const Toggle = ({
 }) => {
   const prefix = useId();
   return (
-    <label className="inline-flex items-center cursor-pointer ml-3">
+    <label className="inline-flex items-center cursor-pointer">
       <span className={`mr-1 text-sm font-medium ${checked ? 'text-gray-500' : 'text-gray-900'}`}>{labels[0]}</span>
       <input id={`sortByCategory${prefix}`} type="checkbox" checked={checked} className="sr-only peer" onChange={onChange} />
       <div className="relative w-9 h-5 bg-blue-500 peer-focus:outline-none

@@ -1,19 +1,27 @@
 export const DIFFICULTY = [
+    '5a', '5a+', '5b', '5b+', '5c', '5c+',
     '6a', '6a+', '6b', '6b+', '6c', '6c+',
     '7a', '7a+', '7b', '7b+', '7c', '7c+',
-    '8a', '8a+', '8b', '8b+', '8c', '8c+'
+    '8a', '8a+', '8b', '8b+', '8c', '8c+',
+    '9a', '9a+', '9b', '9b+', '9c', '9c+'
 ]
 
 export const GRADES_COLORS: Record<string, string> = {
-    '6a': '#22c55e',
-    '6b': '#16a34a',
-    '6c': '#15803d',
-    '7a': '#f87171',
-    '7b': '#ef4444',
-    '7c': '#dc2626',
-    '8a': '#64748b',
-    '8b': '#475569',
-    '8c': '#334155',
-}
+    '5a': '#00bcff',    // sky-400
+    '5b': '#00a6f4',    // sky-500
+    '5c': '#0084d1',    // sky-600
+    '6a': '#5ee9b5',    // emerald-300
+    '6b': '#00d492',    // emerald-400
+    '6c': '#00bc7d',    // emerald-500
+    '7a': '#fda5d6',    // pink-300
+    '7b': '#fb64b6',    // pink-400
+    '7c': '#f6339a',    // pink-500
+    '8a': '#ffdf20',    // yellow-300
+    '8b': '#fdc700',    // yellow-400
+    '8c': '#f0b100',    // yellow-500
+    '9a': '#c27aff',    // purple-400
+    '9b': '#ad46ff',    // purple-500
+    '9c': '#9810fa',    // purple-600
+};
 
 export const GRADES = Object.keys(GRADES_COLORS);
