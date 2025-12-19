@@ -21,12 +21,13 @@ const RoutesFilter = ({
   return (
     <div className="flex items-center justify-between max-w-[700px]">
       <div className="flex grow">
-        <label className="inline-flex items-center cursor-pointer">
-          <span className={`mr-1 text-sm font-medium ${settings.isLead ? 'text-gray-500' : 'text-gray-900'}`}>Боулдеринг</span>
-          <input id={`isLead${prefix}`} type="checkbox" checked={settings.isLead} className="sr-only peer" onChange={(e) => onChange(e, 'isLead')} />
-          <div className="relative w-11 h-6 bg-blue-500 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
-          <span className={`ml-1 text-sm font-medium ${settings.isLead ? 'text-gray-900' : 'text-gray-500'}`}>Трудность</span>
-        </label>
+        <div>
+          <Toggle
+            checked={settings.isLead}
+            onChange={(e) => onChange(e, 'isLead')}
+            labels={['боулдеринг', 'трудность']}
+          />
+        </div>
         {showSort ? (
           <div className="ml-10">
             {/* <input id={`isTopRope${prefix}`} type="checkbox" checked={settings.isTopRope} onChange={(e) => onChange(e, 'isTopRope')} className="w-4 h-4 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
