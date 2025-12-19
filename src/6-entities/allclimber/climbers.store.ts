@@ -90,13 +90,17 @@ export const useClimbersStore = create<ClimbersState>()(
           try {
             const res = await fetch(`${getApiUrl()}/allClimb?id=${id}`, options);
             if (!res.ok) {
-              continue;
+              throw new Error();
             };
 
             const { name, leads, boulders, routesCount, scores } = await res.json();
 
             if (!name) {
-              console.log(`Allclimb ${id} не требует обновления`);
+              useNotificationsStore.getState().addNotification({
+                type: 'info',
+                message: `Allclimb ${id} имеет пустой профиль`,
+                delay: 10000,
+              });
               setAllClimbFetchStatus(`${i+1}/${ids.length}`);
               continue;
             }
@@ -129,8 +133,11 @@ export const useClimbersStore = create<ClimbersState>()(
               allClimbFetchStatus: `${i+1}/${ids.length}`,
             }));
           } catch (error) {
-            // toDO: сделать нормальное уведомление
-            console.error(`Ошибка загрузки ${id}:`, error);
+            useNotificationsStore.getState().addNotification({
+              type: 'error',
+              message: `Ошибка загрузки fetchClimbersAllclimb: ${getApiUrl()}/allClimb?id=${id}`,
+              code: error as string,
+            });
           }
         }
         setAllClimbFetchStatus('');

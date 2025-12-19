@@ -25,7 +25,7 @@ export const useShareAllclimbGroupsStore = create<ShareAllclimbGroupsState>()(
         useNotificationsStore.getState().addNotification({
           type: 'info',
           message: 'Ссылка на группы скалолазов скопированна',
-          delay: 3000,
+          delay: 10000,
         });
       },
     })

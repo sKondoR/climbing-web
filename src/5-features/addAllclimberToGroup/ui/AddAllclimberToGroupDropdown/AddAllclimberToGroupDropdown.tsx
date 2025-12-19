@@ -33,7 +33,6 @@ const AddAllclimberToGroupDropdown = ({
   };
 
   const renderOption = (option: Option): ReactNode => {
-    console.log('renderOption: ', option);
     if (
       typeof option === 'object' &&
       option !== null &&
