@@ -54,6 +54,7 @@ const RoutesFilter = ({
               backgroundColor: `${settings[label as keyof IChartSettings] ? color : ''}`,
               borderColor: color
             }}
+            key={label}
           >
             <input id={`${label}${prefix}`} type="checkbox" checked={isChecked} onChange={(e) => onChange(e, label)} className="hidden" />
             <label

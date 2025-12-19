@@ -39,7 +39,6 @@ const AddAllclimberToGroupDropdown = ({
       'allClimbId' in option
     ) {
       const typedOption = option as { allClimbId: unknown };
-      console.log('>>> ', typeof typedOption.allClimbId === 'number', typeof typedOption.allClimbId === 'number' );
       if (typeof typedOption.allClimbId === 'number') {
         return <>{option.allClimbId} {climbers[option.allClimbId].name}</>;
       }

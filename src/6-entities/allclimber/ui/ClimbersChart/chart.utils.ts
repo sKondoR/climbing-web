@@ -27,19 +27,17 @@ export const prepareChartData = (
     // раскладывает данные по категориям
     .map((id: number) => {
       const climber = climbers[id];
-      let result: Record<string, number> = grades.reduce((acc: Record<string, number>, g: string) => {
-        acc[g] = 0;
-        return acc;
-      }, {});
+      let result: Record<string, number> = {};
       climber?.[isLead ? 'leads' : 'boulders']
         .filter((r) => !isLead || (isTopRope || !r.isTopRope))
         .forEach((r) => {
           const key = r.grade.slice(0, 2);
-          if (result[key] === maxRoutes) maxRoutes++;
+          if (!grades.includes(key)) return;
           result = {
             ...result,
-            [key]: result[key] + 1
+            [key]: (result[key] || 0) + 1
           };
+          if (result[key] > maxRoutes) maxRoutes = result[key];
         })
       return {
         name: climber.name,
@@ -55,6 +53,8 @@ export const prepareChartData = (
 
 export const filterGrades = (settings: IChartSettings): string[] =>
   GRADES.filter((g) =>
+    g.startsWith('5') && settings.is5 ||
     g.startsWith('6') && settings.is6 ||
     g.startsWith('7') && settings.is7 ||
-    g.startsWith('8') && settings.is8)
+    g.startsWith('8') && settings.is8 ||
+    g.startsWith('9') && settings.is9)

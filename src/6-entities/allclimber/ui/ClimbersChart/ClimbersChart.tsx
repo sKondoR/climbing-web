@@ -36,7 +36,7 @@ const ClimbersChart = () => {
     const ids = getClimbersIds(user)
     const visibleIds = ids?.filter((id) => !!plotsVisibility[id as number])
 
-    const grades = filterGrades(settings)
+    const grades = filterGrades(settings);
     const { data, maxRoutes } = prepareChartData(visibleIds as number[], climbers, grades, settings.isLead, settings.isTopRope);
 
     const onSettingsChange = (newSettings: IChartSettings) => setSettings(newSettings)
@@ -65,9 +65,14 @@ const ClimbersChart = () => {
               bottom: 5,
             }}
           >
-            <YAxis dataKey="name" type="category"/>
+            <YAxis dataKey="name" type="category"
+              style={{
+                fontSize: '0.875rem',
+                lineHeight: '1.25rem',
+              }}
+            />
             <Tooltip />
-            <Legend />
+            <Legend verticalAlign="top" align="center" />
             {grades.map((g) => <XAxis key={`xaxis-${g}`} xAxisId={g} type="number" domain={[0, maxRoutes]} hide />)}
             {grades.map((g) => <Bar key={`bar-${g}`} xAxisId={g} barSize={BAR_HEIGHT} dataKey={g} fill={GRADES_COLORS[g]} />)}
           </BarChart>
