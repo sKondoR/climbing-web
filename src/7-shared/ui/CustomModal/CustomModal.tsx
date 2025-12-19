@@ -21,7 +21,7 @@ const CustomDialog = ({
   return (
     <>
       <Dialog open={open}>
-        <DialogContent className={`rounded-none bg-lime-300/90 focus-visible:outline-none focus-visible:ring-0 ${className}`}>
+        <DialogContent className={`rounded-none bg-slate-300/90 focus-visible:outline-none focus-visible:ring-0 ${className}`}>
           {children}
         </DialogContent>
       </Dialog>

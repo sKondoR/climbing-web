@@ -54,7 +54,7 @@ const Allclimb = () => {
         backgroundImage: `url("${bg1}")`,
       }}
     >
-      <div className={`flex flex-col flex-shrink-0 h-full text-gray-800 ${climberPreviewId === null && !isUserEdit ? 'bg-lime-300/90' : 'bg-lime-300/90'} backdrop-blur-[2px]`}>
+      <div className={`flex flex-col flex-shrink-0 h-full text-gray-800 bg-slate-300/90 backdrop-blur-[2px]`}>
         {climberPreviewId === null && !isUserEdit ?
           <AllclimbClimbers />
         : null }
@@ -68,7 +68,7 @@ const Allclimb = () => {
     </aside>
     <div className="relative h-full overflow-y-auto ml-[700px]">
       <div className="bg-white pt-3 pb-3 pl-5 pr-5">
-        <h2 className="text-2xl mb-2">пролазы по категориям</h2>
+        <h2 className="text-2xl mb-5">пролазы по категориям</h2>
         <ClimbersChart />
       </div>
     </div>

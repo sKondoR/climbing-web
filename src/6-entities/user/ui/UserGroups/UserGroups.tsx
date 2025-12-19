@@ -86,7 +86,7 @@ const UserGroups = () => {
       {items?.map(({ allClimbId, customName }: ICustomAllClimber, index: number) => {
         if (!allClimbId) return;
         if (!(allClimbId && climbers?.[allClimbId])) return (
-          <li className="flex py-1 text-sm hover:bg-lime-500/20" key={`${allClimbId}-${index}`}>
+          <li className="flex py-1 text-sm hover:bg-slate-500/20" key={`${allClimbId}-${index}`}>
             allClimbId {allClimbId} не загружен в базу
           </li>
         );
@@ -109,7 +109,7 @@ const UserGroups = () => {
               </div>
               <div className={
                   `grow py-1 px-2 font-normal group transition duration-75 text-left cursor-pointer ` +
-                  `hover:bg-lime-500/20`
+                  `hover:bg-slate-500/20`
                 }
                 key={currentIndex}
                 onClick={() => onActiveChange(currentIndex)}

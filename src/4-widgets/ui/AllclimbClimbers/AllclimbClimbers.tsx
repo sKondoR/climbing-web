@@ -16,7 +16,7 @@ const AllclimbClimbers = () => {
 
   return (
       <>
-        <div className="flex pt-3 pb-3 pl-5 pr-5">
+        <div className="flex px-5 py-3">
           <h2 className="text-2xl pr-2">скалолазы AllClimb</h2>
           {isFetchingAllClimb ? null : <>
             <div className="grow px-2 pt-1">

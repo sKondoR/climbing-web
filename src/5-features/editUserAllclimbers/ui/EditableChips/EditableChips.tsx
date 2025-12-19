@@ -44,7 +44,7 @@ const EditableChips = ({
         <div
           key={option.allClimbId}
           className={`group flex items-center px-2 py-1 text-sm mb-1 mr-1 rounded-md border-2
-            ${isNotLoadedClimber ? 'border-lime-500' : 'bg-lime-300 border-lime-500'}
+            ${isNotLoadedClimber ? 'bg-amber-500/20 border-amber-700/10' : 'bg-teal-500/10 border-teal-700/20'}
           `}
           title={isNotLoadedClimber ? 'новый' : `allclimbId: ${option.allClimbId}`}
         > 

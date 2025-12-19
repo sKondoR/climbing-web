@@ -16,7 +16,7 @@ const RoutesFilter = ({
     })
   }
   return (
-    <div className="flex items-center mb-4 justify-between max-w-[700px]">
+    <div className="flex items-center justify-between max-w-[700px]">
       <div className="flex grow">
         <label className="inline-flex items-center cursor-pointer">
           <span className={`mr-1 text-sm font-medium ${settings.isLead ? 'text-gray-500' : 'text-gray-900'}`}>Боулдеринг</span>
