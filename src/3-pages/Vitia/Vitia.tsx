@@ -6,12 +6,12 @@ import bg1 from '../../7-shared/assets/images/bg1.jpg';
 import VerticalMenu from './ui/VerticalMenu/VerticalMenu';
 
 const Progress = () => {
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useLayoutEffect(() => {
     if (pathname === `/${PATHS.vitia.to}`) {
-      navigate(PATHS.competitions.to)
+      navigate(PATHS.competitions.to);
     }
   }, [navigate, pathname]);
 

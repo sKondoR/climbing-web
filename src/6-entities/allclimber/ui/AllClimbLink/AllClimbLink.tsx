@@ -9,6 +9,7 @@ const AllClimbLink = ({ allClimbId, updatedAt }:IAllClimbLink) => (
       href={`${ALLCLIMB_URL}/climber/${allClimbId}`}
       target="_blank"
       title={updatedAt ? `(обновленно: ${updatedAt})` : ''}
+      className="text-blue-500 hover:text-orange-500"
     >
       <FontAwesomeIcon icon={faSquareUpRight} /> AllClimb ({allClimbId})
     </a>
