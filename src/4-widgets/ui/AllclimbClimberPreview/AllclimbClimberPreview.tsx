@@ -8,7 +8,7 @@ import ClimberInfo from '../../../6-entities/allclimber/ui/ClimberInfo/ClimberIn
 import ClimberPreview from '../../../6-entities/allclimber/ui/ClimberPreview/ClimberPreview';
 import { IChartSettings } from '../../../7-shared/types/chart.types';
 import { useState } from 'react';
-import RoutesFilter from '../../../7-shared/ui/RoutesFilter/RoutesFilter';
+import { RoutesFilter } from '../../../7-shared/ui/RoutesFilter';
 
 const AllclimbClimberPreview = () => {
   const {
@@ -41,7 +41,7 @@ const AllclimbClimberPreview = () => {
       </div>}
     </div>
     <div className="bg-white/40 py-2 pl-5 pr-3">   
-      <RoutesFilter settings={settings} onSettingsChange={onSettingsChange} />
+      <RoutesFilter settings={settings} onSettingsChange={onSettingsChange} showSort={true} />
     </div>
     <div className="w-full h-full bg-white/40 overflow-y-auto overflow-x-hidden pt-3 pb-3 pl-5 pr-3">    
       <ClimberPreview settings={settings} />

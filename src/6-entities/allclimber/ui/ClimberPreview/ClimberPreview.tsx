@@ -36,6 +36,7 @@ const ClimbersTabs = ({
   return (
     <>
       <div>
+        <h2 className="font-bold">{`${settings.isLead ? 'Трудность' : 'Боулдеринг'} (${routes.length}/${allRoutes.length})`}</h2>
         {routes?.map((route: IRoute) => {
           const bg = GRADES_COLORS[route.grade.slice(0, 2)]
           return <div className="flex hover:bg-white/40" key={getRouteKey(route)}>
