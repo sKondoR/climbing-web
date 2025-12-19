@@ -67,7 +67,7 @@ const Allclimb = () => {
       </div>
     </aside>
     <div className="relative h-full overflow-y-auto ml-[700px]">
-      <div className="bg-white pt-3 pb-3 pl-5 pr-5">
+      <div className="pt-3 pb-3 pl-5 pr-5">
         <h2 className="text-2xl mb-5">пролазы по категориям</h2>
         <ClimbersChart />
       </div>
