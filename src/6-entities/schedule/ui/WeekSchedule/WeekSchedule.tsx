@@ -36,14 +36,14 @@ const Week = ({ schedule }: Props) => {
         const toCoord = getSeconds(toTime)
         const y0 = yAxisHeight * (fromCoord - startTimeCoord) / (finishTimeCoord - startTimeCoord)
         const height = yAxisHeight * (toCoord - fromCoord) / (finishTimeCoord - startTimeCoord)
-        let bgClass = 'bg-blue-100';
+        let bgClass = 'bg-blue-200/50';
         let typeText;
         if (type === 'BOULDER' || type === 'LEAD') {
-          bgClass = 'bg-blue-400'
+          bgClass = 'bg-blue-300/50'
           typeText = type;
         }
         if (type === 'HOBBY') {
-          bgClass = 'bg-green-100'
+          bgClass = 'bg-green-300/50'
         }
         return (<div
           className={`flex items-center justify-center absolute z-10 ${bgClass}`}

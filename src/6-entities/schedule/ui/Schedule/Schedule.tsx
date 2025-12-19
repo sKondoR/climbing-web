@@ -21,8 +21,8 @@ const Schedule = () => {
     <>
       <h2 className="text-3xl mb-5">расписание</h2>
       <div className="bg-white pt-3 pb-3 pl-5 pr-5">
-        {isScheduleFetching && <FontAwesomeIcon icon={faSpinner} className="animate-spin" />}
-        {schedule?.length && <Week schedule={schedule} />}
+        {isScheduleFetching ? <FontAwesomeIcon icon={faSpinner} className="animate-spin" /> : null}
+        {schedule?.length && !isScheduleFetching ? <Week schedule={schedule} /> : 'нет рассписания'}
       </div>
     </>
   )
