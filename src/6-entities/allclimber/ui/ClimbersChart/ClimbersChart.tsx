@@ -41,8 +41,9 @@ const ClimbersChart = () => {
 
     const onSettingsChange = (newSettings: IChartSettings) => setSettings(newSettings)
 
+    const BAR_PADDING = 4;
     const CHART_FOOTER_HEIGHT = 80;
-    const BAR_HEIGHT = grades.length * 10;
+    const BAR_HEIGHT = grades.length * 10 + 2 * BAR_PADDING;
     const CHART_HEIGHT = data.length * BAR_HEIGHT;
     return (
       <>
@@ -58,11 +59,13 @@ const ClimbersChart = () => {
             width={500}
             height={CHART_HEIGHT}
             data={data}
+            barGap={1}
+            barCategoryGap={BAR_PADDING} 
             margin={{
-              top: 20,
+              top: 10,
               right: 30,
               left: 70,
-              bottom: 5,
+              bottom: 10,
             }}
           >
             <YAxis dataKey="name" type="category"
@@ -74,7 +77,7 @@ const ClimbersChart = () => {
             <Tooltip />
             <Legend verticalAlign="top" align="center" />
             {grades.map((g) => <XAxis key={`xaxis-${g}`} xAxisId={g} type="number" domain={[0, maxRoutes]} hide />)}
-            {grades.map((g) => <Bar key={`bar-${g}`} xAxisId={g} barSize={BAR_HEIGHT} dataKey={g} fill={GRADES_COLORS[g]} />)}
+            {grades.map((g) => <Bar key={`bar-${g}`} xAxisId={g} dataKey={g} fill={GRADES_COLORS[g]} />)}
           </BarChart>
         </ResponsiveContainer>
       </>

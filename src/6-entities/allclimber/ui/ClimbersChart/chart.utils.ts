@@ -2,12 +2,14 @@ import { GRADES } from "../../../../7-shared/constants/routes.constants";
 import { IChartSettings } from "../../../../7-shared/types/chart.types";
 import { IClimbers } from "../../climbers.interfaces";
 
+interface IChartDataItem {
+  name: string;
+  [key: string]: number | string;
+}
+
 interface IChart {
-    data: {
-        name: string | null;
-        [key: string]: string | number | null;
-    }[];
-     maxRoutes: number;
+  data: IChartDataItem[];
+  maxRoutes: number;
 }
 
 export const prepareChartData = (
@@ -25,30 +27,30 @@ export const prepareChartData = (
       return climber?.[isLead ? 'leads' : 'boulders'].length > 0;
     })
     // раскладывает данные по категориям
-    .map((id: number) => {
+    .reduce((acc: IChartDataItem[], id: number) => {
       const climber = climbers[id];
+      const routes = climber?.[isLead ? 'leads' : 'boulders'] || [];
       let result: Record<string, number> = {};
-      climber?.[isLead ? 'leads' : 'boulders']
+
+      routes
         .filter((r) => !isLead || (isTopRope || !r.isTopRope))
         .forEach((r) => {
           const key = r.grade.slice(0, 2);
           if (!grades.includes(key)) return;
-          result = {
-            ...result,
-            [key]: (result[key] || 0) + 1
-          };
+          result[key] = (result[key] || 0) + 1;
           if (result[key] > maxRoutes) maxRoutes = result[key];
-        })
-      return {
-        name: climber.name,
-        ...result,
-      };
-    });
+        });
 
-    return {
-        data,
-        maxRoutes,
-    }
+      if(Object.keys(result).length > 0) {
+        acc.push({
+          name: climber?.name ?? '',
+          ...result,
+        }); 
+      }
+      return acc;
+    }, []);
+
+    return { data, maxRoutes };
 }
 
 export const filterGrades = (settings: IChartSettings): string[] =>
