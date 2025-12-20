@@ -21,34 +21,12 @@ const RoutesFilter = ({
   }
   return (
     <div className="flex items-center justify-between max-w-[700px]">
-      <div className="flex grow">
-        <div>
-          <Toggle
-            checked={settings.isLead}
-            onChange={(e) => onChange(e, 'isLead')}
-            labels={['боулдеринг', 'трудность']}
-          />
-        </div>
-        {showSort ? (
-          <div className="ml-10">
-            {/* <input id={`isTopRope${prefix}`} type="checkbox" checked={settings.isTopRope} onChange={(e) => onChange(e, 'isTopRope')} className="w-4 h-4 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
-            <label htmlFor={`isTopRope${prefix}`} className="ms-1 text-sm text-gray-900 whitespace-nowrap">с верхней</label> */}
-
-            <Toggle
-              checked={settings.sortByCategory}
-              onChange={(e) => onChange(e, 'sortByCategory')}
-              labels={['по дате', 'по категории']}
-            />
-          </div>
-        ) : null}
-      </div>
-      <div className="flex items-center">
-        <div className="text-sm">категории</div>
+      <div className="flex items-center mr-10">
         {['is5', 'is6', 'is7', 'is8', 'is9'].map((label: string) => {
           const isChecked = label in settings ? settings[label as keyof IChartSettings] : false;
           const color = GRADES_COLORS[`${label[2]}c`];
           return (
-          <div className={`ml-1 w-5 h-5 rounded relative bg-gray-100 select-none`}
+          <div className={`mr-1 w-5 h-5 rounded relative bg-gray-100 select-none`}
             style={{
               color,
               backgroundColor: `${settings[label as keyof IChartSettings] ? color : ''}`,
@@ -66,6 +44,7 @@ const RoutesFilter = ({
             </label>
           </div>);
         })}
+        <div className="text-sm">категории</div>
         <div className="hidden">
           <div className="bg-sky-600"></div>
           <div className="bg-emerald-500"></div>
@@ -73,6 +52,25 @@ const RoutesFilter = ({
           <div className="bg-yellow-500"></div>
           <div className="bg-purple-600"></div>
         </div>
+      </div>
+      <div className="grow">
+        <Toggle
+          checked={settings.isLead}
+          onChange={(e) => onChange(e, 'isLead')}
+          labels={['боулдеринг', 'трудность']}
+        />
+      </div>
+      <div className="ml-10">
+                  {/* <input id={`isTopRope${prefix}`} type="checkbox" checked={settings.isTopRope} onChange={(e) => onChange(e, 'isTopRope')} className="w-4 h-4 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+        <label htmlFor={`isTopRope${prefix}`} className="ms-1 text-sm text-gray-900 whitespace-nowrap">с верхней</label> */}
+
+        {showSort ? (
+          <Toggle
+            checked={settings.sortByCategory}
+            onChange={(e) => onChange(e, 'sortByCategory')}
+            labels={['по дате', 'по категории']}
+          />
+        ) : null}
       </div>
     </div>
   );
