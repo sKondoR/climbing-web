@@ -65,7 +65,7 @@ const UserGroups = () => {
   }
 
   const renderGroup = ({ id, name, items, offset = 0 }: IClimberGroup, index: number) => (
-    <div key={id || `${name}-${index}`} className="pl-5 pr-5 pt-2 pb-2 bg-white/40 mb-[6px]">
+    <div key={id || `${name}-${index}`} className="pl-5 pr-5 pt-2 pb-2 bg-white/50 mb-[6px]">
     <CollapsePanel
       open
       // label={`${name} (${items.length})`}

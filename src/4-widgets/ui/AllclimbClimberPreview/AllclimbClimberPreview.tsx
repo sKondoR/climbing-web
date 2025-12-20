@@ -40,10 +40,10 @@ const AllclimbClimberPreview = () => {
         />
       </div>}
     </div>
-    <div className="bg-white/40 py-2 pl-5 pr-3">   
+    <div className="bg-white/50 py-2 pl-5 pr-3">   
       <RoutesFilter settings={settings} onSettingsChange={onSettingsChange} showSort={true} />
     </div>
-    <div className="w-full h-full bg-white/40 overflow-y-auto overflow-x-hidden pt-3 pb-3 pl-5 pr-3">    
+    <div className="w-full h-full bg-white/50 overflow-y-auto overflow-x-hidden pt-3 pb-3 pl-5 pr-3">    
       <ClimberPreview settings={settings} />
     </div>
     {(climberPreviewId !== null || isUserEdit) && <UpdateAllClimbBtn />}

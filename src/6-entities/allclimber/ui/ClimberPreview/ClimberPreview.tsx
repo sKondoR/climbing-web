@@ -39,11 +39,12 @@ const ClimbersTabs = ({
         <h2 className="font-bold">{`${settings.isLead ? 'Трудность' : 'Боулдеринг'} (${routes.length}/${allRoutes.length})`}</h2>
         {routes?.map((route: IRoute) => {
           const bg = GRADES_COLORS[route.grade.slice(0, 2)]
-          return <div className="flex hover:bg-white/40" key={getRouteKey(route)}>
-            <span className="w-2 mr-1 mb-1" style={{ background: bg }}>&nbsp;</span>
-            <span className="w-[55px] mr-1 text-sm mt-1">{route.grade}</span>
+          return <div className="flex hover:bg-white/50 text-sm py-1" key={getRouteKey(route)}>
+            <span className="w-2 mr-1" style={{ background: bg }}>&nbsp;</span>
+            <span className="w-[55px] mr-1">{route.grade}</span>
             <div className="grow">{route.name} {route.isTopRope ? '(верхняя)' : ''}</div>
-            <div className="grow text-right text-sm mt-1">{route.region}</div>
+            <div className="grow text-right ml-2">{route.region}</div>
+            <div className="text-right ml-5">{route.date}</div>
           </div>
         })}
       </div>
