@@ -1,22 +1,22 @@
-import { lazy, Suspense } from 'react'
-import './App.css'
-import Layout from '../4-widgets/ui/Layout/Layout'
-import { Routes, Route } from 'react-router-dom'
-import { PATHS } from '../7-shared/constants/paths.constants'
-import CustomModal from '../7-shared/ui/CustomModal/CustomModal'
-import { Spinner } from '@material-tailwind/react'
-import Notifications from '../6-entities/notification/ui/Notifications/Notifications'
+import { lazy, Suspense } from 'react';
+import './App.css';
+import Layout from '../4-widgets/ui/Layout/Layout';
+import { Routes, Route } from 'react-router-dom';
+import { PATHS } from '../7-shared/constants/paths.constants';
+import { Spinner } from '@material-tailwind/react';
+import Notifications from '../6-entities/notification/ui/Notifications/Notifications';
+import CustomModal from '../7-shared/ui/CustomModal/CustomModal';
 
-const LandingPage = lazy(() => import('../3-pages/Landing/Landing'))
-const VitiaPage = lazy(() => import('../3-pages/Vitia/Vitia'))
-const AllClimbPage = lazy(() => import('../3-pages/Allclimb/Allclimb'))
-const SchedulePage = lazy(() => import('../6-entities/schedule/ui/Schedule/Schedule'))
-const LeadTrainingsPage = lazy(() => import('../3-pages/LeadTrainings/LeadTrainings'))
-const CompetitionsList = lazy(() => import('../3-pages/Vitia/ui/CompetitionsList/CompetitionsList'))
-const LeadsHistory = lazy(() => import('../3-pages/Vitia/ui/LeadsHistory/LeadsHistory'))
-const ContactsPage = lazy(() => import('../3-pages/Contacts/Contacts'))
-const SignInPage = lazy(() => import('../3-pages/SignIn/SignIn'))
-const NoMatch = lazy(() => import('../3-pages/NoMatch/NoMatch'))
+const LandingPage = lazy(() => import('../3-pages/Landing/Landing'));
+const VitiaPage = lazy(() => import('../3-pages/Vitia/Vitia'));
+const AllClimbPage = lazy(() => import('../3-pages/Allclimb/Allclimb'));
+const SchedulePage = lazy(() => import('../6-entities/schedule/ui/Schedule/Schedule'));
+const LeadTrainingsPage = lazy(() => import('../3-pages/LeadTrainings/LeadTrainings'));
+const CompetitionsList = lazy(() => import('../3-pages/Vitia/ui/CompetitionsList/CompetitionsList'));
+const LeadsHistory = lazy(() => import('../3-pages/Vitia/ui/LeadsHistory/LeadsHistory'));
+const ContactsPage = lazy(() => import('../3-pages/Contacts/Contacts'));
+const SignInPage = lazy(() => import('../3-pages/SignIn/SignIn'));
+const NoMatch = lazy(() => import('../3-pages/NoMatch/NoMatch'));
 
 const App = () => {
   return (
@@ -74,4 +74,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;

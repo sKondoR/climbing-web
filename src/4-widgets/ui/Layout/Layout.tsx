@@ -6,9 +6,9 @@ import { useUserStore } from '../../../6-entities/user/user.store';
 
 import useIsPage from '../../../7-shared/hooks/useIsPage';
 import { useHealthyStore } from '../../../6-entities/healthy/healthy.store';
-import CustomModal from '../../../7-shared/ui/CustomModal/CustomModal';
 import { Spinner } from '@material-tailwind/react';
 import { RequestState } from '../../../7-shared/types/request.types';
+import CustomModal from '../../../7-shared/ui/CustomModal/CustomModal';
 
 const Layout = () => {
   const { isHealthy, isHealthyFetching } = useHealthyStore();
