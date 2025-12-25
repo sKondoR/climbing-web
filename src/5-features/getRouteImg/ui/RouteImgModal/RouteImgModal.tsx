@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Dialog, IconButton } from '@material-tailwind/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
