@@ -2,8 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
-import { Toggle } from '../../../../7-shared/ui/Toggle';
-
 export type AddTextToImgProps = {
     imgSrc: string,
     name: string,
@@ -19,7 +17,10 @@ const AddTextToImg = ({
 }: AddTextToImgProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [text, setText] = useState('');
-  const [isRight, setIsRight] = useState<boolean>(false);
+  const [p, setTextPosition] = useState({
+    isTop: false,
+    isRight: false,
+  });
 
   const drawText = () => {
     if (!imgSrc || !canvasRef.current) return;
@@ -48,9 +49,9 @@ const AddTextToImg = ({
 
       // Параметры позиционирования
       const lineHeight = 40;
-      const bottomY = canvas.height - 30;
-      const x = isRight ? canvas.width - 20 : 20;
-      ctx.textAlign = isRight ? 'right' : 'left';
+      const startY = p.isTop ? (40 + (text ? 2 : 1) * lineHeight) : canvas.height - 30;
+      const startX = p.isRight ? canvas.width - 30 : 30;
+      ctx.textAlign = p.isRight ? 'right' : 'left';
 
       // Формируем строки
       const routeText = `${grade} ${name}`;
@@ -58,13 +59,13 @@ const AddTextToImg = ({
       // Отрисовка текста с эффектом обводки
       const renderText = (txt: string, y: number) => {
         if (!txt.trim()) return;
-        ctx.strokeText(txt, x, y);
-        ctx.fillText(txt, x, y);
+        ctx.strokeText(txt, startX, y);
+        ctx.fillText(txt, startX, y);
       };
 
-      renderText(text, bottomY - 2 * lineHeight);
-      renderText(routeText, bottomY - lineHeight);
-      renderText(region, bottomY);
+      renderText(text, startY - 2 * lineHeight);
+      renderText(routeText, startY - lineHeight);
+      renderText(region, startY);
     };
 
     img.src = imgSrc; // Уже base64 — можно использовать напрямую
@@ -72,7 +73,7 @@ const AddTextToImg = ({
 
   useEffect(() => {
     drawText(); // Перерисовываем при изменении текста или изображения
-  }, [imgSrc, text, name, region, grade, isRight]);
+  }, [imgSrc, text, name, region, grade, p.isRight, p.isTop]);
 
   const downloadImage = () => {
     const canvas = canvasRef.current;
@@ -84,25 +85,35 @@ const AddTextToImg = ({
     link.click();
   };
 
+  const onTextPositionClick = (top: boolean, right: boolean) => () => {
+    setTextPosition({ isTop: top, isRight: right });
+  }
+
   return (
     <>
-    <div className="flex justify-center mb-3 mt-1" >
+    <div className="flex justify-center mb-3 mt-1 align-middle" >
         <div className="mr-5" >
             <input
                 type="text"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Введите текст"
-                className="px-3 py-1 w-[200px] mr-5" 
+                className="px-3 py-1 w-[200px]" 
             />
-            <Toggle
-                checked={isRight}
-                onChange={(e) => {
-                    console.log('>  ', e.target.value);
-                    setIsRight(!isRight)
-                }}
-                labels={['слево', 'справо']}
-            />
+        </div>
+        <div className="flex flex-wrap w-8 h-8 border border-blue-300 overflow-hidden transition-shadow mr-5">
+          <div className={`w-1/2 h-1/2 ${p.isTop && !p.isRight ? 'bg-blue-500' : 'cursor-pointer hover:bg-blue-300'}`}
+            onClick={onTextPositionClick(true, false)}
+          ></div>
+          <div className={`w-1/2 h-1/2 ${p.isTop && p.isRight ? 'bg-blue-500' : 'cursor-pointer hover:bg-blue-300'}`}
+            onClick={onTextPositionClick(true, true)}
+          ></div>
+          <div className={`w-1/2 h-1/2 ${!p.isTop && !p.isRight ? 'bg-blue-500' : 'cursor-pointer hover:bg-blue-300'}`}
+            onClick={onTextPositionClick(false, false)}
+          ></div>
+          <div className={`w-1/2 h-1/2 ${!p.isTop && p.isRight ? 'bg-blue-500' : 'cursor-pointer hover:bg-blue-300'}`}
+            onClick={onTextPositionClick(false, true)}
+          ></div>
         </div>
         <FontAwesomeIcon
             icon={faDownload}
