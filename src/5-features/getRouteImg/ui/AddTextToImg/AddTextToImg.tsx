@@ -18,6 +18,7 @@ const AddTextToImg = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [text, setText] = useState('');
   const [textColor, setTextColor] = useState('#ffffff');
+  const [fontSize, setFontSize] = useState(30);
   const [p, setTextPosition] = useState({
     isTop: false,
     isRight: false,
@@ -42,15 +43,15 @@ const AddTextToImg = ({
       ctx.drawImage(img, 0, 0);
 
       // Настройки стиля текста
-      ctx.font = 'bold 30px Arial';
+      ctx.font = `bold ${fontSize}px Arial`;
       ctx.fillStyle = textColor;
       ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
       ctx.lineWidth = 7;
       ctx.lineJoin = 'round';
 
       // Параметры позиционирования
-      const lineHeight = 40;
-      const startY = p.isTop ? (40 + (text ? 2 : 1) * lineHeight) : canvas.height - 30;
+      const lineHeight = fontSize + 10;
+      const startY = p.isTop ? (lineHeight + (text ? 2 : 1) * lineHeight) : canvas.height - lineHeight + 10;
       const startX = p.isRight ? canvas.width - 30 : 30;
       ctx.textAlign = p.isRight ? 'right' : 'left';
 
@@ -70,7 +71,7 @@ const AddTextToImg = ({
     };
 
     img.src = imgSrc; // Уже base64 — можно использовать напрямую
-  }, [imgSrc, text, name, region, grade, p.isRight, p.isTop, textColor]);
+  }, [imgSrc, text, name, region, grade, p.isRight, p.isTop, textColor, fontSize]);
 
   const downloadImage = () => {
     const canvas = canvasRef.current;
@@ -111,6 +112,19 @@ const AddTextToImg = ({
           <div className={`w-1/2 h-1/2 ${!p.isTop && p.isRight ? 'bg-blue-500' : 'cursor-pointer hover:bg-blue-300'}`}
             onClick={onTextPositionClick(false, true)}
           ></div>
+        </div>
+        <div className="mr-5">
+          <select
+            value={fontSize}
+            onChange={(e) => setFontSize(Number(e.target.value))}
+            className="px-2 py-1 border border-gray-300 rounded"
+          >
+            {[20, 30, 40, 50, 60].map((size) => (
+              <option key={size} value={size}>
+                {size}px
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mr-5">
           <input
