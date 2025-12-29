@@ -17,12 +17,13 @@ const AddTextToImg = ({
 }: AddTextToImgProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [text, setText] = useState('');
+  const [textColor, setTextColor] = useState('#ffffff');
   const [p, setTextPosition] = useState({
     isTop: false,
     isRight: false,
   });
 
-  const drawText = () => {
+  useEffect(() => {
     if (!imgSrc || !canvasRef.current) return;
 
     const canvas = canvasRef.current;
@@ -42,9 +43,9 @@ const AddTextToImg = ({
 
       // Настройки стиля текста
       ctx.font = 'bold 30px Arial';
-      ctx.fillStyle = 'white';
+      ctx.fillStyle = textColor;
       ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
-      ctx.lineWidth = 5;
+      ctx.lineWidth = 7;
       ctx.lineJoin = 'round';
 
       // Параметры позиционирования
@@ -69,11 +70,7 @@ const AddTextToImg = ({
     };
 
     img.src = imgSrc; // Уже base64 — можно использовать напрямую
-  };
-
-  useEffect(() => {
-    drawText(); // Перерисовываем при изменении текста или изображения
-  }, [imgSrc, text, name, region, grade, p.isRight, p.isTop]);
+  }, [imgSrc, text, name, region, grade, p.isRight, p.isTop, textColor]);
 
   const downloadImage = () => {
     const canvas = canvasRef.current;
@@ -91,7 +88,7 @@ const AddTextToImg = ({
 
   return (
     <>
-    <div className="flex justify-center mb-3 mt-1 align-middle" >
+    <div className="flex justify-center mb-3 mt-1 items-center" >
         <div className="mr-5" >
             <input
                 type="text"
@@ -114,6 +111,15 @@ const AddTextToImg = ({
           <div className={`w-1/2 h-1/2 ${!p.isTop && p.isRight ? 'bg-blue-500' : 'cursor-pointer hover:bg-blue-300'}`}
             onClick={onTextPositionClick(false, true)}
           ></div>
+        </div>
+        <div className="mr-5">
+          <input
+            type="color"
+            value={textColor}
+            onChange={(e) => setTextColor(e.target.value)}
+            className="w-8 h-8 border border-gray-300 rounded cursor-pointer"
+            title="Выберите цвет текста"
+          />
         </div>
         <FontAwesomeIcon
             icon={faDownload}
