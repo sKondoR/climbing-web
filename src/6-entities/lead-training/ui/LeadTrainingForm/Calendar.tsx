@@ -10,15 +10,22 @@ const customTheme: CustomFlowbiteTheme['datepicker'] = calendarTheme;
 
 const FORMAT = 'DD-MM-YY';
 
+const parseDate = (value: string | null): Date | null => {
+  if (!value) return null;
+  const date = new Date(value);
+  return isNaN(date.getTime()) ? null : date;
+};
+
+
 const Calendar = () => {
   const {
     selectedDate,
     setSelectedDate
   } = useLeadTrainingStore()
   const now = moment(new Date()).format(FORMAT);
-  const [calendarDate, setCalendarDate] = useState<string | undefined>(now);
+  const [calendarDate, setCalendarDate] = useState<string | null>(now);
 
-  const onSelectedDateChanged = (date: Date): void => {
+  const onSelectedDateChanged = (date: Date | null): void => {
     const val = moment(date).format(FORMAT);
     setCalendarDate(val);
     setSelectedDate(val);
@@ -29,11 +36,14 @@ const Calendar = () => {
     <Datepicker
       language="ru-RU"
       inline
-      value={calendarDate}
+      value={parseDate(calendarDate)}
       weekStart={1}
       showClearButton={false}
       showTodayButton={false}
-      onSelectedDateChanged={onSelectedDateChanged}
+        onChange={(date) => {
+        // Adapt onChange to your desired handler
+        onSelectedDateChanged?.(date);
+      }}
       theme={customTheme}
     />
   </>
