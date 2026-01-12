@@ -20,6 +20,7 @@ const AllclimbClimberPreview = () => {
   const [settings, setSettings] = useState({
     isLead: true,
     isTopRope: true,
+    is5: false,
     is6: false,
     is7: true,
     is8: true,
