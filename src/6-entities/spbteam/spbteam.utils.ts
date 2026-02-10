@@ -4,9 +4,9 @@ export const getGroup = (birthYearString: string) => {
     const currentYear = new Date().getFullYear();
     const age = currentYear - birthYear;
     if (age <= 10) return { name: 'дети' };
-    if (age <= 13) return { name: '10-13', years: `${currentYear - 13} - ${currentYear - 10}` };
-    if (age <= 15) return { name: '14-15', years: `${currentYear - 15} - ${currentYear - 12}` };
-    if (age <= 17) return { name: '16-17', years: `${currentYear - 17} - ${currentYear - 14}` };
-    if (age <= 19) return { name: '18-19', years: `${currentYear - 18} - ${currentYear - 16}` };
+    if (age <= 12) return { name: '10-12', years: `${currentYear - 12} - ${currentYear - 10}` };
+    if (age <= 14) return { name: '13-14', years: `${currentYear - 14} - ${currentYear - 13}` };
+    if (age <= 16) return { name: '15-16', years: `${currentYear - 16} - ${currentYear - 15}` };
+    if (age <= 18) return { name: '17-18', years: `${currentYear - 18} - ${currentYear - 17}` };
     return { name: 'взрослые' };
 }

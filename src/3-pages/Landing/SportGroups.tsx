@@ -11,18 +11,18 @@ interface IGroup {
 }
 
 const GROUPS: IGroup[] = [{
-  name: '10-13',
+  name: '10-12',
   bg: 'bg-amber-300'
 }, {
-  name: '14-15',
+  name: '13-14',
   bg: 'bg-orange-300'
 },
 { 
-  name: '16-17',
+  name: '14-16',
   bg: 'bg-lime-300'
 },
 { 
-  name: '18-19',
+  name: '17-18',
   bg: 'bg-indigo-300'
 }];
 
