@@ -18,7 +18,7 @@ const GROUPS: IGroup[] = [{
   bg: 'bg-orange-300'
 },
 { 
-  name: '14-16',
+  name: '15-16',
   bg: 'bg-lime-300'
 },
 { 
