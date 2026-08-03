@@ -1,5 +1,6 @@
 import { GRADES } from "../../../../7-shared/constants/routes.constants";
 import { IChartSettings } from "../../../../7-shared/types/chart.types";
+import { IClimberGroup } from "../../../user/user.interfaces";
 import { IClimbers } from "../../climbers.interfaces";
 
 interface IChartDataItem {
@@ -17,9 +18,20 @@ export const prepareChartData = (
     climbers: IClimbers,
     grades: string[],
     isLead: boolean,
-    isTopRope: boolean
+    isTopRope: boolean,
+    userGroups: IClimberGroup[]
 ) : IChart => {
   let maxRoutes = 0;
+
+  const customNamesById = (userGroups || []).reduce((acc: Record<number, string>, group: IClimberGroup) => {
+    group.items.forEach((climber) => {
+      if(climber.customName) {
+        acc[climber.allClimbId] = climber.customName
+      }
+    })
+    return acc;
+  }, {})
+
   const data = ids?.filter((id: number) => !!climbers[id])
     // не показывать если нет данных
     .filter((id: number) => {
@@ -30,7 +42,7 @@ export const prepareChartData = (
     .reduce((acc: IChartDataItem[], id: number) => {
       const climber = climbers[id];
       const routes = climber?.[isLead ? 'leads' : 'boulders'] || [];
-      let result: Record<string, number> = {};
+      const result: Record<string, number> = {};
 
       routes
         .filter((r) => !isLead || (isTopRope || !r.isTopRope))
@@ -43,7 +55,7 @@ export const prepareChartData = (
 
       if(Object.keys(result).length > 0) {
         acc.push({
-          name: climber?.name ?? '',
+          name: customNamesById[id] || (climber?.name ?? ''),
           ...result,
         }); 
       }

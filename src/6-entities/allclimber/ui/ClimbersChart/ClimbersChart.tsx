@@ -37,7 +37,7 @@ const ClimbersChart = () => {
     const visibleIds = ids?.filter((id) => !!plotsVisibility[id as number])
 
     const grades = filterGrades(settings);
-    const { data, maxRoutes } = prepareChartData(visibleIds as number[], climbers, grades, settings.isLead, settings.isTopRope);
+    const { data, maxRoutes } = prepareChartData(visibleIds as number[], climbers, grades, settings.isLead, settings.isTopRope, user.groups);
 
     const onSettingsChange = (newSettings: IChartSettings) => setSettings(newSettings)
 
